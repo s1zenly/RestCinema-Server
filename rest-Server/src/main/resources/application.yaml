@@ -1,0 +1,14 @@
+server:
+  port: 8080
+
+spring:
+  datasource:
+    username: postgres
+    password: 675347198FAKR
+    url: jdbc:postgresql://localhost:5432/cinema
+    driver-class-name: org.postgresql.Driver
+
+  jpa:
+    hibernate:
+      ddl-auto: update
+      format_sql: true
