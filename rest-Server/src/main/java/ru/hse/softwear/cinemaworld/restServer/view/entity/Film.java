@@ -1,5 +1,7 @@
-package ru.hse.softwear.cinemaworld.restServer.view.model;
+package ru.hse.softwear.cinemaworld.restServer.view.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -7,18 +9,17 @@ import lombok.NoArgsConstructor;
 import ru.hse.softwear.cinemaworld.restServer.view.enums.AgeCategories;
 
 import java.time.Duration;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-@Table(name = "films")
+@Table(name = "film")
 public class Film {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
 
+    @Id
     @Column(name = "name")
     private String name;
 
@@ -42,7 +43,7 @@ public class Film {
 
     @Lob
     @Column(name = "trailer")
-    private byte[] trailer;
+    private String trailerURL;
 
     @Column(name = "info")
     private String info;
@@ -51,10 +52,10 @@ public class Film {
     private Boolean current;
 
     @Lob
-    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    @JoinColumn(name = "image_id")
-    private ImageFilm image;
+    @Column(name = "image_url")
+    private String imageURL;
 
-    @ManyToMany
+    @ManyToMany(cascade = CascadeType.ALL, mappedBy = "films")
+    @JsonBackReference
     private List<Cinema> cinemas;
 }

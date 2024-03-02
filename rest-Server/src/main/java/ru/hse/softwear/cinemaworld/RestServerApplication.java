@@ -1,4 +1,4 @@
-package ru.hse.softwear.cinemaworld.restServer;
+package ru.hse.softwear.cinemaworld;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
