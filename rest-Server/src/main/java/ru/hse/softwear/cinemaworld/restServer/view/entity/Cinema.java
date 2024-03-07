@@ -1,5 +1,4 @@
 package ru.hse.softwear.cinemaworld.restServer.view.entity;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -39,15 +38,16 @@ public class Cinema {
     @Column(name = "images_url")
     private List<String> images;
 
+
     @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    @JoinTable(name = "film_cinema", joinColumns = @JoinColumn(name = "cinema_id"),
-    inverseJoinColumns = @JoinColumn(name = "film_id"))
-    @JsonManagedReference
+    @JoinTable(
+            name = "film_cinema",
+            joinColumns = @JoinColumn(name = "film"),
+            inverseJoinColumns = @JoinColumn(name = "cinema")
+    )
     private List<Film> films;
 
-
-
-    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER,
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval = true,
     mappedBy = "cinema")
     private List<Hall> halls;
 }

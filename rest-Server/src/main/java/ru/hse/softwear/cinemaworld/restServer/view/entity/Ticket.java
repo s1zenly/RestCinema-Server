@@ -4,8 +4,6 @@ import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.antlr.v4.runtime.misc.Pair;
-import ru.hse.softwear.cinemaworld.restServer.view.entity.Hall;
 
 import java.util.Date;
 
@@ -26,14 +24,20 @@ public class Ticket {
     @Column(name = "date")
     private Date date;
 
-    @Column(name = "seat")
-    private Pair<Integer, Integer> seat;
+    //@Column(name = "seat")
+    //private Pair<Integer, Integer> seat;
 
     @Column(name = "price")
     private Integer price;
 
-    @ManyToOne
-    @JoinColumn(name = "hall_id")
-    private Hall hall;
 
+
+
+    @ManyToOne
+    @JoinColumn(name = "custom_id")
+    private Custom custom;
+
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "session_id")
+    private Session session;
 }

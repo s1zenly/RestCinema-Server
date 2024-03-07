@@ -5,7 +5,7 @@ import org.springframework.web.bind.annotation.*;
 import ru.hse.softwear.cinemaworld.restServer.view.entity.Cinema;
 import ru.hse.softwear.cinemaworld.restServer.view.entity.Film;
 import ru.hse.softwear.cinemaworld.restServer.view.repository.CinemaRepository;
-import ru.hse.softwear.cinemaworld.restServer.view.repository.PosterRepository;
+import ru.hse.softwear.cinemaworld.restServer.view.repository.FilmRepository;
 
 import java.util.List;
 
@@ -14,7 +14,7 @@ import java.util.List;
 @RequestMapping("/admin/cinema")
 public class FilmController {
 
-    private final PosterRepository posterRepository;
+    private final FilmRepository filmRepository;
     private final CinemaRepository cinemaRepository;
 
     @PostMapping("/{cinemaName}/film")
@@ -23,9 +23,7 @@ public class FilmController {
             @RequestBody List<Film> films) {
 
         Cinema cinema_ = cinemaRepository.findByName(cinemaName);
-        if(cinema_ != null) {
-            cinema_.getFilms().addAll(films);
-        }
+
     }
 
     @DeleteMapping("/{cinemaName}/dele")

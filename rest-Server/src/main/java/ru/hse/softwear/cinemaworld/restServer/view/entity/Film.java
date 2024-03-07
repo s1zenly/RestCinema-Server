@@ -55,7 +55,13 @@ public class Film {
     @Column(name = "image_url")
     private String imageURL;
 
-    @ManyToMany(cascade = CascadeType.ALL, mappedBy = "films")
-    @JsonBackReference
+
+
+
+    @ManyToMany(mappedBy = "films")
     private List<Cinema> cinemas;
+
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true,
+    mappedBy = "film")
+    private List<Session> sessions;
 }
