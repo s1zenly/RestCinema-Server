@@ -19,5 +19,5 @@ public class CinemaModel {
 
 
     private List<FilmModel> films;
-    //private List<HallModel> halls;
+    private List<HallModel> halls;
 }

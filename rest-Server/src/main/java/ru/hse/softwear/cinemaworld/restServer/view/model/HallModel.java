@@ -15,6 +15,6 @@ public class HallModel {
     private Integer columns;
 
 
-    /*private CinemaModel cinema;
-    private List<SessionModel> sessions;*/
+    private CinemaModel cinema;
+    private List<SessionModel> sessions;
 }

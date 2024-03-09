@@ -17,6 +17,6 @@ public class TicketModel {
     private Integer price;
 
 
-    /*private CustomModel custom;
-    private SessionModel session;*/
+    private OrderModel order;
+    private SessionModel session;
 }

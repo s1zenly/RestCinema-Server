@@ -24,5 +24,5 @@ public class FilmModel {
     private String imageURL;
 
     private List<CinemaModel> cinemas;
-    //private List<SessionModel> sessions;
+    private List<SessionModel> sessions;
 }

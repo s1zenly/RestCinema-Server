@@ -11,7 +11,7 @@ import java.util.Date;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-@Table(name = "ticket")
+@Table(name = "tickets")
 public class Ticket {
 
     @Id
@@ -34,8 +34,8 @@ public class Ticket {
 
 
     @ManyToOne
-    @JoinColumn(name = "custom_id")
-    private Custom custom;
+    @JoinColumn(name = "order_id")
+    private Order order;
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "session_id")

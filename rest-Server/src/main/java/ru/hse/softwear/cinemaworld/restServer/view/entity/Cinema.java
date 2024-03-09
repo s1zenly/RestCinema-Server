@@ -13,7 +13,7 @@ import java.util.List;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-@Table(name = "cinema")
+@Table(name = "cinemas")
 public class Cinema {
 
     @Id
@@ -41,9 +41,9 @@ public class Cinema {
 
     @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JoinTable(
-            name = "film_cinema",
-            joinColumns = @JoinColumn(name = "film"),
-            inverseJoinColumns = @JoinColumn(name = "cinema")
+            name = "films_cinemas",
+            joinColumns = @JoinColumn(name = "films_name"),
+            inverseJoinColumns = @JoinColumn(name = "cinemas_name")
     )
     private List<Film> films;
 

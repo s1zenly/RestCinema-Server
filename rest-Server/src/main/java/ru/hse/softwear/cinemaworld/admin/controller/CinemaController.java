@@ -5,28 +5,27 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import ru.hse.softwear.cinemaworld.restServer.view.entity.Cinema;
-import ru.hse.softwear.cinemaworld.restServer.view.entity.Hall;
-import ru.hse.softwear.cinemaworld.restServer.view.mapper.CinemaMapper;
+import ru.hse.softwear.cinemaworld.restServer.view.mapper.mapperWithDependency.CinemaMapper;
 import ru.hse.softwear.cinemaworld.restServer.view.model.CinemaModel;
 import ru.hse.softwear.cinemaworld.restServer.view.repository.CinemaRepository;
-import ru.hse.softwear.cinemaworld.restServer.view.repository.HallRepository;
 import ru.hse.softwear.cinemaworld.restServer.view.repository.FilmRepository;
-
-import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/admin")
 public class CinemaController {
 
-    private final FilmRepository filmRepository;
     private final CinemaRepository cinemaRepository;
-    private final HallRepository hallRepository;
+    private final FilmRepository filmRepository;
 
     @PostMapping("/cinema")
     public void addCinema(@RequestBody Cinema cinema) {
-        List<Hall> halls = cinema.getHalls();
-        halls.forEach(hall -> hall.setCinema(cinema));
+        /*List<Film> films = cinema.getFilms();
+        films.forEach(film -> {
+            film.getCinemas().add(cinema);
+            filmRepository.save(film);
+        });*/
+
         cinemaRepository.save(cinema);
     }
 
@@ -38,7 +37,7 @@ public class CinemaController {
     @GetMapping("/cinema/{cinemaName}")
     public ResponseEntity<CinemaModel> getCinema(@PathVariable String cinemaName) {
         Cinema cinema = cinemaRepository.findByName(cinemaName);
-        CinemaModel cinemaModel = CinemaMapper.INSTANCE.toCinemaModel(cinema);
+        CinemaModel cinemaModel = CinemaMapper.INSTANCE.toModel(cinema);
 
         return cinemaModel == null
                 ? ResponseEntity.notFound().build()
