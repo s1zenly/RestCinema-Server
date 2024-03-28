@@ -5,6 +5,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -32,12 +33,12 @@ public class Hall {
 
 
 
-    @ManyToOne
+    @ManyToOne()
     @JoinColumn(name = "cinema_name")
     private Cinema cinema;
 
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval = true,
     mappedBy = "hall")
-    private List<Session> sessions;
+    private List<Session> sessions = new ArrayList<>();
 
 }

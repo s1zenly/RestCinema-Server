@@ -4,50 +4,39 @@ package ru.hse.softwear.cinemaworld.admin.controller;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import ru.hse.softwear.cinemaworld.restServer.view.entity.Cinema;
-import ru.hse.softwear.cinemaworld.restServer.view.mapper.mapperWithDependency.CinemaMapper;
+import ru.hse.softwear.cinemaworld.admin.Service.crudServices.CinemaService;
 import ru.hse.softwear.cinemaworld.restServer.view.model.CinemaModel;
-import ru.hse.softwear.cinemaworld.restServer.view.repository.CinemaRepository;
-import ru.hse.softwear.cinemaworld.restServer.view.repository.FilmRepository;
 
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/admin")
 public class CinemaController {
 
-    private final CinemaRepository cinemaRepository;
-    private final FilmRepository filmRepository;
+    private final CinemaService cinemaService;
 
     @PostMapping("/cinema")
-    public void addCinema(@RequestBody Cinema cinema) {
-        /*List<Film> films = cinema.getFilms();
-        films.forEach(film -> {
-            film.getCinemas().add(cinema);
-            filmRepository.save(film);
-        });*/
-
-        cinemaRepository.save(cinema);
+    public void addCinema(@RequestBody CinemaModel cinemaDTO) {
+        cinemaService.create(cinemaDTO);
     }
 
-    @DeleteMapping("/cinema")
-    public void deleteCinema(@RequestBody Cinema cinema) {
-        cinemaRepository.delete(cinema);
+    @PutMapping("/cinema/{name}")
+    public void updateCinema(@PathVariable String name,
+                             @RequestBody CinemaModel cinemaDTO) {
+
+        cinemaService.update(name, cinemaDTO);
     }
 
-    @GetMapping("/cinema/{cinemaName}")
-    public ResponseEntity<CinemaModel> getCinema(@PathVariable String cinemaName) {
-        Cinema cinema = cinemaRepository.findByName(cinemaName);
-        CinemaModel cinemaModel = CinemaMapper.INSTANCE.toModel(cinema);
-
-        return cinemaModel == null
+    @GetMapping("/cinema/{name}")
+    public ResponseEntity<CinemaModel> getCinema(@PathVariable String name) {
+        CinemaModel cinemaDTO = cinemaService.read(name);
+        return cinemaDTO == null
                 ? ResponseEntity.notFound().build()
-                : ResponseEntity.ok(cinemaModel);
+                : ResponseEntity.ok(cinemaDTO);
     }
 
-    @PutMapping("/{cinemaName}")
-    public void updateCinema(@PathVariable Cinema cinema) {
-
+    @DeleteMapping("/cinema/{name}")
+    public void deleteCinema(@PathVariable String name) {
+        cinemaService.delete(name);
     }
-
 
 }

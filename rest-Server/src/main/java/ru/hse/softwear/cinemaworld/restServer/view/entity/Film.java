@@ -24,6 +24,7 @@ public class Film {
     private String name;
 
     @Column(name = "age_category")
+    @Enumerated(EnumType.STRING)
     private AgeCategories ageCategory;
 
     @Column(name = "year")
@@ -39,7 +40,7 @@ public class Film {
     private Duration duration;
 
     @Column(name = "actors")
-    private List<String> actors;
+    private String actors;
 
     @Lob
     @Column(name = "trailer")
@@ -51,17 +52,13 @@ public class Film {
     @Column(name = "current")
     private Boolean current;
 
-    @Lob
-    @Column(name = "image_url")
-    private String imageURL;
-
-
-
+    @Column(name = "image")
+    private String image;
 
     @ManyToMany(mappedBy = "films")
-    private List<Cinema> cinemas;
+    private List<Cinema> cinemas = new ArrayList<>();
 
-    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true,
+    @OneToMany(cascade = CascadeType.ALL,
     mappedBy = "film")
-    private List<Session> sessions;
+    private List<Session> sessions = new ArrayList<>();
 }

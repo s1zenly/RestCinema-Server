@@ -1,7 +1,5 @@
 package ru.hse.softwear.cinemaworld.restServer.view.mapper.mapperWithoutDependency;
 
-import java.util.ArrayList;
-import java.util.List;
 import javax.annotation.processing.Generated;
 import org.springframework.stereotype.Component;
 import ru.hse.softwear.cinemaworld.restServer.view.entity.Cinema;
@@ -9,8 +7,8 @@ import ru.hse.softwear.cinemaworld.restServer.view.model.CinemaModel;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2024-03-10T01:23:35+0300",
-    comments = "version: 1.5.5.Final, compiler: javac, environment: Java 20.0.2 (Oracle Corporation)"
+    date = "2024-03-28T00:51:28+0300",
+    comments = "version: 1.5.5.Final, compiler: javac, environment: Java 19.0.2 (Amazon.com Inc.)"
 )
 @Component
 public class CinemaMapperWithoutDependencyImpl implements CinemaMapperWithoutDependency {
@@ -28,11 +26,7 @@ public class CinemaMapperWithoutDependencyImpl implements CinemaMapperWithoutDep
         cinema.setRating( cinemaModel.getRating() );
         cinema.setInfo( cinemaModel.getInfo() );
         cinema.setNumberPhone( cinemaModel.getNumberPhone() );
-        cinema.setPreviewURL( cinemaModel.getPreviewURL() );
-        List<String> list = cinemaModel.getImages();
-        if ( list != null ) {
-            cinema.setImages( new ArrayList<String>( list ) );
-        }
+        cinema.setImage( cinemaModel.getImage() );
 
         return cinema;
     }
@@ -50,11 +44,7 @@ public class CinemaMapperWithoutDependencyImpl implements CinemaMapperWithoutDep
         cinemaModel.setRating( cinema.getRating() );
         cinemaModel.setInfo( cinema.getInfo() );
         cinemaModel.setNumberPhone( cinema.getNumberPhone() );
-        cinemaModel.setPreviewURL( cinema.getPreviewURL() );
-        List<String> list = cinema.getImages();
-        if ( list != null ) {
-            cinemaModel.setImages( new ArrayList<String>( list ) );
-        }
+        cinemaModel.setImage( cinema.getImage() );
 
         return cinemaModel;
     }

@@ -7,8 +7,8 @@ import ru.hse.softwear.cinemaworld.restServer.view.model.UserModel;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2024-03-10T01:23:35+0300",
-    comments = "version: 1.5.5.Final, compiler: javac, environment: Java 20.0.2 (Oracle Corporation)"
+    date = "2024-03-28T00:51:27+0300",
+    comments = "version: 1.5.5.Final, compiler: javac, environment: Java 19.0.2 (Amazon.com Inc.)"
 )
 @Component
 public class UserMapperWithoutDependencyImpl implements UserMapperWithoutDependency {

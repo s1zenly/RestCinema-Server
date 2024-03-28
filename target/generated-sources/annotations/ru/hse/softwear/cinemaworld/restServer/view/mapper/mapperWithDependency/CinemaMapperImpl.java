@@ -16,8 +16,8 @@ import ru.hse.softwear.cinemaworld.restServer.view.model.HallModel;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2024-03-10T01:23:35+0300",
-    comments = "version: 1.5.5.Final, compiler: javac, environment: Java 20.0.2 (Oracle Corporation)"
+    date = "2024-03-28T00:51:28+0300",
+    comments = "version: 1.5.5.Final, compiler: javac, environment: Java 19.0.2 (Amazon.com Inc.)"
 )
 @Component
 public class CinemaMapperImpl implements CinemaMapper {
@@ -42,11 +42,7 @@ public class CinemaMapperImpl implements CinemaMapper {
         cinema.setRating( cinemaModel.getRating() );
         cinema.setInfo( cinemaModel.getInfo() );
         cinema.setNumberPhone( cinemaModel.getNumberPhone() );
-        cinema.setPreviewURL( cinemaModel.getPreviewURL() );
-        List<String> list2 = cinemaModel.getImages();
-        if ( list2 != null ) {
-            cinema.setImages( new ArrayList<String>( list2 ) );
-        }
+        cinema.setImage( cinemaModel.getImage() );
 
         return cinema;
     }
@@ -66,11 +62,7 @@ public class CinemaMapperImpl implements CinemaMapper {
         cinemaModel.setRating( cinema.getRating() );
         cinemaModel.setInfo( cinema.getInfo() );
         cinemaModel.setNumberPhone( cinema.getNumberPhone() );
-        cinemaModel.setPreviewURL( cinema.getPreviewURL() );
-        List<String> list2 = cinema.getImages();
-        if ( list2 != null ) {
-            cinemaModel.setImages( new ArrayList<String>( list2 ) );
-        }
+        cinemaModel.setImage( cinema.getImage() );
 
         return cinemaModel;
     }

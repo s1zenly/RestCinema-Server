@@ -1,7 +1,5 @@
 package ru.hse.softwear.cinemaworld.restServer.view.mapper.mapperWithoutDependency;
 
-import java.util.ArrayList;
-import java.util.List;
 import javax.annotation.processing.Generated;
 import org.springframework.stereotype.Component;
 import ru.hse.softwear.cinemaworld.restServer.view.entity.Film;
@@ -9,8 +7,8 @@ import ru.hse.softwear.cinemaworld.restServer.view.model.FilmModel;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2024-03-10T01:23:34+0300",
-    comments = "version: 1.5.5.Final, compiler: javac, environment: Java 20.0.2 (Oracle Corporation)"
+    date = "2024-03-28T00:51:28+0300",
+    comments = "version: 1.5.5.Final, compiler: javac, environment: Java 19.0.2 (Amazon.com Inc.)"
 )
 @Component
 public class FilmMapperWithoutDependencyImpl implements FilmMapperWithoutDependency {
@@ -29,14 +27,11 @@ public class FilmMapperWithoutDependencyImpl implements FilmMapperWithoutDepende
         film.setProductionCountry( filmModel.getProductionCountry() );
         film.setProducer( filmModel.getProducer() );
         film.setDuration( filmModel.getDuration() );
-        List<String> list = filmModel.getActors();
-        if ( list != null ) {
-            film.setActors( new ArrayList<String>( list ) );
-        }
+        film.setActors( filmModel.getActors() );
         film.setTrailerURL( filmModel.getTrailerURL() );
         film.setInfo( filmModel.getInfo() );
         film.setCurrent( filmModel.getCurrent() );
-        film.setImageURL( filmModel.getImageURL() );
+        film.setImage( filmModel.getImage() );
 
         return film;
     }
@@ -55,14 +50,11 @@ public class FilmMapperWithoutDependencyImpl implements FilmMapperWithoutDepende
         filmModel.setProductionCountry( film.getProductionCountry() );
         filmModel.setProducer( film.getProducer() );
         filmModel.setDuration( film.getDuration() );
-        List<String> list = film.getActors();
-        if ( list != null ) {
-            filmModel.setActors( new ArrayList<String>( list ) );
-        }
+        filmModel.setActors( film.getActors() );
         filmModel.setTrailerURL( film.getTrailerURL() );
         filmModel.setInfo( film.getInfo() );
         filmModel.setCurrent( film.getCurrent() );
-        filmModel.setImageURL( film.getImageURL() );
+        filmModel.setImage( film.getImage() );
 
         return filmModel;
     }

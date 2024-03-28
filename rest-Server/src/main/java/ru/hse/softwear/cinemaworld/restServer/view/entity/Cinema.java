@@ -6,6 +6,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.locationtech.jts.geom.Point;
 
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -32,12 +33,8 @@ public class Cinema {
     @Column(name = "number_phone")
     private Long numberPhone;
 
-    @Column(name = "preview_url")
-    private String previewURL;
-
-    @Column(name = "images_url")
-    private List<String> images;
-
+    @Column(name = "image")
+    private String image;
 
     @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JoinTable(
@@ -45,9 +42,9 @@ public class Cinema {
             joinColumns = @JoinColumn(name = "films_name"),
             inverseJoinColumns = @JoinColumn(name = "cinemas_name")
     )
-    private List<Film> films;
+    private List<Film> films = new ArrayList<>();
 
-    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval = true,
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER,
     mappedBy = "cinema")
-    private List<Hall> halls;
+    private List<Hall> halls = new ArrayList<>();
 }

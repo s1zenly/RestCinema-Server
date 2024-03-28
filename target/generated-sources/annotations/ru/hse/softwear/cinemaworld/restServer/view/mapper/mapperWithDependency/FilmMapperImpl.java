@@ -16,8 +16,8 @@ import ru.hse.softwear.cinemaworld.restServer.view.model.SessionModel;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2024-03-10T01:23:35+0300",
-    comments = "version: 1.5.5.Final, compiler: javac, environment: Java 20.0.2 (Oracle Corporation)"
+    date = "2024-03-28T00:51:28+0300",
+    comments = "version: 1.5.5.Final, compiler: javac, environment: Java 19.0.2 (Amazon.com Inc.)"
 )
 @Component
 public class FilmMapperImpl implements FilmMapper {
@@ -43,14 +43,11 @@ public class FilmMapperImpl implements FilmMapper {
         film.setProductionCountry( filmModel.getProductionCountry() );
         film.setProducer( filmModel.getProducer() );
         film.setDuration( filmModel.getDuration() );
-        List<String> list2 = filmModel.getActors();
-        if ( list2 != null ) {
-            film.setActors( new ArrayList<String>( list2 ) );
-        }
+        film.setActors( filmModel.getActors() );
         film.setTrailerURL( filmModel.getTrailerURL() );
         film.setInfo( filmModel.getInfo() );
         film.setCurrent( filmModel.getCurrent() );
-        film.setImageURL( filmModel.getImageURL() );
+        film.setImage( filmModel.getImage() );
 
         return film;
     }
@@ -71,14 +68,11 @@ public class FilmMapperImpl implements FilmMapper {
         filmModel.setProductionCountry( film.getProductionCountry() );
         filmModel.setProducer( film.getProducer() );
         filmModel.setDuration( film.getDuration() );
-        List<String> list2 = film.getActors();
-        if ( list2 != null ) {
-            filmModel.setActors( new ArrayList<String>( list2 ) );
-        }
+        filmModel.setActors( film.getActors() );
         filmModel.setTrailerURL( film.getTrailerURL() );
         filmModel.setInfo( film.getInfo() );
         filmModel.setCurrent( film.getCurrent() );
-        filmModel.setImageURL( film.getImageURL() );
+        filmModel.setImage( film.getImage() );
 
         return filmModel;
     }

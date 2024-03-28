@@ -6,11 +6,11 @@ import lombok.*;
 @AllArgsConstructor
 @Getter
 public enum AgeCategories {
-    ZERO("0+"),
-    SIX("6+"),
-    TWELVE("12+"),
-    SIXTEEN("16+"),
-    EIGHTEEN("18+");
+    ZERO("ZERO"),
+    SIX("SIX"),
+    TWELVE("TWELVE"),
+    SIXTEEN("SIXTEEN"),
+    EIGHTEEN("EIGHTEEN");
 
-    private String ageCategory;
+    private String value;
 }

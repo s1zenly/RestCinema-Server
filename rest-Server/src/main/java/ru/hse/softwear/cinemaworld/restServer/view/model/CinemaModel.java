@@ -3,6 +3,7 @@ package ru.hse.softwear.cinemaworld.restServer.view.model;
 import lombok.*;
 import org.locationtech.jts.geom.Point;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Data
@@ -14,10 +15,9 @@ public class CinemaModel {
     private Double rating;
     private String info;
     private Long numberPhone;
-    private String previewURL;
-    private List<String> images;
+    private String image;
 
 
-    private List<FilmModel> films;
-    private List<HallModel> halls;
+    private List<FilmModel> films = new ArrayList<>();
+    private List<HallModel> halls = new ArrayList<>();
 }
