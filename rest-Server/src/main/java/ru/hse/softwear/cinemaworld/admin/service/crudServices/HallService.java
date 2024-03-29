@@ -1,8 +1,8 @@
-package ru.hse.softwear.cinemaworld.admin.Service.crudServices;
+package ru.hse.softwear.cinemaworld.admin.service.crudServices;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-import ru.hse.softwear.cinemaworld.admin.Service.CRUDservice;
+import ru.hse.softwear.cinemaworld.admin.service.CRUDservice;
 import ru.hse.softwear.cinemaworld.restServer.view.entity.Cinema;
 import ru.hse.softwear.cinemaworld.restServer.view.entity.Hall;
 import ru.hse.softwear.cinemaworld.restServer.view.mapper.mapperWithDependency.HallMapper;
@@ -32,10 +32,11 @@ public class HallService implements CRUDservice<HallModel, Long> {
 
         Hall hall = HallMapper.INSTANCE.toEntity(hallDTO);
 
-        cinema.getHalls().add(hall);
         hall.setCinema(cinema);
-
         hallRepository.save(hall);
+
+        cinema.getHalls().add(hall);
+        cinemaRepository.save(cinema);
     }
 
     @Override

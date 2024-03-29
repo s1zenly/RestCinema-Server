@@ -3,7 +3,7 @@ package ru.hse.softwear.cinemaworld.admin.controller;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import ru.hse.softwear.cinemaworld.admin.Service.crudServices.FilmService;
+import ru.hse.softwear.cinemaworld.admin.service.crudServices.FilmService;
 import ru.hse.softwear.cinemaworld.restServer.view.model.FilmModel;
 
 import java.util.List;

@@ -2,8 +2,7 @@ package ru.hse.softwear.cinemaworld.restServer.view.enums;
 
 import lombok.*;
 
-@NoArgsConstructor
-@AllArgsConstructor
+@RequiredArgsConstructor
 @Getter
 public enum AgeCategories {
     ZERO("ZERO"),
@@ -12,5 +11,5 @@ public enum AgeCategories {
     SIXTEEN("SIXTEEN"),
     EIGHTEEN("EIGHTEEN");
 
-    private String value;
+    private final String value;
 }

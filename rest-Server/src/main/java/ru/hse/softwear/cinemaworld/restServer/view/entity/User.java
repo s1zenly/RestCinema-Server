@@ -2,8 +2,10 @@ package ru.hse.softwear.cinemaworld.restServer.view.entity;
 
 import jakarta.persistence.*;
 import lombok.*;
+import ru.hse.softwear.cinemaworld.restServer.view.enums.Role;
 
 import java.util.List;
+import java.util.Set;
 
 @Entity
 @Data
@@ -19,7 +21,10 @@ public class User {
     private String email;
     private String password;
 
-    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval = true,
+    @Enumerated(EnumType.STRING)
+    private Role role;
+
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER,
     mappedBy = "user")
     private List<Order> orders;
 }

@@ -1,9 +1,9 @@
-package ru.hse.softwear.cinemaworld.admin.Service.crudServices;
+package ru.hse.softwear.cinemaworld.admin.service.crudServices;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
-import ru.hse.softwear.cinemaworld.admin.Service.CRUDservice;
+import ru.hse.softwear.cinemaworld.admin.service.CRUDservice;
 import ru.hse.softwear.cinemaworld.restServer.view.entity.Cinema;
 import ru.hse.softwear.cinemaworld.restServer.view.entity.Film;
 import ru.hse.softwear.cinemaworld.restServer.view.mapper.mapperWithDependency.FilmMapper;
@@ -11,7 +11,6 @@ import ru.hse.softwear.cinemaworld.restServer.view.model.FilmModel;
 import ru.hse.softwear.cinemaworld.restServer.view.repository.CinemaRepository;
 import ru.hse.softwear.cinemaworld.restServer.view.repository.FilmRepository;
 
-import java.time.Duration;
 import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.Optional;

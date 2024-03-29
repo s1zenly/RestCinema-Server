@@ -1,4 +1,4 @@
-package ru.hse.softwear.cinemaworld.configuration;
+package ru.hse.softwear.cinemaworld.restServer.configuration;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

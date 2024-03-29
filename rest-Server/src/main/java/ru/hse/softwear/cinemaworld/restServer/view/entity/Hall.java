@@ -37,7 +37,7 @@ public class Hall {
     @JoinColumn(name = "cinema_name")
     private Cinema cinema;
 
-    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval = true,
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER,
     mappedBy = "hall")
     private List<Session> sessions = new ArrayList<>();
 

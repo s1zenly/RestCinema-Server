@@ -1,4 +1,4 @@
-package ru.hse.softwear.cinemaworld.admin.Service;
+package ru.hse.softwear.cinemaworld.admin.service;
 
 public interface CRUDservice<E, I> {
 

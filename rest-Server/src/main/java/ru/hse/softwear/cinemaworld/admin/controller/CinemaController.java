@@ -4,7 +4,7 @@ package ru.hse.softwear.cinemaworld.admin.controller;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import ru.hse.softwear.cinemaworld.admin.Service.crudServices.CinemaService;
+import ru.hse.softwear.cinemaworld.admin.service.crudServices.CinemaService;
 import ru.hse.softwear.cinemaworld.restServer.view.model.CinemaModel;
 
 @RestController
