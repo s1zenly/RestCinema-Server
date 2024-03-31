@@ -8,7 +8,7 @@ import ru.hse.softwear.cinemaworld.restServer.view.mapper.mapperWithoutDependenc
 import ru.hse.softwear.cinemaworld.restServer.view.mapper.mapperWithoutDependency.FilmMapperWithoutDependency;
 import ru.hse.softwear.cinemaworld.restServer.view.mapper.mapperWithoutDependency.HallMapperWithoutDependency;
 import ru.hse.softwear.cinemaworld.restServer.view.mapper.mapperWithoutDependency.TicketMapperWithoutDependency;
-import ru.hse.softwear.cinemaworld.restServer.view.model.SessionModel;
+import ru.hse.softwear.cinemaworld.restServer.view.model.dbmodel.SessionModel;
 
 @Mapper(componentModel = "spring",
         uses = {

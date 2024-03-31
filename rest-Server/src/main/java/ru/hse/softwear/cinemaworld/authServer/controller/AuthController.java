@@ -18,11 +18,6 @@ public class AuthController {
 
     private final AuthService authService;
 
-    @GetMapping("/test")
-    public ResponseEntity<JwtResponse> test() {
-        return ResponseEntity.ok(new JwtResponse("work", "all"));
-    }
-
     @PostMapping("/register")
     public ResponseEntity<JwtResponse> register(@RequestBody JwtRequest request) throws AuthException {
 

@@ -18,17 +18,8 @@ public class Ticket {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    @Column(name = "name")
-    private String name;
-
-    @Column(name = "date")
-    private Date date;
-
-    //@Column(name = "seat")
-    //private Pair<Integer, Integer> seat;
-
-    @Column(name = "price")
-    private Integer price;
+    private Integer section;
+    private Integer subsection;
 
 
 

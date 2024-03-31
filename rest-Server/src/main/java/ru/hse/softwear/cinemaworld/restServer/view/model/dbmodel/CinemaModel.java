@@ -1,5 +1,6 @@
-package ru.hse.softwear.cinemaworld.restServer.view.model;
+package ru.hse.softwear.cinemaworld.restServer.view.model.dbmodel;
 
+import jakarta.persistence.Column;
 import lombok.*;
 import org.locationtech.jts.geom.Point;
 
@@ -10,8 +11,11 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 public class CinemaModel {
+
+    private Long id;
     private String name;
-    private Point coordinates;
+    private Double latitude;
+    private Double longitude;
     private Double rating;
     private String info;
     private Long numberPhone;

@@ -1,4 +1,4 @@
-package ru.hse.softwear.cinemaworld.restServer.view.model;
+package ru.hse.softwear.cinemaworld.restServer.view.model.dbmodel;
 
 
 
@@ -11,11 +11,8 @@ import java.util.Date;
 @AllArgsConstructor
 public class TicketModel {
     private Long id;
-    private String name;
-    private Date date;
-    //private Pair<Integer, Integer> seat;
-    private Integer price;
-
+    private Integer section;
+    private Integer subsection;
 
     private OrderModel order;
     private SessionModel session;

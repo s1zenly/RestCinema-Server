@@ -9,12 +9,12 @@ import ru.hse.softwear.cinemaworld.restServer.view.entity.Hall;
 import ru.hse.softwear.cinemaworld.restServer.view.entity.Session;
 import ru.hse.softwear.cinemaworld.restServer.view.mapper.mapperWithoutDependency.CinemaMapperWithoutDependency;
 import ru.hse.softwear.cinemaworld.restServer.view.mapper.mapperWithoutDependency.SessionMapperWithoutDependency;
-import ru.hse.softwear.cinemaworld.restServer.view.model.HallModel;
-import ru.hse.softwear.cinemaworld.restServer.view.model.SessionModel;
+import ru.hse.softwear.cinemaworld.restServer.view.model.dbmodel.HallModel;
+import ru.hse.softwear.cinemaworld.restServer.view.model.dbmodel.SessionModel;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2024-03-29T15:40:48+0300",
+    date = "2024-04-01T01:31:59+0300",
     comments = "version: 1.5.5.Final, compiler: javac, environment: Java 19.0.2 (Amazon.com Inc.)"
 )
 @Component

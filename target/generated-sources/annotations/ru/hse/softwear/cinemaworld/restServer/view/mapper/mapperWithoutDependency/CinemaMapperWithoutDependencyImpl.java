@@ -3,11 +3,11 @@ package ru.hse.softwear.cinemaworld.restServer.view.mapper.mapperWithoutDependen
 import javax.annotation.processing.Generated;
 import org.springframework.stereotype.Component;
 import ru.hse.softwear.cinemaworld.restServer.view.entity.Cinema;
-import ru.hse.softwear.cinemaworld.restServer.view.model.CinemaModel;
+import ru.hse.softwear.cinemaworld.restServer.view.model.dbmodel.CinemaModel;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2024-03-29T15:40:48+0300",
+    date = "2024-04-01T01:31:59+0300",
     comments = "version: 1.5.5.Final, compiler: javac, environment: Java 19.0.2 (Amazon.com Inc.)"
 )
 @Component
@@ -21,8 +21,10 @@ public class CinemaMapperWithoutDependencyImpl implements CinemaMapperWithoutDep
 
         Cinema cinema = new Cinema();
 
+        cinema.setId( cinemaModel.getId() );
         cinema.setName( cinemaModel.getName() );
-        cinema.setCoordinates( cinemaModel.getCoordinates() );
+        cinema.setLatitude( cinemaModel.getLatitude() );
+        cinema.setLongitude( cinemaModel.getLongitude() );
         cinema.setRating( cinemaModel.getRating() );
         cinema.setInfo( cinemaModel.getInfo() );
         cinema.setNumberPhone( cinemaModel.getNumberPhone() );
@@ -39,8 +41,10 @@ public class CinemaMapperWithoutDependencyImpl implements CinemaMapperWithoutDep
 
         CinemaModel cinemaModel = new CinemaModel();
 
+        cinemaModel.setId( cinema.getId() );
         cinemaModel.setName( cinema.getName() );
-        cinemaModel.setCoordinates( cinema.getCoordinates() );
+        cinemaModel.setLatitude( cinema.getLatitude() );
+        cinemaModel.setLongitude( cinema.getLongitude() );
         cinemaModel.setRating( cinema.getRating() );
         cinemaModel.setInfo( cinema.getInfo() );
         cinemaModel.setNumberPhone( cinema.getNumberPhone() );

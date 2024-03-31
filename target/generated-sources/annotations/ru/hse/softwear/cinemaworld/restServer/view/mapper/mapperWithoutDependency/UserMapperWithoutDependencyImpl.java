@@ -3,11 +3,11 @@ package ru.hse.softwear.cinemaworld.restServer.view.mapper.mapperWithoutDependen
 import javax.annotation.processing.Generated;
 import org.springframework.stereotype.Component;
 import ru.hse.softwear.cinemaworld.restServer.view.entity.User;
-import ru.hse.softwear.cinemaworld.restServer.view.model.UserModel;
+import ru.hse.softwear.cinemaworld.restServer.view.model.dbmodel.UserModel;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2024-03-29T15:40:48+0300",
+    date = "2024-04-01T01:31:58+0300",
     comments = "version: 1.5.5.Final, compiler: javac, environment: Java 19.0.2 (Amazon.com Inc.)"
 )
 @Component
@@ -24,7 +24,6 @@ public class UserMapperWithoutDependencyImpl implements UserMapperWithoutDepende
         user.setId( userModel.getId() );
         user.setEmail( userModel.getEmail() );
         user.setPassword( userModel.getPassword() );
-        user.setRole( userModel.getRole() );
 
         return user;
     }
@@ -40,7 +39,6 @@ public class UserMapperWithoutDependencyImpl implements UserMapperWithoutDepende
         userModel.setId( user.getId() );
         userModel.setEmail( user.getEmail() );
         userModel.setPassword( user.getPassword() );
-        userModel.setRole( user.getRole() );
 
         return userModel;
     }

@@ -7,6 +7,6 @@ import ru.hse.softwear.cinemaworld.restServer.view.entity.Cinema;
 import java.util.Optional;
 
 @Repository
-public interface CinemaRepository extends JpaRepository<Cinema, String> {
-    Optional<Cinema> findByName(String name);
+public interface CinemaRepository extends JpaRepository<Cinema, Long> {
+    Optional<Cinema> findById(Long id);
 }

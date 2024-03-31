@@ -10,12 +10,12 @@ import ru.hse.softwear.cinemaworld.restServer.view.entity.Ticket;
 import ru.hse.softwear.cinemaworld.restServer.view.mapper.mapperWithoutDependency.SessionMapperWithoutDependency;
 import ru.hse.softwear.cinemaworld.restServer.view.mapper.mapperWithoutDependency.TicketMapperWithoutDependency;
 import ru.hse.softwear.cinemaworld.restServer.view.mapper.mapperWithoutDependency.UserMapperWithoutDependency;
-import ru.hse.softwear.cinemaworld.restServer.view.model.OrderModel;
-import ru.hse.softwear.cinemaworld.restServer.view.model.TicketModel;
+import ru.hse.softwear.cinemaworld.restServer.view.model.dbmodel.OrderModel;
+import ru.hse.softwear.cinemaworld.restServer.view.model.dbmodel.TicketModel;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2024-03-29T15:40:48+0300",
+    date = "2024-04-01T01:31:59+0300",
     comments = "version: 1.5.5.Final, compiler: javac, environment: Java 19.0.2 (Amazon.com Inc.)"
 )
 @Component
@@ -40,6 +40,7 @@ public class OrderMapperImpl implements OrderMapper {
         order.setUser( userMapperWithoutDependency.toEntityWithoutDependency( orderModel.getUser() ) );
         order.setTickets( ticketModelListToTicketList( orderModel.getTickets() ) );
         order.setId( orderModel.getId() );
+        order.setToken( orderModel.getToken() );
 
         return order;
     }
@@ -56,6 +57,7 @@ public class OrderMapperImpl implements OrderMapper {
         orderModel.setUser( userMapperWithoutDependency.toModelWithoutDependency( order.getUser() ) );
         orderModel.setTickets( ticketListToTicketModelList( order.getTickets() ) );
         orderModel.setId( order.getId() );
+        orderModel.setToken( order.getToken() );
 
         return orderModel;
     }

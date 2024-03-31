@@ -5,6 +5,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.locationtech.jts.geom.Point;
+import ru.hse.softwear.cinemaworld.restServer.view.model.CoordinateModel;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -18,11 +19,17 @@ import java.util.List;
 public class Cinema {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private Long id;
+
     @Column(name = "name")
     private String name;
 
-    @Column(name = "coordinates")
-    private Point coordinates;
+    @Column(name = "latitude")
+    private Double latitude;
+
+    @Column(name = "longitude")
+    private Double longitude;
 
     @Column(name = "rating")
     private Double rating;
@@ -39,8 +46,8 @@ public class Cinema {
     @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JoinTable(
             name = "films_cinemas",
-            joinColumns = @JoinColumn(name = "films_name"),
-            inverseJoinColumns = @JoinColumn(name = "cinemas_name")
+            joinColumns = @JoinColumn(name = "films_id"),
+            inverseJoinColumns = @JoinColumn(name = "cinemas_id")
     )
     private List<Film> films = new ArrayList<>();
 

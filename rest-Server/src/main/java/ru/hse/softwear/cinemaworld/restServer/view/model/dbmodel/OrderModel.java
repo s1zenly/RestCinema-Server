@@ -1,4 +1,4 @@
-package ru.hse.softwear.cinemaworld.restServer.view.model;
+package ru.hse.softwear.cinemaworld.restServer.view.model.dbmodel;
 
 
 import lombok.*;
@@ -10,6 +10,8 @@ import java.util.List;
 @AllArgsConstructor
 public class OrderModel {
     private Long id;
+    private String token;
+
 
     private SessionModel session;
     private UserModel user;

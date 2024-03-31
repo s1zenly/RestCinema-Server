@@ -6,7 +6,7 @@ import ru.hse.softwear.cinemaworld.admin.service.CRUDservice;
 import ru.hse.softwear.cinemaworld.restServer.view.entity.Cinema;
 import ru.hse.softwear.cinemaworld.restServer.view.entity.Hall;
 import ru.hse.softwear.cinemaworld.restServer.view.mapper.mapperWithDependency.HallMapper;
-import ru.hse.softwear.cinemaworld.restServer.view.model.HallModel;
+import ru.hse.softwear.cinemaworld.restServer.view.model.dbmodel.HallModel;
 import ru.hse.softwear.cinemaworld.restServer.view.repository.CinemaRepository;
 import ru.hse.softwear.cinemaworld.restServer.view.repository.HallRepository;
 
@@ -24,11 +24,11 @@ public class HallService implements CRUDservice<HallModel, Long> {
 
     @Override
     public void create(Object... objects) {
-        String cinemaName = (String) objects[0];
+        Long cinemaId = (Long) objects[0];
         HallModel hallDTO = (HallModel) objects[1];
 
-        Cinema cinema = cinemaRepository.findByName(cinemaName)
-                .orElseThrow(() -> new NoSuchElementException("Cinema not found with name: " + cinemaName));
+        Cinema cinema = cinemaRepository.findById(cinemaId)
+                .orElseThrow(() -> new NoSuchElementException("Cinema not found with name: " + cinemaId));
 
         Hall hall = HallMapper.INSTANCE.toEntity(hallDTO);
 
@@ -62,14 +62,12 @@ public class HallService implements CRUDservice<HallModel, Long> {
 
     @Override
     public void delete(Object... objects) {
-        String cinemaName = (String) objects[0];
-        Long id = (Long) objects[1];
-
-        Cinema cinema = cinemaRepository.findByName(cinemaName)
-                .orElseThrow(() -> new NoSuchElementException("Cinema not found with name: " + cinemaName));
+        Long id = (Long) objects[0];
 
         Hall hall = hallRepository.findById(id)
                 .orElseThrow(() -> new NoSuchElementException("Hall not found with id: " + id));
+
+        Cinema cinema = hall.getCinema();
 
         cinema.getHalls().remove(hall);
         hall.setCinema(null);
@@ -77,9 +75,9 @@ public class HallService implements CRUDservice<HallModel, Long> {
         hallRepository.deleteById(id);
     }
 
-    public List<HallModel> getAll(String cinemaName) {
+    public List<HallModel> getAll(Long cinemaId) {
         return hallRepository.findAll().stream()
-                .filter(hall -> hall.getCinema().getName().equalsIgnoreCase(cinemaName))
+                .filter(hall -> hall.getCinema().getId().equals(cinemaId))
                 .map(HallMapper.INSTANCE::toModel)
                 .collect(Collectors.toList());
     }

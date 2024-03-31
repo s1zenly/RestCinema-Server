@@ -6,7 +6,7 @@ import org.mapstruct.Named;
 import org.mapstruct.factory.Mappers;
 import ru.hse.softwear.cinemaworld.restServer.view.entity.Session;
 import ru.hse.softwear.cinemaworld.restServer.view.mapper.interfaces.DataMapperWithoutDependency;
-import ru.hse.softwear.cinemaworld.restServer.view.model.SessionModel;
+import ru.hse.softwear.cinemaworld.restServer.view.model.dbmodel.SessionModel;
 
 @Mapper(componentModel = "spring")
 public interface SessionMapperWithoutDependency extends DataMapperWithoutDependency<Session, SessionModel> {

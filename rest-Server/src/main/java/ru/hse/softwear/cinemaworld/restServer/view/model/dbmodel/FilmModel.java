@@ -1,4 +1,4 @@
-package ru.hse.softwear.cinemaworld.restServer.view.model;
+package ru.hse.softwear.cinemaworld.restServer.view.model.dbmodel;
 
 
 import lombok.*;
@@ -12,6 +12,8 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 public class FilmModel {
+
+    private Long id;
     private String name;
     private AgeCategories ageCategory;
     private Integer year;

@@ -1,19 +1,16 @@
-package ru.hse.softwear.cinemaworld.restServer.view.model;
+package ru.hse.softwear.cinemaworld.restServer.view.model.dbmodel;
 
-
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 import ru.hse.softwear.cinemaworld.restServer.view.enums.Role;
-
-import java.util.List;
 
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class UserModel {
+public class PersonaModel {
     private Long id;
     private String email;
     private String password;
     private Role role;
-
-    private List<OrderModel> orders;
 }

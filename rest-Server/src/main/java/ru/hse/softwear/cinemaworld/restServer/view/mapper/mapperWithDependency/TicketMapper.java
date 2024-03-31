@@ -6,7 +6,7 @@ import ru.hse.softwear.cinemaworld.restServer.view.entity.Ticket;
 import ru.hse.softwear.cinemaworld.restServer.view.mapper.interfaces.DataMapper;
 import ru.hse.softwear.cinemaworld.restServer.view.mapper.mapperWithoutDependency.OrderMapperWithoutDependency;
 import ru.hse.softwear.cinemaworld.restServer.view.mapper.mapperWithoutDependency.SessionMapperWithoutDependency;
-import ru.hse.softwear.cinemaworld.restServer.view.model.TicketModel;
+import ru.hse.softwear.cinemaworld.restServer.view.model.dbmodel.TicketModel;
 
 @Mapper(componentModel = "spring",
         uses = {

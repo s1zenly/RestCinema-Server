@@ -7,7 +7,7 @@ import ru.hse.softwear.cinemaworld.restServer.view.entity.Hall;
 import ru.hse.softwear.cinemaworld.restServer.view.mapper.interfaces.DataMapper;
 import ru.hse.softwear.cinemaworld.restServer.view.mapper.mapperWithoutDependency.CinemaMapperWithoutDependency;
 import ru.hse.softwear.cinemaworld.restServer.view.mapper.mapperWithoutDependency.SessionMapperWithoutDependency;
-import ru.hse.softwear.cinemaworld.restServer.view.model.HallModel;
+import ru.hse.softwear.cinemaworld.restServer.view.model.dbmodel.HallModel;
 
 @Mapper(componentModel = "spring",
         uses = {

@@ -4,35 +4,34 @@ import com.sun.istack.NotNull;
 import io.jsonwebtoken.Claims;
 import jakarta.security.auth.message.AuthException;
 import lombok.RequiredArgsConstructor;
-import org.springframework.security.access.AuthorizationServiceException;
-import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
+import redis.clients.jedis.Jedis;
 import ru.hse.softwear.cinemaworld.authServer.view.JwtAuthentication;
 import ru.hse.softwear.cinemaworld.authServer.view.JwtRequest;
 import ru.hse.softwear.cinemaworld.authServer.view.JwtResponse;
-import ru.hse.softwear.cinemaworld.restServer.service.UserService;
-import ru.hse.softwear.cinemaworld.restServer.view.entity.User;
+import ru.hse.softwear.cinemaworld.restServer.service.RedisService;
+import ru.hse.softwear.cinemaworld.restServer.view.entity.Persona;
 
-import java.util.HashMap;
-import java.util.Map;
+import javax.annotation.PostConstruct;
+import javax.annotation.PreDestroy;
 
 @Service
 @RequiredArgsConstructor
 public class AuthService {
 
-    private final UserService userService;
+    private final PersonaService personaService;
+    private final RedisService redisService;
     private final JwtProvider jwtProvider;
-    private final Map<String, String> refreshStorage = new HashMap<>();
 
     public JwtResponse login(@NotNull JwtRequest authRequest) throws AuthException {
-        final User user = userService.getByEmail(authRequest.getEmail())
-                .orElseThrow(() -> new AuthException("User not found"));
+        final Persona persona = personaService.getByEmail(authRequest.getEmail())
+                .orElseThrow(() -> new AuthException("Persona not found"));
 
-        if(user.getPassword().equals(authRequest.getPassword())) {
-            final String accessToken = jwtProvider.generateAccessToken(user);
-            final String refreshToken = jwtProvider.generateRefreshToken(user);
-            refreshStorage.put(user.getEmail(), refreshToken);
+        if(persona.getPassword().equals(authRequest.getPassword())) {
+            final String accessToken = jwtProvider.generateAccessToken(persona);
+            final String refreshToken = jwtProvider.generateRefreshToken(persona);
+            redisService.setInRefreshToken(persona.getEmail(), refreshToken);
 
             return new JwtResponse(accessToken, refreshToken);
         } else {
@@ -44,13 +43,13 @@ public class AuthService {
         if(jwtProvider.validateRefreshToken(refreshToken)) {
             final Claims claims = jwtProvider.getRefreshClaims(refreshToken);
             final String email = claims.getSubject();
-            final String saveRefreshToken = refreshStorage.get(email);
+            final String saveRefreshToken = redisService.getInRefreshToken(email);
 
             if(saveRefreshToken != null && saveRefreshToken.equals(refreshToken)) {
-                final User user = userService.getByEmail(email)
-                        .orElseThrow(() -> new AuthException("User not found"));
+                final Persona persona = personaService.getByEmail(email)
+                        .orElseThrow(() -> new AuthException("Persona not found"));
 
-                final String accessToken = jwtProvider.generateAccessToken(user);
+                final String accessToken = jwtProvider.generateAccessToken(persona);
                 return new JwtResponse(accessToken, null);
             }
         }
@@ -62,15 +61,15 @@ public class AuthService {
         if(jwtProvider.validateRefreshToken(refreshToken)) {
             final Claims claims = jwtProvider.getRefreshClaims(refreshToken);
             final String email = claims.getSubject();
-            final String saveRefreshToken = refreshStorage.get(email);
+            final String saveRefreshToken = redisService.getInRefreshToken(email);
 
             if(saveRefreshToken != null && saveRefreshToken.equals(refreshToken)) {
-                final User user = userService.getByEmail(email)
-                        .orElseThrow(() -> new AuthException("User not found"));
+                final Persona persona = personaService.getByEmail(email)
+                        .orElseThrow(() -> new AuthException("Persona not found"));
 
-                final String accessToken = jwtProvider.generateAccessToken(user);
-                final String newRefreshToken = jwtProvider.generateRefreshToken(user);
-                refreshStorage.put(user.getEmail(), newRefreshToken);
+                final String accessToken = jwtProvider.generateAccessToken(persona);
+                final String newRefreshToken = jwtProvider.generateRefreshToken(persona);
+                redisService.setInRefreshToken(persona.getEmail(), newRefreshToken);
 
                 return new JwtResponse(accessToken, newRefreshToken);
             }

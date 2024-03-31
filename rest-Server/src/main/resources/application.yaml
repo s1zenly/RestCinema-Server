@@ -7,8 +7,23 @@ spring:
     password: 675347198FAKR
     url: jdbc:postgresql://localhost:5432/cinema
     driver-class-name: org.postgresql.Driver
-
   jpa:
     hibernate:
       ddl-auto: update
       format_sql: true
+
+  security:
+    user:
+      name: admin
+      password: admin
+
+  data:
+    redis:
+      databases:
+        - host: localhost
+          port: 6379
+          database: 0
+        - host: localhost
+          port: 6379
+          database: 1
+

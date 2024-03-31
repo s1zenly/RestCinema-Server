@@ -3,11 +3,11 @@ package ru.hse.softwear.cinemaworld.restServer.view.mapper.mapperWithoutDependen
 import javax.annotation.processing.Generated;
 import org.springframework.stereotype.Component;
 import ru.hse.softwear.cinemaworld.restServer.view.entity.Hall;
-import ru.hse.softwear.cinemaworld.restServer.view.model.HallModel;
+import ru.hse.softwear.cinemaworld.restServer.view.model.dbmodel.HallModel;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2024-03-29T15:40:47+0300",
+    date = "2024-04-01T01:31:59+0300",
     comments = "version: 1.5.5.Final, compiler: javac, environment: Java 19.0.2 (Amazon.com Inc.)"
 )
 @Component

@@ -6,7 +6,7 @@ import org.mapstruct.Named;
 import org.mapstruct.factory.Mappers;
 import ru.hse.softwear.cinemaworld.restServer.view.entity.Order;
 import ru.hse.softwear.cinemaworld.restServer.view.mapper.interfaces.DataMapperWithoutDependency;
-import ru.hse.softwear.cinemaworld.restServer.view.model.OrderModel;
+import ru.hse.softwear.cinemaworld.restServer.view.model.dbmodel.OrderModel;
 
 @Mapper(componentModel = "spring")
 public interface OrderMapperWithoutDependency extends DataMapperWithoutDependency<Order, OrderModel> {

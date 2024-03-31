@@ -10,13 +10,13 @@ import ru.hse.softwear.cinemaworld.restServer.view.entity.Film;
 import ru.hse.softwear.cinemaworld.restServer.view.entity.Hall;
 import ru.hse.softwear.cinemaworld.restServer.view.mapper.mapperWithoutDependency.FilmMapperWithoutDependency;
 import ru.hse.softwear.cinemaworld.restServer.view.mapper.mapperWithoutDependency.HallMapperWithoutDependency;
-import ru.hse.softwear.cinemaworld.restServer.view.model.CinemaModel;
-import ru.hse.softwear.cinemaworld.restServer.view.model.FilmModel;
-import ru.hse.softwear.cinemaworld.restServer.view.model.HallModel;
+import ru.hse.softwear.cinemaworld.restServer.view.model.dbmodel.CinemaModel;
+import ru.hse.softwear.cinemaworld.restServer.view.model.dbmodel.FilmModel;
+import ru.hse.softwear.cinemaworld.restServer.view.model.dbmodel.HallModel;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2024-03-29T15:40:47+0300",
+    date = "2024-04-01T01:31:58+0300",
     comments = "version: 1.5.5.Final, compiler: javac, environment: Java 19.0.2 (Amazon.com Inc.)"
 )
 @Component
@@ -37,8 +37,10 @@ public class CinemaMapperImpl implements CinemaMapper {
 
         cinema.setFilms( filmModelListToFilmList( cinemaModel.getFilms() ) );
         cinema.setHalls( hallModelListToHallList( cinemaModel.getHalls() ) );
+        cinema.setId( cinemaModel.getId() );
         cinema.setName( cinemaModel.getName() );
-        cinema.setCoordinates( cinemaModel.getCoordinates() );
+        cinema.setLatitude( cinemaModel.getLatitude() );
+        cinema.setLongitude( cinemaModel.getLongitude() );
         cinema.setRating( cinemaModel.getRating() );
         cinema.setInfo( cinemaModel.getInfo() );
         cinema.setNumberPhone( cinemaModel.getNumberPhone() );
@@ -57,8 +59,10 @@ public class CinemaMapperImpl implements CinemaMapper {
 
         cinemaModel.setFilms( filmListToFilmModelList( cinema.getFilms() ) );
         cinemaModel.setHalls( hallListToHallModelList( cinema.getHalls() ) );
+        cinemaModel.setId( cinema.getId() );
         cinemaModel.setName( cinema.getName() );
-        cinemaModel.setCoordinates( cinema.getCoordinates() );
+        cinemaModel.setLatitude( cinema.getLatitude() );
+        cinemaModel.setLongitude( cinema.getLongitude() );
         cinemaModel.setRating( cinema.getRating() );
         cinemaModel.setInfo( cinema.getInfo() );
         cinemaModel.setNumberPhone( cinema.getNumberPhone() );

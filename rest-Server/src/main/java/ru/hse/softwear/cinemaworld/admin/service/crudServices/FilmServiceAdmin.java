@@ -7,7 +7,7 @@ import ru.hse.softwear.cinemaworld.admin.service.CRUDservice;
 import ru.hse.softwear.cinemaworld.restServer.view.entity.Cinema;
 import ru.hse.softwear.cinemaworld.restServer.view.entity.Film;
 import ru.hse.softwear.cinemaworld.restServer.view.mapper.mapperWithDependency.FilmMapper;
-import ru.hse.softwear.cinemaworld.restServer.view.model.FilmModel;
+import ru.hse.softwear.cinemaworld.restServer.view.model.dbmodel.FilmModel;
 import ru.hse.softwear.cinemaworld.restServer.view.repository.CinemaRepository;
 import ru.hse.softwear.cinemaworld.restServer.view.repository.FilmRepository;
 
@@ -19,18 +19,18 @@ import java.util.stream.Collectors;
 @Slf4j
 @Service
 @RequiredArgsConstructor
-public class FilmService implements CRUDservice<FilmModel, String> {
+public class FilmServiceAdmin implements CRUDservice<FilmModel, Long> {
 
     private final FilmRepository filmRepository;
     private final CinemaRepository cinemaRepository;
 
     @Override
     public void create(Object... objects) {
-        String cinemaName = (String) objects[0];
+        Long cinemaId = (Long) objects[0];
         FilmModel filmDTO = (FilmModel) objects[1];
 
-        Cinema cinema = cinemaRepository.findByName(cinemaName)
-                .orElseThrow(() -> new NoSuchElementException("Cinema not found with name: " + cinemaName));
+        Cinema cinema = cinemaRepository.findById(cinemaId)
+                .orElseThrow(() -> new NoSuchElementException("Cinema not found with name: " + cinemaId));
 
         Film film = FilmMapper.INSTANCE.toEntity(filmDTO);
 
@@ -42,17 +42,17 @@ public class FilmService implements CRUDservice<FilmModel, String> {
     }
 
     @Override
-    public FilmModel read(String name) {
-        Film film = filmRepository.findByName(name)
-                .orElseThrow(() -> new NoSuchElementException("Film not found with name: " + name));
+    public FilmModel read(Long id) {
+        Film film = filmRepository.findById(id)
+                .orElseThrow(() -> new NoSuchElementException("Film not found with name: " + id));
 
         return FilmMapper.INSTANCE.toModel(film);
     }
 
     @Override
-    public void update(String name, FilmModel filmDTO) {
-        Film film = filmRepository.findByName(name)
-                .orElseThrow(() -> new NoSuchElementException("Film not found with name: " + name));
+    public void update(Long id, FilmModel filmDTO) {
+        Film film = filmRepository.findById(id)
+                .orElseThrow(() -> new NoSuchElementException("Film not found with name: " + id));
 
         // Mutable data
         film.setInfo(Optional.ofNullable(filmDTO.getInfo()).orElse(film.getInfo()));
@@ -71,27 +71,27 @@ public class FilmService implements CRUDservice<FilmModel, String> {
 
     @Override
     public void delete(Object... objects) {
-        String cinemaName = (String) objects[0];
-        String filmName = (String) objects[1];
+        Long cinemaId = (Long) objects[0];
+        Long filmId = (Long) objects[1];
 
-        Cinema cinema = cinemaRepository.findByName(cinemaName)
-                .orElseThrow(() -> new NoSuchElementException("Cinema not found with name: " + cinemaName));
+        Cinema cinema = cinemaRepository.findById(cinemaId)
+                .orElseThrow(() -> new NoSuchElementException("Cinema not found with name: " + cinemaId));
 
-        Film film = filmRepository.findByName(filmName)
-                .orElseThrow(() -> new NoSuchElementException("Film not found with name: " + filmName));
+        Film film = filmRepository.findById(filmId)
+                .orElseThrow(() -> new NoSuchElementException("Film not found with name: " + filmId));
 
         cinema.getFilms().remove(film);
         film.getCinemas().remove(cinema);
 
-        filmRepository.deleteById(filmName);
+        filmRepository.deleteById(filmId);
     }
 
 
-    public List<FilmModel> getAll(String cinemaName) {
+    public List<FilmModel> getAll(Long cinemaId) {
 
         return filmRepository.findAll().stream()
                 .filter(film -> film.getCinemas().stream()
-                        .anyMatch(cinema -> cinema.getName().equalsIgnoreCase(cinemaName)))
+                        .anyMatch(cinema -> cinema.getId().equals(cinemaId)))
                 .map(FilmMapper.INSTANCE::toModel)
                 .collect(Collectors.toList());
     }

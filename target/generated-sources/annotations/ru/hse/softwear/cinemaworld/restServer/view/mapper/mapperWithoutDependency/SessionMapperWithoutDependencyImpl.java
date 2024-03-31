@@ -3,11 +3,11 @@ package ru.hse.softwear.cinemaworld.restServer.view.mapper.mapperWithoutDependen
 import javax.annotation.processing.Generated;
 import org.springframework.stereotype.Component;
 import ru.hse.softwear.cinemaworld.restServer.view.entity.Session;
-import ru.hse.softwear.cinemaworld.restServer.view.model.SessionModel;
+import ru.hse.softwear.cinemaworld.restServer.view.model.dbmodel.SessionModel;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2024-03-29T15:40:48+0300",
+    date = "2024-04-01T01:31:59+0300",
     comments = "version: 1.5.5.Final, compiler: javac, environment: Java 19.0.2 (Amazon.com Inc.)"
 )
 @Component
@@ -22,6 +22,8 @@ public class SessionMapperWithoutDependencyImpl implements SessionMapperWithoutD
         Session session = new Session();
 
         session.setId( sessionModel.getId() );
+        session.setDate( sessionModel.getDate() );
+        session.setPrice( sessionModel.getPrice() );
 
         return session;
     }
@@ -35,6 +37,8 @@ public class SessionMapperWithoutDependencyImpl implements SessionMapperWithoutD
         SessionModel sessionModel = new SessionModel();
 
         sessionModel.setId( session.getId() );
+        sessionModel.setDate( session.getDate() );
+        sessionModel.setPrice( session.getPrice() );
 
         return sessionModel;
     }

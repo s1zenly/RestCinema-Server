@@ -21,8 +21,6 @@ public class User {
     private String email;
     private String password;
 
-    @Enumerated(EnumType.STRING)
-    private Role role;
 
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER,
     mappedBy = "user")

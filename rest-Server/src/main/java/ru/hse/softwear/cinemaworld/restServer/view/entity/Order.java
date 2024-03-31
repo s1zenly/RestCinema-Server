@@ -16,6 +16,8 @@ public class Order {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
+    private String token;
+
 
     @ManyToOne
     @JoinColumn(name = "session_id")

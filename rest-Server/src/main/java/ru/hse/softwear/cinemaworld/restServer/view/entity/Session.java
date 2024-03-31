@@ -7,6 +7,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.Date;
 import java.util.List;
 
 
@@ -20,6 +21,12 @@ public class Session {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
+
+    @Column(name = "date")
+    private Date date;
+
+    @Column(name = "price")
+    private Integer price;
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "cinema_name")

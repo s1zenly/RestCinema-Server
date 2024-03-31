@@ -10,13 +10,13 @@ import ru.hse.softwear.cinemaworld.restServer.view.entity.Film;
 import ru.hse.softwear.cinemaworld.restServer.view.entity.Session;
 import ru.hse.softwear.cinemaworld.restServer.view.mapper.mapperWithoutDependency.CinemaMapperWithoutDependency;
 import ru.hse.softwear.cinemaworld.restServer.view.mapper.mapperWithoutDependency.SessionMapperWithoutDependency;
-import ru.hse.softwear.cinemaworld.restServer.view.model.CinemaModel;
-import ru.hse.softwear.cinemaworld.restServer.view.model.FilmModel;
-import ru.hse.softwear.cinemaworld.restServer.view.model.SessionModel;
+import ru.hse.softwear.cinemaworld.restServer.view.model.dbmodel.CinemaModel;
+import ru.hse.softwear.cinemaworld.restServer.view.model.dbmodel.FilmModel;
+import ru.hse.softwear.cinemaworld.restServer.view.model.dbmodel.SessionModel;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2024-03-29T15:40:48+0300",
+    date = "2024-04-01T01:31:59+0300",
     comments = "version: 1.5.5.Final, compiler: javac, environment: Java 19.0.2 (Amazon.com Inc.)"
 )
 @Component
@@ -37,6 +37,7 @@ public class FilmMapperImpl implements FilmMapper {
 
         film.setCinemas( cinemaModelListToCinemaList( filmModel.getCinemas() ) );
         film.setSessions( sessionModelListToSessionList( filmModel.getSessions() ) );
+        film.setId( filmModel.getId() );
         film.setName( filmModel.getName() );
         film.setAgeCategory( filmModel.getAgeCategory() );
         film.setYear( filmModel.getYear() );
@@ -62,6 +63,7 @@ public class FilmMapperImpl implements FilmMapper {
 
         filmModel.setCinemas( cinemaListToCinemaModelList( film.getCinemas() ) );
         filmModel.setSessions( sessionListToSessionModelList( film.getSessions() ) );
+        filmModel.setId( film.getId() );
         filmModel.setName( film.getName() );
         filmModel.setAgeCategory( film.getAgeCategory() );
         filmModel.setYear( film.getYear() );

@@ -6,7 +6,7 @@ import org.mapstruct.Named;
 import org.mapstruct.factory.Mappers;
 import ru.hse.softwear.cinemaworld.restServer.view.entity.Cinema;
 import ru.hse.softwear.cinemaworld.restServer.view.mapper.interfaces.DataMapperWithoutDependency;
-import ru.hse.softwear.cinemaworld.restServer.view.model.CinemaModel;
+import ru.hse.softwear.cinemaworld.restServer.view.model.dbmodel.CinemaModel;
 
 @Mapper(componentModel = "spring")
 public interface CinemaMapperWithoutDependency extends DataMapperWithoutDependency<Cinema, CinemaModel> {

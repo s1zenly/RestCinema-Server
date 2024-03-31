@@ -11,12 +11,12 @@ import ru.hse.softwear.cinemaworld.restServer.view.mapper.mapperWithoutDependenc
 import ru.hse.softwear.cinemaworld.restServer.view.mapper.mapperWithoutDependency.FilmMapperWithoutDependency;
 import ru.hse.softwear.cinemaworld.restServer.view.mapper.mapperWithoutDependency.HallMapperWithoutDependency;
 import ru.hse.softwear.cinemaworld.restServer.view.mapper.mapperWithoutDependency.TicketMapperWithoutDependency;
-import ru.hse.softwear.cinemaworld.restServer.view.model.SessionModel;
-import ru.hse.softwear.cinemaworld.restServer.view.model.TicketModel;
+import ru.hse.softwear.cinemaworld.restServer.view.model.dbmodel.SessionModel;
+import ru.hse.softwear.cinemaworld.restServer.view.model.dbmodel.TicketModel;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2024-03-29T15:40:48+0300",
+    date = "2024-04-01T01:31:59+0300",
     comments = "version: 1.5.5.Final, compiler: javac, environment: Java 19.0.2 (Amazon.com Inc.)"
 )
 @Component
@@ -44,6 +44,8 @@ public class SessionMapperImpl implements SessionMapper {
         session.setFilm( filmMapperWithoutDependency.toEntityWithoutDependency( sessionModel.getFilm() ) );
         session.setTickets( ticketModelListToTicketList( sessionModel.getTickets() ) );
         session.setId( sessionModel.getId() );
+        session.setDate( sessionModel.getDate() );
+        session.setPrice( sessionModel.getPrice() );
 
         return session;
     }
@@ -61,6 +63,8 @@ public class SessionMapperImpl implements SessionMapper {
         sessionModel.setFilm( filmMapperWithoutDependency.toModelWithoutDependency( session.getFilm() ) );
         sessionModel.setTickets( ticketListToTicketModelList( session.getTickets() ) );
         sessionModel.setId( session.getId() );
+        sessionModel.setDate( session.getDate() );
+        sessionModel.setPrice( session.getPrice() );
 
         return sessionModel;
     }

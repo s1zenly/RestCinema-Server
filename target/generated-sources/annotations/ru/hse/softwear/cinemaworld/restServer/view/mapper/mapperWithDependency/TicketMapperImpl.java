@@ -6,11 +6,11 @@ import org.springframework.stereotype.Component;
 import ru.hse.softwear.cinemaworld.restServer.view.entity.Ticket;
 import ru.hse.softwear.cinemaworld.restServer.view.mapper.mapperWithoutDependency.OrderMapperWithoutDependency;
 import ru.hse.softwear.cinemaworld.restServer.view.mapper.mapperWithoutDependency.SessionMapperWithoutDependency;
-import ru.hse.softwear.cinemaworld.restServer.view.model.TicketModel;
+import ru.hse.softwear.cinemaworld.restServer.view.model.dbmodel.TicketModel;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2024-03-29T15:40:48+0300",
+    date = "2024-04-01T01:31:58+0300",
     comments = "version: 1.5.5.Final, compiler: javac, environment: Java 19.0.2 (Amazon.com Inc.)"
 )
 @Component
@@ -32,9 +32,8 @@ public class TicketMapperImpl implements TicketMapper {
         ticket.setOrder( orderMapperWithoutDependency.toEntityWithoutDependency( ticketModel.getOrder() ) );
         ticket.setSession( sessionMapperWithoutDependency.toEntityWithoutDependency( ticketModel.getSession() ) );
         ticket.setId( ticketModel.getId() );
-        ticket.setName( ticketModel.getName() );
-        ticket.setDate( ticketModel.getDate() );
-        ticket.setPrice( ticketModel.getPrice() );
+        ticket.setSection( ticketModel.getSection() );
+        ticket.setSubsection( ticketModel.getSubsection() );
 
         return ticket;
     }
@@ -50,9 +49,8 @@ public class TicketMapperImpl implements TicketMapper {
         ticketModel.setOrder( orderMapperWithoutDependency.toModelWithoutDependency( ticket.getOrder() ) );
         ticketModel.setSession( sessionMapperWithoutDependency.toModelWithoutDependency( ticket.getSession() ) );
         ticketModel.setId( ticket.getId() );
-        ticketModel.setName( ticket.getName() );
-        ticketModel.setDate( ticket.getDate() );
-        ticketModel.setPrice( ticket.getPrice() );
+        ticketModel.setSection( ticket.getSection() );
+        ticketModel.setSubsection( ticket.getSubsection() );
 
         return ticketModel;
     }

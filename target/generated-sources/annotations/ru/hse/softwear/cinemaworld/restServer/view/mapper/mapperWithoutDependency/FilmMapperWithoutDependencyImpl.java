@@ -3,11 +3,11 @@ package ru.hse.softwear.cinemaworld.restServer.view.mapper.mapperWithoutDependen
 import javax.annotation.processing.Generated;
 import org.springframework.stereotype.Component;
 import ru.hse.softwear.cinemaworld.restServer.view.entity.Film;
-import ru.hse.softwear.cinemaworld.restServer.view.model.FilmModel;
+import ru.hse.softwear.cinemaworld.restServer.view.model.dbmodel.FilmModel;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2024-03-29T15:40:47+0300",
+    date = "2024-04-01T01:31:59+0300",
     comments = "version: 1.5.5.Final, compiler: javac, environment: Java 19.0.2 (Amazon.com Inc.)"
 )
 @Component
@@ -21,6 +21,7 @@ public class FilmMapperWithoutDependencyImpl implements FilmMapperWithoutDepende
 
         Film film = new Film();
 
+        film.setId( filmModel.getId() );
         film.setName( filmModel.getName() );
         film.setAgeCategory( filmModel.getAgeCategory() );
         film.setYear( filmModel.getYear() );
@@ -44,6 +45,7 @@ public class FilmMapperWithoutDependencyImpl implements FilmMapperWithoutDepende
 
         FilmModel filmModel = new FilmModel();
 
+        filmModel.setId( film.getId() );
         filmModel.setName( film.getName() );
         filmModel.setAgeCategory( film.getAgeCategory() );
         filmModel.setYear( film.getYear() );

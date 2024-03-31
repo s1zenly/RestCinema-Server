@@ -7,7 +7,7 @@ import io.jsonwebtoken.security.Keys;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
-import ru.hse.softwear.cinemaworld.restServer.view.entity.User;
+import ru.hse.softwear.cinemaworld.restServer.view.entity.Persona;
 
 import javax.crypto.SecretKey;
 import java.security.Key;
@@ -31,27 +31,27 @@ public class JwtProvider {
         this.jwtRefreshSecret = Keys.hmacShaKeyFor(Decoders.BASE64.decode(jwtRefreshSecret));
     }
 
-    public String generateAccessToken(@NotNull User user) {
+    public String generateAccessToken(@NotNull Persona persona) {
         final LocalDateTime now = LocalDateTime.now();
         final Instant accessExpirationInstant = now.plusMinutes(5).atZone(ZoneId.systemDefault()).toInstant();
         final Date accessExpiration = Date.from(accessExpirationInstant);
 
         return Jwts.builder()
-                .subject(user.getEmail())
+                .subject(persona.getEmail())
                 .expiration(accessExpiration)
                 .signWith(jwtAccessSecret)
-                .claim("id", user.getId())
-                .claim("role", user.getRole())
+                .claim("id", persona.getId())
+                .claim("role", persona.getRole())
                 .compact();
     }
 
-    public String generateRefreshToken(@NotNull User user) {
+    public String generateRefreshToken(@NotNull Persona persona) {
         final LocalDateTime now = LocalDateTime.now();
         final Instant refreshExpirationInstant = now.plusDays(7).atZone(ZoneId.systemDefault()).toInstant();
         final Date refreshExpiration = Date.from(refreshExpirationInstant);
 
         return Jwts.builder()
-                .subject(user.getEmail())
+                .subject(persona.getEmail())
                 .expiration(refreshExpiration)
                 .signWith(jwtRefreshSecret)
                 .compact();

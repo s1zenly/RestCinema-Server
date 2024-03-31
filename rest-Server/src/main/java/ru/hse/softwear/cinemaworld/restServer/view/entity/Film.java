@@ -20,6 +20,9 @@ import java.util.List;
 public class Film {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private Long id;
+
     @Column(name = "name")
     private String name;
 
