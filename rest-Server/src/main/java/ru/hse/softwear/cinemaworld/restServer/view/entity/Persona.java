@@ -14,9 +14,6 @@ import ru.hse.softwear.cinemaworld.restServer.view.enums.Role;
 public class Persona {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long id;
-
     private String email;
     private String password;
 

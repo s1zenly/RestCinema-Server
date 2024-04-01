@@ -40,7 +40,6 @@ public class JwtProvider {
                 .subject(persona.getEmail())
                 .expiration(accessExpiration)
                 .signWith(jwtAccessSecret)
-                .claim("id", persona.getId())
                 .claim("role", persona.getRole())
                 .compact();
     }

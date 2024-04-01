@@ -11,23 +11,22 @@ import org.springframework.data.redis.connection.jedis.JedisConnectionFactory;
 @RequiredArgsConstructor
 public class RedisConnectionConfiguration {
 
-    private final RedisConfig redisConfig;
+    private final RedisProperties redisProperties;
 
     @Bean
     public RedisConnectionFactory redisConnectionFactoryRefreshToken() {
         return createConnectionFactory(0);
     }
 
-    @Bean RedisConnectionFactory redisConnectionFactoryCacheOrderSession() {
+    @Bean
+    public RedisConnectionFactory redisConnectionFactoryCacheOrderSession() {
         return createConnectionFactory(1);
     }
 
 
     private RedisConnectionFactory createConnectionFactory(int numberDatabase) {
-        RedisConfig.DatabaseConfig dbConfig = redisConfig.getDatabases().get(numberDatabase);
+        RedisProperties.DatabaseConfig dbConfig = redisProperties.getDatabases().get(String.valueOf(numberDatabase));
         RedisStandaloneConfiguration redisStandaloneConfiguration = new RedisStandaloneConfiguration(dbConfig.getHost(), dbConfig.getPort());
-        redisStandaloneConfiguration.setPassword(dbConfig.getPassword());
-        redisStandaloneConfiguration.setDatabase(dbConfig.getDatabase());
 
         return new JedisConnectionFactory(redisStandaloneConfiguration);
     }

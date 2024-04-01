@@ -5,6 +5,6 @@ import ru.hse.softwear.cinemaworld.restServer.view.entity.Persona;
 
 import java.util.Optional;
 
-public interface PersonaRepository extends JpaRepository<Persona, Long> {
+public interface PersonaRepository extends JpaRepository<Persona, String> {
     Optional<Persona> findByEmail(String email);
 }

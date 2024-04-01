@@ -4,7 +4,9 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
+import ru.hse.softwear.cinemaworld.authServer.service.AuthService;
 import ru.hse.softwear.cinemaworld.restServer.service.OrderService;
+import ru.hse.softwear.cinemaworld.restServer.service.RedisService;
 import ru.hse.softwear.cinemaworld.restServer.view.dto.ConfirmationPageDTO;
 import ru.hse.softwear.cinemaworld.restServer.view.dto.OrderPageDTO;
 import ru.hse.softwear.cinemaworld.restServer.view.model.OccupiedPlace;
@@ -23,10 +25,20 @@ import java.util.Map;
 public class OrderController {
 
     private final OrderService orderService;
+    private final RedisService redisService;
+    private final AuthService authService;
 
+    // Redirect
     @PostMapping("/create")
     public ResponseEntity<String> getMD5Token() throws NoSuchAlgorithmException {
         return ResponseEntity.ok(orderService.generateMD5Token());
+    }
+
+    // Redirect
+    @PostMapping("/completed/{orderToken}")
+    public void createOrder(@RequestBody List<OccupiedPlace> occupiedPlaces
+                            ) {
+
     }
 
     @GetMapping("/session/{id}/{orderToken}")
@@ -44,7 +56,8 @@ public class OrderController {
         return ResponseEntity.ok(orderPageDTO);
     }
 
-    @GetMapping ResponseEntity<ConfirmationPageDTO> checkoutConfirmation() {
+    @GetMapping("/checkout/{orderToken}")
+    ResponseEntity<ConfirmationPageDTO> checkoutConfirmation(@PathVariable String orderToken) {
         return null;
     }
 }

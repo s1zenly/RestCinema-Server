@@ -14,8 +14,11 @@ import org.springframework.stereotype.Component;
 import org.springframework.util.StringUtils;
 import org.springframework.web.filter.GenericFilterBean;
 import ru.hse.softwear.cinemaworld.authServer.service.JwtProvider;
+import ru.hse.softwear.cinemaworld.authServer.service.PersonaService;
 import ru.hse.softwear.cinemaworld.authServer.util.JwtUtils;
 import ru.hse.softwear.cinemaworld.authServer.view.JwtAuthentication;
+import ru.hse.softwear.cinemaworld.restServer.view.entity.Admin;
+import ru.hse.softwear.cinemaworld.restServer.view.entity.User;
 
 import java.io.IOException;
 
@@ -27,6 +30,7 @@ public class JwtFilter extends GenericFilterBean {
     private static final String AUTHORIZATION = "Authorization";
 
     private final JwtProvider jwtProvider;
+    private final PersonaService personaService;
 
     @Override
     public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain)
@@ -35,7 +39,9 @@ public class JwtFilter extends GenericFilterBean {
         final String token = getTokenFromRequest((HttpServletRequest) servletRequest);
         if(token != null && jwtProvider.validateAccessToken(token)) {
             final Claims claims = jwtProvider.getAccessClaims(token);
-            final JwtAuthentication jwtInfoToken = JwtUtils.generate(claims);
+            final User user = personaService.getUser(claims.getSubject());
+            final Admin admin = personaService.getAdmin(claims.getSubject());
+            final JwtAuthentication jwtInfoToken = JwtUtils.generate(claims, user, admin);
             jwtInfoToken.setAuthenticated(true);
             SecurityContextHolder.getContext().setAuthentication(jwtInfoToken);
         }
@@ -51,4 +57,5 @@ public class JwtFilter extends GenericFilterBean {
 
         return null;
     }
+
 }

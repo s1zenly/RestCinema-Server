@@ -1,8 +1,11 @@
 package ru.hse.softwear.cinemaworld.restServer.service;
 
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.data.redis.connection.RedisConnectionFactory;
 import org.springframework.data.redis.core.RedisTemplate;
+import org.springframework.data.redis.serializer.StringRedisSerializer;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -12,13 +15,10 @@ public class RedisService {
     private final RedisTemplate<Object, Object> redisTemplateCacheOrderSession;
 
     @Autowired
-    public RedisService(RedisConnectionFactory redisConnectionFactoryRefreshToken,
-                        RedisConnectionFactory redisConnectionFactoryCacheOrderSession) {
-        this.redisTemplateRefreshToken = new RedisTemplate<>();
-        this.redisTemplateCacheOrderSession = new RedisTemplate<>();
-
-        this.redisTemplateRefreshToken.setConnectionFactory(redisConnectionFactoryRefreshToken);
-        this.redisTemplateCacheOrderSession.setConnectionFactory(redisConnectionFactoryCacheOrderSession);
+    public RedisService(@Qualifier("redisTemplateRefreshToken") RedisTemplate<String, String> redisTemplateRefreshToken,
+                        @Qualifier("redisTemplateCacheOrderSession") RedisTemplate<Object, Object> redisTemplateCacheOrderSession) {
+        this.redisTemplateRefreshToken = redisTemplateRefreshToken;
+        this.redisTemplateCacheOrderSession = redisTemplateCacheOrderSession;
     }
 
     public void setInRefreshToken(String key, String value) {
@@ -36,6 +36,4 @@ public class RedisService {
     public Object getInCacheOrdersSession(Object key) {
         return redisTemplateCacheOrderSession.opsForValue().get(key);
     }
-
-
 }

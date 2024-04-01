@@ -9,7 +9,6 @@ import ru.hse.softwear.cinemaworld.restServer.view.enums.Role;
 @NoArgsConstructor
 @AllArgsConstructor
 public class PersonaModel {
-    private Long id;
     private String email;
     private String password;
     private Role role;

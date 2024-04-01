@@ -20,10 +20,9 @@ spring:
   data:
     redis:
       databases:
-        - host: localhost
+        0:
+          host: localhost
           port: 6379
-          database: 0
-        - host: localhost
+        1:
+          host: localhost
           port: 6379
-          database: 1
-
