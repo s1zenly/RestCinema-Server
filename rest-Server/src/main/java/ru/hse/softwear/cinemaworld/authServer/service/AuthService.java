@@ -12,6 +12,7 @@ import ru.hse.softwear.cinemaworld.authServer.view.JwtRequest;
 import ru.hse.softwear.cinemaworld.authServer.view.JwtResponse;
 import ru.hse.softwear.cinemaworld.restServer.service.RedisService;
 import ru.hse.softwear.cinemaworld.restServer.view.entity.Persona;
+import ru.hse.softwear.cinemaworld.restServer.view.repository.UserRepository;
 
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
@@ -21,6 +22,7 @@ import javax.annotation.PreDestroy;
 public class AuthService {
 
     private final PersonaService personaService;
+    private final UserRepository userRepository;
     private final RedisService redisService;
     private final JwtProvider jwtProvider;
 
@@ -76,6 +78,16 @@ public class AuthService {
         }
 
         throw new AuthException("Invalid jwt token");
+    }
+
+    public boolean register(String email, String password) {
+        Persona persona = personaService.getByEmail(email).orElse(null);
+
+        if(persona == null) {
+            personaService.saveUser(email, password);
+        }
+
+        return persona == null;
     }
 
     public JwtAuthentication getAuthInfo() {

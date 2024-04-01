@@ -18,5 +18,6 @@ public class Persona {
     private String password;
 
     @Enumerated(value = EnumType.STRING)
-    private Role role;
+
+    private Role role = Role.USER;
 }

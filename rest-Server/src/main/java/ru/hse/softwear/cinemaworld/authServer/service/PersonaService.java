@@ -27,6 +27,20 @@ public class PersonaService {
         return userRepository.findByEmail(email).orElse(null);
     }
 
+    public void saveUser(String email, String password) {
+        Persona persona = new Persona();
+        User user = new User();
+
+        user.setEmail(email);
+        user.setPassword(password);
+
+        persona.setEmail(email);
+        persona.setPassword(password);
+
+        personaRepository.save(persona);
+        userRepository.save(user);
+    }
+
     public Admin getAdmin(@NotNull String email) {
         return adminRepository.findByEmail(email).orElse(null);
     }
