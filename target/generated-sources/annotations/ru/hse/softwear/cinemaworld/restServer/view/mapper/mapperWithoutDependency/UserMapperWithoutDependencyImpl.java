@@ -7,7 +7,7 @@ import ru.hse.softwear.cinemaworld.restServer.view.model.dbmodel.UserModel;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2024-04-01T01:31:58+0300",
+    date = "2024-04-01T18:40:16+0300",
     comments = "version: 1.5.5.Final, compiler: javac, environment: Java 19.0.2 (Amazon.com Inc.)"
 )
 @Component
@@ -24,6 +24,8 @@ public class UserMapperWithoutDependencyImpl implements UserMapperWithoutDepende
         user.setId( userModel.getId() );
         user.setEmail( userModel.getEmail() );
         user.setPassword( userModel.getPassword() );
+        user.setName( userModel.getName() );
+        user.setNumberPhone( userModel.getNumberPhone() );
 
         return user;
     }
@@ -39,6 +41,8 @@ public class UserMapperWithoutDependencyImpl implements UserMapperWithoutDepende
         userModel.setId( user.getId() );
         userModel.setEmail( user.getEmail() );
         userModel.setPassword( user.getPassword() );
+        userModel.setName( user.getName() );
+        userModel.setNumberPhone( user.getNumberPhone() );
 
         return userModel;
     }

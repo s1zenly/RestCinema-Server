@@ -13,6 +13,8 @@ public class UserModel {
     private Long id;
     private String email;
     private String password;
+    private String name;
+    private Long numberPhone;
 
     private List<OrderModel> orders;
 }

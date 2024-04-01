@@ -20,6 +20,9 @@ public class User {
 
     private String email;
     private String password;
+    private String name;
+    @Column(name = "number_phone")
+    private Long numberPhone;
 
 
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER,

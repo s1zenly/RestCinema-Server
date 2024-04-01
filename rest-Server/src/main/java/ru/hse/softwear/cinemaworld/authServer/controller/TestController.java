@@ -8,12 +8,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import ru.hse.softwear.cinemaworld.authServer.service.AuthService;
 import ru.hse.softwear.cinemaworld.authServer.view.JwtAuthentication;
-import ru.hse.softwear.cinemaworld.restServer.view.enums.Role;
 
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/api")
-public class Controller {
+public class TestController {
 
     private final AuthService authService;
 

@@ -26,7 +26,6 @@ import ru.hse.softwear.cinemaworld.authServer.view.JwtAuthentication;
 public class SecurityConfig {
 
     private final JwtFilter jwtFilter;
-    //private final EmailFilter emailFilter;
 
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
@@ -35,6 +34,10 @@ public class SecurityConfig {
                 .csrf(AbstractHttpConfigurer::disable)
                 .sessionManagement(manager -> manager.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests(auth -> auth
+                        .requestMatchers("/auth/refresh").authenticated()
+                        .requestMatchers("/order/**").authenticated()
+                        .requestMatchers("/account/**").authenticated()
+                        .requestMatchers("/api/**").authenticated()
                                                 .anyRequest().permitAll())
                 .addFilterAfter(jwtFilter, UsernamePasswordAuthenticationFilter.class)
                 .build();
