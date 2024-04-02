@@ -4,10 +4,11 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import org.springframework.data.redis.core.RedisHash;
 
+import java.io.Serializable;
+
 @Data
 @AllArgsConstructor
-@RedisHash("OccupiedPlace")
-public class OccupiedPlace {
+public class OccupiedPlace implements Serializable {
     private Integer row;
     private Integer column;
 }

@@ -40,7 +40,7 @@ public class Cinema {
     @Column(name = "image")
     private String image;
 
-    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JoinTable(
             name = "films_cinemas",
             joinColumns = @JoinColumn(name = "films_id"),

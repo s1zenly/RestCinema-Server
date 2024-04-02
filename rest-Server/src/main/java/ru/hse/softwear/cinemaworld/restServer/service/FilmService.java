@@ -14,8 +14,12 @@ import ru.hse.softwear.cinemaworld.restServer.view.model.dbmodel.FilmModel;
 import ru.hse.softwear.cinemaworld.restServer.view.model.dbmodel.SessionModel;
 import ru.hse.softwear.cinemaworld.restServer.view.repository.CinemaRepository;
 import ru.hse.softwear.cinemaworld.restServer.view.repository.FilmRepository;
+import ru.hse.softwear.cinemaworld.restServer.view.repository.SessionRepository;
 
 import javax.persistence.EntityNotFoundException;
+import javax.transaction.Transactional;
+import java.time.ZoneId;
+import java.time.format.DateTimeFormatter;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -25,27 +29,29 @@ import java.util.stream.Collectors;
 public class FilmService {
 
     private final FilmRepository filmRepository;
+    private final SessionRepository sessionRepository;
 
     public AbstractMap.SimpleEntry<FilmModel, Map<CinemaModel, List<SessionModel>>> getFilm(Long id, Date date) {
-        Film film = filmRepository.findById(id)
-                .orElseThrow(() -> new EntityNotFoundException("Film not found with id: " + id));
+        FilmModel film = FilmMapper.INSTANCE.toModel(filmRepository.findById(id)
+                .orElseThrow(() -> new EntityNotFoundException("Film not found with id: " + id)));
 
-        List<Session> sessions = film.getSessions().stream()
-                .filter(session -> session.getDate().equals(date))
+        List<SessionModel> sessions = film.getSessions().stream()
+                .filter(session -> session.getDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate().equals(date.toInstant().atZone(ZoneId.systemDefault()).toLocalDate()))
                 .toList();
 
-        Map<Cinema, List<Session>> cinemasWithSessions = sessions.stream()
-                .collect(Collectors.groupingBy(Session::getCinema));
+        List<SessionModel> sessionList = sessions.stream()
+                .map(sessionModel -> {
+                    return sessionRepository.findById(sessionModel.getId())
+                            .map(SessionMapper.INSTANCE::toModel)
+                            .orElse(null);
+                })
+                .toList();
 
-        Map<CinemaModel, List<SessionModel>> cinemasWithSessionsModel = cinemasWithSessions.entrySet().stream()
-                .collect(Collectors.toMap(
-                        entry -> CinemaMapper.INSTANCE.toModel(entry.getKey()),
-                        entry -> entry.getValue().stream()
-                                .map(SessionMapper.INSTANCE::toModel)
-                                .collect(Collectors.toList())
-                ));
+        Map<CinemaModel, List<SessionModel>> cinemasWithSessions = sessionList.stream()
+                .collect(Collectors.groupingBy(SessionModel::getCinema));
 
-        return new AbstractMap.SimpleEntry<>(FilmMapper.INSTANCE.toModel(film), cinemasWithSessionsModel);
+
+        return new AbstractMap.SimpleEntry<>(film, cinemasWithSessions);
     }
 
     public String getTrailer(Long id) {

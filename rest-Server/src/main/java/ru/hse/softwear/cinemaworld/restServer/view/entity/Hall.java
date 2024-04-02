@@ -33,7 +33,7 @@ public class Hall {
 
 
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "cinema_name")
     private Cinema cinema;
 

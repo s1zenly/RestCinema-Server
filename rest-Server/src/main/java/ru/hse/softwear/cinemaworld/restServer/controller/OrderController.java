@@ -11,6 +11,7 @@ import ru.hse.softwear.cinemaworld.restServer.service.OrderService;
 import ru.hse.softwear.cinemaworld.restServer.service.RedisService;
 import ru.hse.softwear.cinemaworld.restServer.view.dto.OrderPageDTO;
 import ru.hse.softwear.cinemaworld.restServer.view.model.OccupiedPlace;
+import ru.hse.softwear.cinemaworld.restServer.view.model.SessionIdModel;
 import ru.hse.softwear.cinemaworld.restServer.view.model.dbmodel.SessionModel;
 
 import java.util.ArrayList;
@@ -26,24 +27,13 @@ public class OrderController {
     private final RedisService redisService;
     private final AuthService authService;
 
-    @PostMapping("")
-    public void test() {
-
-        List<OccupiedPlace> list = new ArrayList<>();
-        list.add(new OccupiedPlace(1,2));
-        list.add(new OccupiedPlace(4,5));
-
-        redisService.setInRefreshToken("1", "1");
-        redisService.setInCacheOrdersSession("2", list);
-    }
-
 
     // Redirect
     @PostMapping("/create")
-    public ResponseEntity<String> getOrderToken(@RequestBody Long sessionId) throws Exception {
+    public ResponseEntity<String> getOrderToken(@RequestBody SessionIdModel sessionId) throws Exception {
         final JwtAuthentication jwtInfoToken = authService.getAuthInfo();
 
-        return ResponseEntity.ok(orderService.getOrderToken((Long) jwtInfoToken.getPrincipal(), sessionId));
+        return ResponseEntity.ok(orderService.getOrderToken((Long) jwtInfoToken.getPrincipal(), sessionId.getSessionId()));
     }
 
     // Redirect

@@ -12,6 +12,7 @@ import ru.hse.softwear.cinemaworld.restServer.view.repository.SessionRepository;
 import ru.hse.softwear.cinemaworld.restServer.view.repository.TicketRepository;
 import ru.hse.softwear.cinemaworld.restServer.view.repository.UserRepository;
 
+import javax.transaction.Transactional;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -24,6 +25,7 @@ public class OrderService {
     private final SessionRepository sessionRepository;
     private final UserRepository userRepository;
     private final TicketRepository ticketRepository;
+
 
     public SessionModel getDataSession(Long id) {
         Session session = sessionRepository.findById(id)
@@ -45,6 +47,7 @@ public class OrderService {
 
     public void saveCompletedOrder(Long userId, Long sessionId, List<OccupiedPlace> occupiedPlaces, String orderToken) {
         Order order = new Order();
+        order.setTickets(new ArrayList<>());
         List<Ticket> tickets = occupiedPlaces.stream()
                 .map(occupiedPlace -> {
                     Ticket ticket = new Ticket();

@@ -22,7 +22,6 @@ import javax.annotation.PreDestroy;
 public class AuthService {
 
     private final PersonaService personaService;
-    private final UserRepository userRepository;
     private final RedisService redisService;
     private final JwtProvider jwtProvider;
 

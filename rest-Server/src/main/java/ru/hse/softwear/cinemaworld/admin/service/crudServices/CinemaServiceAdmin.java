@@ -40,8 +40,6 @@ public class CinemaServiceAdmin implements CRUDservice<CinemaModel, Long> {
 
         // Mutable data
         cinema.setInfo(Optional.ofNullable(cinemaDTO.getInfo()).orElse(cinema.getInfo()));
-        cinema.setLatitude(Optional.ofNullable(cinemaDTO.getLatitude()).orElse(cinema.getLatitude()));
-        cinema.setLongitude(Optional.ofNullable(cinemaDTO.getLongitude()).orElse(cinema.getLongitude()));
         cinema.setNumberPhone(Optional.ofNullable(cinemaDTO.getNumberPhone()).orElse(cinema.getNumberPhone()));
         cinema.setImage(Optional.ofNullable(cinemaDTO.getImage()).orElse(cinema.getImage()));
 

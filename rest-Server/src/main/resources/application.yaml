@@ -7,6 +7,8 @@ spring:
     password: 675347198FAKR
     url: jdbc:postgresql://localhost:5432/cinema
     driver-class-name: org.postgresql.Driver
+    hikari:
+      auto-commit: false
   jpa:
     hibernate:
       ddl-auto: update

@@ -85,6 +85,7 @@ public class SessionService implements CRUDservice<SessionModel, Long> {
         session.setHall(null);
         session.setTickets(null);
 
+        sessionRepository.save(session);
         sessionRepository.deleteById(id);
     }
 

@@ -1,6 +1,7 @@
 package ru.hse.softwear.cinemaworld.restServer.controller;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import ru.hse.softwear.cinemaworld.restServer.service.FilmService;
@@ -23,7 +24,7 @@ public class FilmPageController {
 
     @GetMapping
     public ResponseEntity<FilmPageDTO> getFilmPage(@PathVariable Long id,
-                                               @RequestParam Date date,
+                                               @RequestParam @DateTimeFormat(pattern = "yyyy-MM-dd") Date date,
                                                @RequestBody CoordinateModel coordinate) {
 
         FilmPageDTO filmPageDTO = new FilmPageDTO();
@@ -36,8 +37,13 @@ public class FilmPageController {
         if(!cinemaWithSession.isEmpty()) {
             Map<CinemaModel, List<SessionModel>> recommendedCinemas =
                     recommendationService.recommendationCinemas(cinemaWithSession, coordinate);
-            filmPageDTO.setCinemasWithSession(recommendedCinemas);
+            List<Map.Entry<CinemaModel, List<SessionModel>>> cinemasWithSessionList =
+                    new ArrayList<>(recommendedCinemas.entrySet());
+
+            filmPageDTO.setCinemasWithSession(cinemasWithSessionList);
         }
+
+        filmPageDTO.setFilm(infoAboutFilm.getKey());
 
         return ResponseEntity.ok(filmPageDTO);
     }

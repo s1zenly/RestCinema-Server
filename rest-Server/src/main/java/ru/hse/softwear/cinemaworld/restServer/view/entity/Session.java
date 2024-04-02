@@ -45,7 +45,7 @@ public class Session {
     @JoinColumn(name = "film_name")
     private Film film;
 
-    @OneToMany(cascade = CascadeType.ALL,
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY,
     mappedBy = "session")
     private List<Ticket> tickets;
 }

@@ -58,10 +58,10 @@ public class Film {
     @Column(name = "image")
     private String image;
 
-    @ManyToMany(mappedBy = "films")
+    @ManyToMany(mappedBy = "films", fetch = FetchType.LAZY)
     private List<Cinema> cinemas = new ArrayList<>();
 
-    @OneToMany(cascade = CascadeType.ALL,
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER,
     mappedBy = "film")
     private List<Session> sessions = new ArrayList<>();
 }

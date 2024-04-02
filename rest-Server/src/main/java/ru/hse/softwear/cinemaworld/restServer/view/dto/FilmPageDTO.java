@@ -11,5 +11,5 @@ import java.util.Map;
 @Data
 public class FilmPageDTO {
     private FilmModel film;
-    private Map<CinemaModel, List<SessionModel>> cinemasWithSession;
+    private List<Map.Entry<CinemaModel, List<SessionModel>>> cinemasWithSession;
 }
