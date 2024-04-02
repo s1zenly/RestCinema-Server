@@ -1,7 +1,9 @@
 package ru.hse.softwear.cinemaworld.restServer.view.model.dbmodel;
 
 import lombok.*;
+import net.bytebuddy.asm.Advice;
 
+import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.List;
 
@@ -11,6 +13,7 @@ import java.util.List;
 public class SessionModel {
     private Long id;
     private Date date;
+    private LocalDateTime time;
     private Integer price;
 
     private HallModel hall;

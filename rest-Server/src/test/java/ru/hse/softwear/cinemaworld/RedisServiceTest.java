@@ -10,6 +10,10 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.junit.jupiter.api.Test;
 import org.springframework.web.client.RestTemplate;
 import ru.hse.softwear.cinemaworld.restServer.service.RedisService;
+import ru.hse.softwear.cinemaworld.restServer.view.model.OccupiedPlace;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import static org.mockito.Mockito.*;
 
@@ -20,15 +24,15 @@ public class RedisServiceTest {
     @Autowired
     private RedisService redisService;
 
-    @MockBean
-    private RestTemplate restTemplateRefreshToken;
+    /*@MockBean
+    private RestTemplate restTemplateRefreshToken;*/
 
     @MockBean
     private RestTemplate restTemplateCacheOrderSession;
 
     @BeforeEach
     public void setUp() {
-        Mockito.reset(restTemplateRefreshToken, restTemplateCacheOrderSession);
+        Mockito.reset(restTemplateCacheOrderSession);
     }
 
     @Test
@@ -43,7 +47,7 @@ public class RedisServiceTest {
     @Test
     public void testSetInCacheOrderSession() {
         String key = "Object";
-        String value = "Object";
+        List<OccupiedPlace> value = new ArrayList<>();
 
 
         redisService.setInCacheOrdersSession(key, value);

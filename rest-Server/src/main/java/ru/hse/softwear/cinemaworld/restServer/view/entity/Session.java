@@ -7,6 +7,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.List;
 
@@ -25,8 +26,12 @@ public class Session {
     @Column(name = "date")
     private Date date;
 
+    @Column
+    private LocalDateTime time;
+
     @Column(name = "price")
     private Integer price;
+
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "cinema_name")
@@ -40,7 +45,7 @@ public class Session {
     @JoinColumn(name = "film_name")
     private Film film;
 
-    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true,
+    @OneToMany(cascade = CascadeType.ALL,
     mappedBy = "session")
     private List<Ticket> tickets;
 }

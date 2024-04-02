@@ -16,7 +16,6 @@ public class CinemaModel {
     private String name;
     private Double latitude;
     private Double longitude;
-    private Double rating;
     private String info;
     private Long numberPhone;
     private String image;

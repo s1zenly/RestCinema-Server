@@ -16,7 +16,7 @@ import ru.hse.softwear.cinemaworld.restServer.view.model.dbmodel.TicketModel;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2024-04-01T18:40:16+0300",
+    date = "2024-04-02T03:46:38+0300",
     comments = "version: 1.5.5.Final, compiler: javac, environment: Java 19.0.2 (Amazon.com Inc.)"
 )
 @Component
@@ -45,6 +45,7 @@ public class SessionMapperImpl implements SessionMapper {
         session.setTickets( ticketModelListToTicketList( sessionModel.getTickets() ) );
         session.setId( sessionModel.getId() );
         session.setDate( sessionModel.getDate() );
+        session.setTime( sessionModel.getTime() );
         session.setPrice( sessionModel.getPrice() );
 
         return session;
@@ -64,6 +65,7 @@ public class SessionMapperImpl implements SessionMapper {
         sessionModel.setTickets( ticketListToTicketModelList( session.getTickets() ) );
         sessionModel.setId( session.getId() );
         sessionModel.setDate( session.getDate() );
+        sessionModel.setTime( session.getTime() );
         sessionModel.setPrice( session.getPrice() );
 
         return sessionModel;

@@ -27,7 +27,7 @@ public class Order {
     @JoinColumn(name = "user_id")
     private User user;
 
-    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval = true,
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER,
     mappedBy = "order")
     private List<Ticket> tickets;
 }

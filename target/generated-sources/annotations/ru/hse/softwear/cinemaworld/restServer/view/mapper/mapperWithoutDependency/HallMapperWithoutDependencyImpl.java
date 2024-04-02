@@ -7,7 +7,7 @@ import ru.hse.softwear.cinemaworld.restServer.view.model.dbmodel.HallModel;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2024-04-01T18:40:16+0300",
+    date = "2024-04-02T03:46:39+0300",
     comments = "version: 1.5.5.Final, compiler: javac, environment: Java 19.0.2 (Amazon.com Inc.)"
 )
 @Component

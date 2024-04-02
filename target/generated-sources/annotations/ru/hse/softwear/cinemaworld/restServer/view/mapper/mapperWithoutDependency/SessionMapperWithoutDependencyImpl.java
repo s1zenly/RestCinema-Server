@@ -7,7 +7,7 @@ import ru.hse.softwear.cinemaworld.restServer.view.model.dbmodel.SessionModel;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2024-04-01T18:40:16+0300",
+    date = "2024-04-02T03:46:39+0300",
     comments = "version: 1.5.5.Final, compiler: javac, environment: Java 19.0.2 (Amazon.com Inc.)"
 )
 @Component
@@ -23,6 +23,7 @@ public class SessionMapperWithoutDependencyImpl implements SessionMapperWithoutD
 
         session.setId( sessionModel.getId() );
         session.setDate( sessionModel.getDate() );
+        session.setTime( sessionModel.getTime() );
         session.setPrice( sessionModel.getPrice() );
 
         return session;
@@ -38,6 +39,7 @@ public class SessionMapperWithoutDependencyImpl implements SessionMapperWithoutD
 
         sessionModel.setId( session.getId() );
         sessionModel.setDate( session.getDate() );
+        sessionModel.setTime( session.getTime() );
         sessionModel.setPrice( session.getPrice() );
 
         return sessionModel;

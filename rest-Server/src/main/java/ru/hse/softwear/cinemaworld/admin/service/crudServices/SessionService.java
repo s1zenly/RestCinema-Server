@@ -67,6 +67,7 @@ public class SessionService implements CRUDservice<SessionModel, Long> {
 
         // Mutable data
         session.setDate(Optional.ofNullable(sessionModel.getDate()).orElse(session.getDate()));
+        session.setTime(Optional.ofNullable(sessionModel.getTime()).orElse(session.getTime()));
         session.setPrice(Optional.ofNullable(sessionModel.getPrice()).orElse(session.getPrice()));
 
         sessionRepository.save(session);

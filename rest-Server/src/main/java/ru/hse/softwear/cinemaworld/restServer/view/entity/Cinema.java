@@ -31,9 +31,6 @@ public class Cinema {
     @Column(name = "longitude")
     private Double longitude;
 
-    @Column(name = "rating")
-    private Double rating;
-
     @Column(name = "info")
     private String info;
 

@@ -5,18 +5,16 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import ru.hse.softwear.cinemaworld.authServer.service.AuthService;
+import ru.hse.softwear.cinemaworld.authServer.view.JwtAuthentication;
+import ru.hse.softwear.cinemaworld.restServer.cypher.OrderTokenCypher;
 import ru.hse.softwear.cinemaworld.restServer.service.OrderService;
 import ru.hse.softwear.cinemaworld.restServer.service.RedisService;
-import ru.hse.softwear.cinemaworld.restServer.view.dto.ConfirmationPageDTO;
 import ru.hse.softwear.cinemaworld.restServer.view.dto.OrderPageDTO;
 import ru.hse.softwear.cinemaworld.restServer.view.model.OccupiedPlace;
-import ru.hse.softwear.cinemaworld.restServer.view.model.dbmodel.CinemaModel;
-import ru.hse.softwear.cinemaworld.restServer.view.model.dbmodel.FilmModel;
 import ru.hse.softwear.cinemaworld.restServer.view.model.dbmodel.SessionModel;
 
-import java.security.NoSuchAlgorithmException;
+import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 @RestController
 @RequiredArgsConstructor
@@ -28,27 +26,57 @@ public class OrderController {
     private final RedisService redisService;
     private final AuthService authService;
 
+    @PostMapping("")
+    public void test() {
+
+        List<OccupiedPlace> list = new ArrayList<>();
+        list.add(new OccupiedPlace(1,2));
+        list.add(new OccupiedPlace(4,5));
+
+        redisService.setInRefreshToken("1", "1");
+        redisService.setInCacheOrdersSession("2", list);
+    }
     // Redirect
     @PostMapping("/create")
-    public ResponseEntity<String> getMD5Token() throws NoSuchAlgorithmException {
-        return ResponseEntity.ok(orderService.generateMD5Token());
+    public ResponseEntity<String> getOrderToken(@RequestBody Long sessionId) throws Exception {
+        final JwtAuthentication jwtInfoToken = authService.getAuthInfo();
+
+        return ResponseEntity.ok(orderService.getOrderToken((Long) jwtInfoToken.getPrincipal(), sessionId));
+    }
+
+    // Redirect
+    @PostMapping("/checkout/{orderToken}")
+    public void bookSeats(@PathVariable String orderToken,
+                          @RequestBody List<OccupiedPlace> occupiedPlaces) {
+        redisService.setInCacheOrdersSession(orderToken, occupiedPlaces);
     }
 
     // Redirect
     @PostMapping("/completed/{orderToken}")
-    public void createOrder(@RequestBody List<OccupiedPlace> occupiedPlaces
-                            ) {
+    public void createOrder(@PathVariable String orderToken,
+                            @RequestBody List<OccupiedPlace> occupiedPlaces) throws Exception{
 
+        final JwtAuthentication jwtInfoToken = authService.getAuthInfo();
+        Long sessionId = (Long) OrderTokenCypher.decoder(orderToken).get("sessionId");
+
+        redisService.deleteInCacheOrderSession(orderToken);
+        orderService.saveCompletedOrder((Long) jwtInfoToken.getPrincipal(), sessionId, occupiedPlaces, orderToken);
     }
 
     @GetMapping("/session/{id}/{orderToken}")
     public ResponseEntity<OrderPageDTO> getOrderPage(@PathVariable Long id,
-                                                     @PathVariable String orderToken) {
+                                                     @PathVariable String orderToken) throws Exception {
 
         OrderPageDTO orderPageDTO = new OrderPageDTO();
 
         SessionModel infoAboutSession = orderService.getDataSession(id);
-        List<OccupiedPlace> occupiedPlaces = orderService.getOccupiedPlace(id);
+        List<OccupiedPlace> occupiedPlaces = new ArrayList<>();
+        List<OccupiedPlace> occupiedPlacesSecured = orderService.getOccupiedPlace(id);
+        List<OccupiedPlace> occupiedPlacesTemporally =
+                orderService.getTemporallyOccupiedPlace((Long) OrderTokenCypher.decoder(orderToken).get("sessionId"));
+
+        occupiedPlaces.addAll(occupiedPlacesSecured);
+        occupiedPlaces.addAll(occupiedPlacesTemporally);
 
         orderPageDTO.setSessionModel(infoAboutSession);
         orderPageDTO.setOccupiedPlaces(occupiedPlaces);
@@ -57,7 +85,16 @@ public class OrderController {
     }
 
     @GetMapping("/checkout/{orderToken}")
-    ResponseEntity<ConfirmationPageDTO> checkoutConfirmation(@PathVariable String orderToken) {
-        return null;
+    ResponseEntity<OrderPageDTO> checkoutConfirmation(@PathVariable String orderToken) throws Exception {
+        OrderPageDTO orderPageDTO = new OrderPageDTO();
+
+        Long id = (Long) OrderTokenCypher.decoder(orderToken).get("sessionId");
+        SessionModel infoAboutSession = orderService.getDataSession(id);
+        List<OccupiedPlace> occupiedPlaces = redisService.getInCacheOrdersSession(orderToken);
+
+        orderPageDTO.setSessionModel(infoAboutSession);
+        orderPageDTO.setOccupiedPlaces(occupiedPlaces);
+
+        return ResponseEntity.ok(orderPageDTO);
     }
 }
