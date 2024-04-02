@@ -16,7 +16,7 @@ import java.util.*;
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/film/{id}")
-public class FilmController {
+public class FilmPageController {
 
     private final FilmService filmService;
     private final RecommendationService recommendationService;

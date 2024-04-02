@@ -13,7 +13,7 @@ import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
-public class CinemaService implements CRUDservice<CinemaModel, Long> {
+public class CinemaServiceAdmin implements CRUDservice<CinemaModel, Long> {
 
     private final CinemaRepository cinemaRepository;
 

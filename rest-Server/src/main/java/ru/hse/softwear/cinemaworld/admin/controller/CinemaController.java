@@ -5,7 +5,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
-import ru.hse.softwear.cinemaworld.admin.service.crudServices.CinemaService;
+import ru.hse.softwear.cinemaworld.admin.service.crudServices.CinemaServiceAdmin;
 import ru.hse.softwear.cinemaworld.authServer.service.AuthService;
 import ru.hse.softwear.cinemaworld.authServer.view.JwtAuthentication;
 import ru.hse.softwear.cinemaworld.restServer.view.model.dbmodel.CinemaModel;
@@ -15,14 +15,14 @@ import ru.hse.softwear.cinemaworld.restServer.view.model.dbmodel.CinemaModel;
 @RequestMapping("/admin")
 public class CinemaController {
 
-    private final CinemaService cinemaService;
+    private final CinemaServiceAdmin cinemaServiceAdmin;
     private final AuthService authService;
 
     // Programmer method
     @PreAuthorize("hasAuthority('PROGRAMMER')")
     @PostMapping("/cinema")
     public void addCinema(@RequestBody CinemaModel cinemaDTO) {
-        cinemaService.create(cinemaDTO);
+        cinemaServiceAdmin.create(cinemaDTO);
     }
 
     @PreAuthorize("hasAuthority('ADMIN')")
@@ -31,7 +31,7 @@ public class CinemaController {
         final JwtAuthentication jwtInfo = authService.getAuthInfo();
         Long cinemaId = (Long) jwtInfo.getPrincipal();
 
-        cinemaService.update(cinemaId, cinemaDTO);
+        cinemaServiceAdmin.update(cinemaId, cinemaDTO);
     }
 
     @PreAuthorize("hasAuthority('ADMIN')")
@@ -40,7 +40,7 @@ public class CinemaController {
         final JwtAuthentication jwtInfo = authService.getAuthInfo();
         Long cinemaId = (Long) jwtInfo.getPrincipal();
 
-        CinemaModel cinemaDTO = cinemaService.read(cinemaId);
+        CinemaModel cinemaDTO = cinemaServiceAdmin.read(cinemaId);
         return cinemaDTO == null
                 ? ResponseEntity.notFound().build()
                 : ResponseEntity.ok(cinemaDTO);
@@ -52,7 +52,7 @@ public class CinemaController {
         final JwtAuthentication jwtInfo = authService.getAuthInfo();
         Long cinemaId = (Long) jwtInfo.getPrincipal();
 
-        cinemaService.delete(cinemaId);
+        cinemaServiceAdmin.delete(cinemaId);
     }
 
 }

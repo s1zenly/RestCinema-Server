@@ -37,7 +37,7 @@ public class SecurityConfig {
                         .requestMatchers("/auth/refresh").authenticated()
                         .requestMatchers("/order/**").authenticated()
                         .requestMatchers("/account/**").authenticated()
-                        .requestMatchers("/api/**").authenticated()
+                        .requestMatchers("/admin/**").authenticated()
                                                 .anyRequest().permitAll())
                 .addFilterAfter(jwtFilter, UsernamePasswordAuthenticationFilter.class)
                 .build();

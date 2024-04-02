@@ -36,6 +36,8 @@ public class OrderController {
         redisService.setInRefreshToken("1", "1");
         redisService.setInCacheOrdersSession("2", list);
     }
+
+
     // Redirect
     @PostMapping("/create")
     public ResponseEntity<String> getOrderToken(@RequestBody Long sessionId) throws Exception {

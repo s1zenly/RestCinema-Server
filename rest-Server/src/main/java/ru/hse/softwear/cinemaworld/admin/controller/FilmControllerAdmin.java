@@ -4,7 +4,6 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
-import ru.hse.softwear.cinemaworld.admin.service.crudServices.CinemaService;
 import ru.hse.softwear.cinemaworld.admin.service.crudServices.FilmServiceAdmin;
 import ru.hse.softwear.cinemaworld.authServer.service.AuthService;
 import ru.hse.softwear.cinemaworld.authServer.view.JwtAuthentication;
