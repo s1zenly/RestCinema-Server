@@ -1,6 +1,6 @@
 package ru.hse.softwear.cinemaworld.authServer.service;
 
-import com.sun.istack.NotNull;
+import jakarta.validation.constraints.NotNull;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import ru.hse.softwear.cinemaworld.userServer.view.entity.Admin;

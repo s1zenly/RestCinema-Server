@@ -16,12 +16,13 @@ import java.util.Optional;
 public class CinemaServiceAdmin implements CRUDservice<CinemaModel, Long> {
 
     private final CinemaRepository cinemaRepository;
+    private final CinemaMapper cinemaMapper;
 
     @Override
     public void create(Object... objects) {
         CinemaModel cinemaDTO = (CinemaModel) objects[0];
 
-        Cinema cinema = CinemaMapper.INSTANCE.toEntity(cinemaDTO);
+        Cinema cinema = cinemaMapper.toEntity(cinemaDTO);
         cinemaRepository.save(cinema);
     }
 
@@ -30,7 +31,7 @@ public class CinemaServiceAdmin implements CRUDservice<CinemaModel, Long> {
         Cinema cinema =  cinemaRepository.findById(id)
                 .orElseThrow(() -> new NoSuchElementException("Cinema not found with name: " + id));
 
-        return CinemaMapper.INSTANCE.toModel(cinema);
+        return cinemaMapper.toModel(cinema);
     }
 
     @Override

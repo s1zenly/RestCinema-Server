@@ -11,9 +11,11 @@ services:
       - db
       - cache
     environment:
-      - DATABASE_URL=postgres://postgres@db:5432/cinema
-      - REDIS_URL_SCHEMA0=redis://cache:6379/0
-      - REDIS_URL_SCHEMA1=redis://cache:6379/1
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://db:5432/cinema
+      - SPRING_DATA_REDIS_DATABASES_0_HOST=cache
+      - SPRING_DATA_REDIS_DATABASES_0_PORT=6379
+      - SPRING_DATA_REDIS_DATABASES_1_HOST=cache
+      - SPRING_DATA_REDIS_DATABASES_1_PORT=6379
 
   db:
     image: postgres:16

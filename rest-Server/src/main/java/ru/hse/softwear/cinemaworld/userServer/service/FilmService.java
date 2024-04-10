@@ -1,5 +1,13 @@
 package ru.hse.softwear.cinemaworld.userServer.service;
 
+import jakarta.persistence.EntityNotFoundException;
+import java.time.ZoneId;
+import java.util.AbstractMap;
+import java.util.Date;
+import java.util.List;
+import java.util.Map;
+import java.util.NoSuchElementException;
+import java.util.stream.Collectors;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -12,11 +20,6 @@ import ru.hse.softwear.cinemaworld.userServer.view.model.dbmodel.FilmModel;
 import ru.hse.softwear.cinemaworld.userServer.view.model.dbmodel.SessionModel;
 import ru.hse.softwear.cinemaworld.userServer.view.repository.FilmRepository;
 import ru.hse.softwear.cinemaworld.userServer.view.repository.SessionRepository;
-
-import javax.persistence.EntityNotFoundException;
-import java.time.ZoneId;
-import java.util.*;
-import java.util.stream.Collectors;
 
 @Slf4j
 @Service

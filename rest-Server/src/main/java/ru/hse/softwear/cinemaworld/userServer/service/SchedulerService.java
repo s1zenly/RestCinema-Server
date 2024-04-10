@@ -1,11 +1,11 @@
 package ru.hse.softwear.cinemaworld.userServer.service;
 
+import jakarta.annotation.PreDestroy;
 import org.springframework.boot.context.event.ApplicationReadyEvent;
 import org.springframework.context.ApplicationListener;
 import org.springframework.stereotype.Service;
 import ru.hse.softwear.cinemaworld.userServer.service.scheduler.ClearSessionTokenScheduler;
 
-import javax.annotation.PreDestroy;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;

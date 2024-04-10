@@ -16,12 +16,13 @@ import java.util.stream.Collectors;
 public class CinemaService {
 
     private final CinemaRepository cinemaRepository;
+    private final CinemaMapper cinemaMapper;
 
     public List<CinemaModel> getAllCinemas() {
         List<Cinema> cinemas = cinemaRepository.findAll();
 
         return cinemas.stream()
-                .map(CinemaMapper.INSTANCE::toModel)
+                .map(cinemaMapper::toModel)
                 .collect(Collectors.toList());
     }
 
@@ -29,6 +30,6 @@ public class CinemaService {
         Cinema cinema = cinemaRepository.findById(id)
                 .orElseThrow(() -> new NoSuchElementException("Cinema not found with id: " + id));
 
-        return CinemaMapper.INSTANCE.toModel(cinema);
+        return cinemaMapper.toModel(cinema);
     }
 }

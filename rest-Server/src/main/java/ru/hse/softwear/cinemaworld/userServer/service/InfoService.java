@@ -21,17 +21,19 @@ public class InfoService {
 
     private final CinemaRepository cinemaRepository;
     private final FilmRepository filmRepository;
+    private final FilmMapper filmMapper;
+    private final CinemaMapper cinemaMapper;
 
     // Main page
     public List<FilmModel> getAllFilm() {
         return filmRepository.findAll().stream()
-                .map(FilmMapper.INSTANCE::toModel)
+                .map(filmMapper::toModel)
                 .collect(Collectors.toList());
     }
 
     public List<CinemaModel> getAllCinema() {
         return cinemaRepository.findAll().stream()
-                .map(CinemaMapper.INSTANCE::toModel)
+                .map(cinemaMapper::toModel)
                 .collect(Collectors.toList());
     }
 
@@ -39,7 +41,7 @@ public class InfoService {
     public List<FilmModel> getCurrentFilm() {
         return filmRepository.findAll().stream()
                 .filter(Film::getCurrent)
-                .map(FilmMapper.INSTANCE::toModel)
+                .map(filmMapper::toModel)
                 .collect(Collectors.toList());
     }
 
@@ -47,7 +49,7 @@ public class InfoService {
     public List<FilmModel> getSoonFilms() {
         return filmRepository.findAll().stream()
                 .filter(film -> !film.getCurrent())
-                .map(FilmMapper.INSTANCE::toModel)
+                .map(filmMapper::toModel)
                 .collect(Collectors.toList());
     }
 }

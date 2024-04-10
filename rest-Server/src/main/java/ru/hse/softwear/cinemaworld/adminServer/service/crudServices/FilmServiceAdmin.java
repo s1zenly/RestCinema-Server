@@ -23,6 +23,7 @@ public class FilmServiceAdmin implements CRUDservice<FilmModel, Long> {
 
     private final FilmRepository filmRepository;
     private final CinemaRepository cinemaRepository;
+    private final FilmMapper filmMapper;
 
     @Override
     public void create(Object... objects) {
@@ -32,7 +33,7 @@ public class FilmServiceAdmin implements CRUDservice<FilmModel, Long> {
         Cinema cinema = cinemaRepository.findById(cinemaId)
                 .orElseThrow(() -> new NoSuchElementException("Cinema not found with name: " + cinemaId));
 
-        Film film = FilmMapper.INSTANCE.toEntity(filmDTO);
+        Film film = filmMapper.toEntity(filmDTO);
 
         film.getCinemas().add(cinema);
         filmRepository.save(film);
@@ -46,7 +47,7 @@ public class FilmServiceAdmin implements CRUDservice<FilmModel, Long> {
         Film film = filmRepository.findById(id)
                 .orElseThrow(() -> new NoSuchElementException("Film not found with name: " + id));
 
-        return FilmMapper.INSTANCE.toModel(film);
+        return filmMapper.toModel(film);
     }
 
     @Override
@@ -92,7 +93,7 @@ public class FilmServiceAdmin implements CRUDservice<FilmModel, Long> {
         return filmRepository.findAll().stream()
                 .filter(film -> film.getCinemas().stream()
                         .anyMatch(cinema -> cinema.getId().equals(cinemaId)))
-                .map(FilmMapper.INSTANCE::toModel)
+                .map(filmMapper::toModel)
                 .collect(Collectors.toList());
     }
 

@@ -1,8 +1,8 @@
 package ru.hse.softwear.cinemaworld.authServer.service;
 
-import com.sun.istack.NotNull;
 import io.jsonwebtoken.Claims;
 import jakarta.security.auth.message.AuthException;
+import jakarta.validation.constraints.NotNull;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;

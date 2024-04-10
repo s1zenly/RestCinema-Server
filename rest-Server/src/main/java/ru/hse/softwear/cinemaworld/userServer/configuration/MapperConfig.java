@@ -9,7 +9,7 @@ public class MapperConfig {
 
     @Bean
     public CinemaMapper cinemaMapper() {
-        return CinemaMapper.INSTANCE;
+                return CinemaMapper.INSTANCE;
     }
     @Bean
     public FilmMapper filmMapper() { return FilmMapper.INSTANCE; }
@@ -24,5 +24,3 @@ public class MapperConfig {
     @Bean
     public UserMapper userMapper() { return UserMapper.INSTANCE; }
 }
-
-

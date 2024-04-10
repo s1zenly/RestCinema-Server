@@ -1,22 +1,24 @@
 package ru.hse.softwear.cinemaworld.userServer.service;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.NoSuchElementException;
+import java.util.Set;
+import java.util.stream.Collectors;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import ru.hse.softwear.cinemaworld.userServer.cypher.OrderTokenCypher;
-import ru.hse.softwear.cinemaworld.userServer.view.entity.*;
+import ru.hse.softwear.cinemaworld.userServer.view.entity.Order;
+import ru.hse.softwear.cinemaworld.userServer.view.entity.Session;
+import ru.hse.softwear.cinemaworld.userServer.view.entity.Ticket;
+import ru.hse.softwear.cinemaworld.userServer.view.entity.User;
 import ru.hse.softwear.cinemaworld.userServer.view.mapper.mapperWithDependency.SessionMapper;
-import ru.hse.softwear.cinemaworld.userServer.view.mapper.mapperWithDependency.TicketMapper;
 import ru.hse.softwear.cinemaworld.userServer.view.model.OccupiedPlace;
 import ru.hse.softwear.cinemaworld.userServer.view.model.dbmodel.SessionModel;
-import ru.hse.softwear.cinemaworld.userServer.view.model.dbmodel.TicketModel;
 import ru.hse.softwear.cinemaworld.userServer.view.repository.OrderRepository;
 import ru.hse.softwear.cinemaworld.userServer.view.repository.SessionRepository;
 import ru.hse.softwear.cinemaworld.userServer.view.repository.TicketRepository;
 import ru.hse.softwear.cinemaworld.userServer.view.repository.UserRepository;
-
-import javax.transaction.Transactional;
-import java.util.*;
-import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
