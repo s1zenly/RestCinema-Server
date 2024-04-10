@@ -3,7 +3,7 @@ package ru.hse.softwear.cinemaworld;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
-//import ru.hse.softwear.cinemaworld.restServer.configuration.RedisProperties;
+import ru.hse.softwear.cinemaworld.userServer.configuration.RedisProperties;
 
 @SpringBootApplication
 //@EnableConfigurationProperties(RedisProperties.class)

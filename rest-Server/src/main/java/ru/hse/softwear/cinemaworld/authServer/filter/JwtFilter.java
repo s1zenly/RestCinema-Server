@@ -8,7 +8,6 @@ import jakarta.servlet.ServletResponse;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.locationtech.jts.util.StringUtil;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Component;
 import org.springframework.util.StringUtils;
@@ -17,8 +16,8 @@ import ru.hse.softwear.cinemaworld.authServer.service.JwtProvider;
 import ru.hse.softwear.cinemaworld.authServer.service.PersonaService;
 import ru.hse.softwear.cinemaworld.authServer.util.JwtUtils;
 import ru.hse.softwear.cinemaworld.authServer.view.JwtAuthentication;
-import ru.hse.softwear.cinemaworld.restServer.view.entity.Admin;
-import ru.hse.softwear.cinemaworld.restServer.view.entity.User;
+import ru.hse.softwear.cinemaworld.userServer.view.entity.Admin;
+import ru.hse.softwear.cinemaworld.userServer.view.entity.User;
 
 import java.io.IOException;
 

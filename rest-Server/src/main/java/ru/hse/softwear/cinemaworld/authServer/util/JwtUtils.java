@@ -1,17 +1,12 @@
 package ru.hse.softwear.cinemaworld.authServer.util;
 
 import io.jsonwebtoken.Claims;
-import lombok.AccessLevel;
-import lombok.NoArgsConstructor;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import ru.hse.softwear.cinemaworld.authServer.service.PersonaService;
 import ru.hse.softwear.cinemaworld.authServer.view.JwtAuthentication;
-import ru.hse.softwear.cinemaworld.restServer.view.entity.Admin;
-import ru.hse.softwear.cinemaworld.restServer.view.entity.User;
-import ru.hse.softwear.cinemaworld.restServer.view.enums.Role;
-import ru.hse.softwear.cinemaworld.restServer.view.repository.AdminRepository;
-import ru.hse.softwear.cinemaworld.restServer.view.repository.UserRepository;
+import ru.hse.softwear.cinemaworld.userServer.view.entity.Admin;
+import ru.hse.softwear.cinemaworld.userServer.view.entity.User;
+import ru.hse.softwear.cinemaworld.userServer.view.enums.Role;
 
 @RequiredArgsConstructor
 public class JwtUtils {

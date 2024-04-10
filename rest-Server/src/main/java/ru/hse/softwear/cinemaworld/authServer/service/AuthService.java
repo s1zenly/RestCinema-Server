@@ -6,16 +6,11 @@ import jakarta.security.auth.message.AuthException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
-import redis.clients.jedis.Jedis;
 import ru.hse.softwear.cinemaworld.authServer.view.JwtAuthentication;
 import ru.hse.softwear.cinemaworld.authServer.view.JwtRequest;
 import ru.hse.softwear.cinemaworld.authServer.view.JwtResponse;
-import ru.hse.softwear.cinemaworld.restServer.service.RedisService;
-import ru.hse.softwear.cinemaworld.restServer.view.entity.Persona;
-import ru.hse.softwear.cinemaworld.restServer.view.repository.UserRepository;
-
-import javax.annotation.PostConstruct;
-import javax.annotation.PreDestroy;
+import ru.hse.softwear.cinemaworld.userServer.service.RedisService;
+import ru.hse.softwear.cinemaworld.userServer.view.entity.Persona;
 
 @Service
 @RequiredArgsConstructor

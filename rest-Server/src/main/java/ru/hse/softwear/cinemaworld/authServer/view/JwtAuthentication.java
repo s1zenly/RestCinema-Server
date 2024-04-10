@@ -5,7 +5,7 @@ import lombok.Setter;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
-import ru.hse.softwear.cinemaworld.restServer.view.enums.Role;
+import ru.hse.softwear.cinemaworld.userServer.view.enums.Role;
 
 import java.util.Collection;
 import java.util.Collections;

@@ -3,12 +3,12 @@ package ru.hse.softwear.cinemaworld.authServer.service;
 import com.sun.istack.NotNull;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-import ru.hse.softwear.cinemaworld.restServer.view.entity.Admin;
-import ru.hse.softwear.cinemaworld.restServer.view.entity.Persona;
-import ru.hse.softwear.cinemaworld.restServer.view.entity.User;
-import ru.hse.softwear.cinemaworld.restServer.view.repository.AdminRepository;
-import ru.hse.softwear.cinemaworld.restServer.view.repository.PersonaRepository;
-import ru.hse.softwear.cinemaworld.restServer.view.repository.UserRepository;
+import ru.hse.softwear.cinemaworld.userServer.view.entity.Admin;
+import ru.hse.softwear.cinemaworld.userServer.view.entity.Persona;
+import ru.hse.softwear.cinemaworld.userServer.view.entity.User;
+import ru.hse.softwear.cinemaworld.userServer.view.repository.AdminRepository;
+import ru.hse.softwear.cinemaworld.userServer.view.repository.PersonaRepository;
+import ru.hse.softwear.cinemaworld.userServer.view.repository.UserRepository;
 
 import java.util.Optional;
 

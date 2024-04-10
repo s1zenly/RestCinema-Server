@@ -4,7 +4,7 @@ server:
 spring:
   datasource:
     username: postgres
-    password: 675347198FAKR
+    password:
     url: jdbc:postgresql://localhost:5432/cinema
     driver-class-name: org.postgresql.Driver
     hikari:
@@ -13,6 +13,9 @@ spring:
     hibernate:
       ddl-auto: update
       format_sql: true
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
 
   security:
     user:

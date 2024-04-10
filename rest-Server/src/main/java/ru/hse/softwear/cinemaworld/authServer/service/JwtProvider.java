@@ -7,7 +7,7 @@ import io.jsonwebtoken.security.Keys;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
-import ru.hse.softwear.cinemaworld.restServer.view.entity.Persona;
+import ru.hse.softwear.cinemaworld.userServer.view.entity.Persona;
 
 import javax.crypto.SecretKey;
 import java.security.Key;
