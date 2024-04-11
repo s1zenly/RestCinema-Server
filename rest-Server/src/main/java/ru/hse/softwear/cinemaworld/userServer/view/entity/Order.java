@@ -16,6 +16,6 @@ public class Order {
     private String token;
 
     // reference
-    private String sessionId;
-    private String userId;
+    private Long sessionId;
+    private Long userId;
 }

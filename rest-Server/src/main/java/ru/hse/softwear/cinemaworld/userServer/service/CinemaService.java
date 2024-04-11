@@ -39,6 +39,7 @@ public class CinemaService {
                 .collect(Collectors.toList());
     }
 
+
     public AbstractMap.SimpleEntry<CinemaModel, List<FilmWithSessionModel>> getCinema(Long id) {
         Cinema cinema = cinemaRepository.findById(id)
                 .orElseThrow(() -> new NoSuchElementException("Cinema not found with id: " + id));

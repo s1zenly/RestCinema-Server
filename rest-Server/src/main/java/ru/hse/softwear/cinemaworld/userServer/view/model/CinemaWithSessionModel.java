@@ -10,7 +10,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Data
-@AllArgsConstructor
 public class CinemaWithSessionModel {
     private CinemaModel cinema;
     private List<SessionModel> sessions;

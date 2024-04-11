@@ -1,4 +1,3 @@
-/*
 package ru.hse.softwear.cinemaworld.userServer.controller;
 
 import lombok.RequiredArgsConstructor;
@@ -7,6 +6,7 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import ru.hse.softwear.cinemaworld.authServer.service.AuthService;
 import ru.hse.softwear.cinemaworld.authServer.view.JwtAuthentication;
+import ru.hse.softwear.cinemaworld.userServer.service.AccountService;
 import ru.hse.softwear.cinemaworld.userServer.view.dto.TicketPageDTO;
 import ru.hse.softwear.cinemaworld.userServer.view.model.dbmodel.SessionModel;
 import ru.hse.softwear.cinemaworld.userServer.view.model.dbmodel.TicketModel;
@@ -45,14 +45,19 @@ public class AccountController {
         final JwtAuthentication jwtInfoToken = authService.getAuthInfo();
 
         List<TicketPageDTO> ticketsPageDTO = new ArrayList<>();
+        List<Map<String, Object>> ordersInfo = accountService.getOrders((Long) jwtInfoToken.getPrincipal());
 
-        Map<SessionModel, List<TicketModel>> orders = accountService.getOrders((Long) jwtInfoToken.getPrincipal());
+        for(Map<String, Object> orderInfo : ordersInfo) {
+            TicketPageDTO ticketPageDTO = new TicketPageDTO();
+            ticketPageDTO.setSession((SessionModel) orderInfo.get("session"));
+            ticketPageDTO.setCinemaName(orderInfo.get("cinemaName").toString());
+            ticketPageDTO.setFilmName(orderInfo.get("filmName").toString());
+            ticketPageDTO.setHallName(orderInfo.get("hallName").toString());
+            ticketPageDTO.setCountTickets((Integer) orderInfo.get("countTicket"));
 
-        for(var entry : orders.entrySet()) {
-            ticketsPageDTO.add(new TicketPageDTO(entry.getKey(), entry.getValue().size()));
+            ticketsPageDTO.add(ticketPageDTO);
         }
 
         return ResponseEntity.ok(ticketsPageDTO);
     }
 }
-*/

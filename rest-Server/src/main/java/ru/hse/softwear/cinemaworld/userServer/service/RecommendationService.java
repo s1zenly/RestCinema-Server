@@ -3,6 +3,7 @@ package ru.hse.softwear.cinemaworld.userServer.service;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
+import ru.hse.softwear.cinemaworld.userServer.view.model.CinemaWithSessionModel;
 import ru.hse.softwear.cinemaworld.userServer.view.model.CoordinateModel;
 import ru.hse.softwear.cinemaworld.userServer.view.model.dbmodel.CinemaModel;
 import ru.hse.softwear.cinemaworld.userServer.view.model.dbmodel.SessionModel;
@@ -20,34 +21,32 @@ public class RecommendationService {
 
     private final GeolocationService geolocationService;
 
-    public Map<CinemaModel, List<SessionModel>> recommendationCinemas(Map<CinemaModel, List<SessionModel>> cinemas,
-                                                                      CoordinateModel coordinate) {
+    public List<CinemaWithSessionModel> recommendationCinemas(List<CinemaWithSessionModel> cinemas,
+                                                              CoordinateModel coordinate) {
         return recommendedByGeolocation(cinemas, coordinate);
     }
 
 
-    public Map<CinemaModel, List<SessionModel>> recommendedByGeolocation(Map<CinemaModel, List<SessionModel>> cinemas,
-                                                                         CoordinateModel coordinate) {
+    public List<CinemaWithSessionModel> recommendedByGeolocation(List<CinemaWithSessionModel> cinemas,
+                                                                 CoordinateModel coordinate) {
 
 
-        Comparator<CinemaModel> comparatorByGeolocation = (cinema1, cinema2) -> {
-            double distanceCinema1 = geolocationService.calculateDistance(cinema1.getLatitude(),
-                    coordinate.getLatitude(), cinema1.getLongitude(), coordinate.getLongitude());
+        Comparator<CinemaWithSessionModel> comparatorByGeolocation = (cinema1, cinema2) -> {
+            double distanceCinema1 = geolocationService.calculateDistance(cinema1.getCinema().getLatitude(),
+                    coordinate.getLatitude(), cinema1.getCinema().getLongitude(), coordinate.getLongitude());
 
-            double distanceCinema2 = geolocationService.calculateDistance(cinema2.getLatitude(),
-                    coordinate.getLatitude(), cinema2.getLongitude(), coordinate.getLongitude());
+            double distanceCinema2 = geolocationService.calculateDistance(cinema2.getCinema().getLatitude(),
+                    coordinate.getLatitude(), cinema2.getCinema().getLongitude(), coordinate.getLongitude());
 
             return Double.compare(distanceCinema1, distanceCinema2);
         };
 
-        return cinemas.entrySet().stream()
-                .sorted(Map.Entry.comparingByKey(comparatorByGeolocation))
-                .collect(Collectors.toMap(
-                        Map.Entry::getKey,
-                        Map.Entry::getValue,
-                        (oldValue, newValue) -> oldValue,
-                        LinkedHashMap::new
-                ));
+        List<CinemaWithSessionModel> sortedCinemas = cinemas.stream()
+                .sorted(comparatorByGeolocation)
+                .toList();
+
+
+        return sortedCinemas;
     }
 
 

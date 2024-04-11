@@ -37,8 +37,8 @@ public class PersonaService {
         persona.setEmail(email);
         persona.setPassword(password);
 
-        personaRepository.save(persona);
-        userRepository.save(user);
+        personaRepository.save(persona.getEmail(), persona.getPassword(), persona.getRole().getValue());
+        userRepository.save(user.getEmail(), user.getPassword(), user.getName(), user.getNumberPhone());
     }
 
     public Admin getAdmin(@NotNull String email) {

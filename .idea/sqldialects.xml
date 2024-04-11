@@ -6,7 +6,9 @@
     <file url="file://$PROJECT_DIR$/rest-Server/src/main/java/ru/hse/softwear/cinemaworld/userServer/view/repository/FilmRepository.java" dialect="GenericSQL" />
     <file url="file://$PROJECT_DIR$/rest-Server/src/main/java/ru/hse/softwear/cinemaworld/userServer/view/repository/HallRepository.java" dialect="GenericSQL" />
     <file url="file://$PROJECT_DIR$/rest-Server/src/main/java/ru/hse/softwear/cinemaworld/userServer/view/repository/OrderRepository.java" dialect="GenericSQL" />
+    <file url="file://$PROJECT_DIR$/rest-Server/src/main/java/ru/hse/softwear/cinemaworld/userServer/view/repository/PersonaRepository.java" dialect="GenericSQL" />
     <file url="file://$PROJECT_DIR$/rest-Server/src/main/java/ru/hse/softwear/cinemaworld/userServer/view/repository/SessionRepository.java" dialect="GenericSQL" />
+    <file url="file://$PROJECT_DIR$/rest-Server/src/main/java/ru/hse/softwear/cinemaworld/userServer/view/repository/UserRepository.java" dialect="GenericSQL" />
     <file url="file://$PROJECT_DIR$/rest-Server/src/main/resources/db.changelog/01.000.00/init.sql" dialect="GenericSQL" />
   </component>
 </project>

@@ -11,6 +11,8 @@ import java.util.Optional;
 
 @Repository
 public interface CinemaRepository extends CrudRepository<Cinema, Long> {
+
+    @Query("SELECT * FROM cinemas WHERE id = :id")
     Optional<Cinema> findById(Long id);
 
     @Query("SELECT * FROM cinemas")

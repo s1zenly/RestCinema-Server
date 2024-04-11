@@ -1,4 +1,3 @@
-/*
 package ru.hse.softwear.cinemaworld.userServer.controller;
 
 import lombok.RequiredArgsConstructor;
@@ -13,10 +12,14 @@ import ru.hse.softwear.cinemaworld.userServer.service.RedisService;
 import ru.hse.softwear.cinemaworld.userServer.view.dto.OrderPageDTO;
 import ru.hse.softwear.cinemaworld.userServer.view.model.OccupiedPlace;
 import ru.hse.softwear.cinemaworld.userServer.view.model.SessionIdModel;
+import ru.hse.softwear.cinemaworld.userServer.view.model.dbmodel.CinemaModel;
+import ru.hse.softwear.cinemaworld.userServer.view.model.dbmodel.FilmModel;
+import ru.hse.softwear.cinemaworld.userServer.view.model.dbmodel.HallModel;
 import ru.hse.softwear.cinemaworld.userServer.view.model.dbmodel.SessionModel;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequiredArgsConstructor
@@ -60,9 +63,8 @@ public class OrderController {
     public ResponseEntity<OrderPageDTO> getOrderPage(@PathVariable Long id,
                                                      @PathVariable String orderToken) throws Exception {
 
-        OrderPageDTO orderPageDTO = new OrderPageDTO();
+        Map<String, Object> infoAboutSession = orderService.getDataSession(id);
 
-        SessionModel infoAboutSession = orderService.getDataSession(id);
         List<OccupiedPlace> occupiedPlaces = new ArrayList<>();
         List<OccupiedPlace> occupiedPlacesSecured = orderService.getOccupiedPlace(id);
         List<OccupiedPlace> occupiedPlacesTemporally =
@@ -71,7 +73,11 @@ public class OrderController {
         occupiedPlaces.addAll(occupiedPlacesSecured);
         occupiedPlaces.addAll(occupiedPlacesTemporally);
 
-        orderPageDTO.setSessionModel(infoAboutSession);
+        OrderPageDTO orderPageDTO = new OrderPageDTO();
+        orderPageDTO.setSession((SessionModel) infoAboutSession.get("session"));
+        orderPageDTO.setCinema((CinemaModel) infoAboutSession.get("cinema"));
+        orderPageDTO.setFilm((FilmModel) infoAboutSession.get("film"));
+        orderPageDTO.setHall((HallModel) infoAboutSession.get("hall"));
         orderPageDTO.setOccupiedPlaces(occupiedPlaces);
 
         return ResponseEntity.ok(orderPageDTO);
@@ -79,16 +85,18 @@ public class OrderController {
 
     @GetMapping("/checkout/{orderToken}")
     ResponseEntity<OrderPageDTO> checkoutConfirmation(@PathVariable String orderToken) throws Exception {
-        OrderPageDTO orderPageDTO = new OrderPageDTO();
 
         Long id = (Long) OrderTokenCypher.decoder(orderToken).get("sessionId");
-        SessionModel infoAboutSession = orderService.getDataSession(id);
+        Map<String, Object> infoAboutSession = orderService.getDataSession(id);
         List<OccupiedPlace> occupiedPlaces = redisService.getInCacheOrdersSession(orderToken);
 
-        orderPageDTO.setSessionModel(infoAboutSession);
+        OrderPageDTO orderPageDTO = new OrderPageDTO();
+        orderPageDTO.setSession((SessionModel) infoAboutSession.get("session"));
+        orderPageDTO.setCinema((CinemaModel) infoAboutSession.get("cinema"));
+        orderPageDTO.setFilm((FilmModel) infoAboutSession.get("film"));
+        orderPageDTO.setHall((HallModel) infoAboutSession.get("hall"));
         orderPageDTO.setOccupiedPlaces(occupiedPlaces);
 
         return ResponseEntity.ok(orderPageDTO);
     }
 }
-*/

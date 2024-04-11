@@ -10,5 +10,9 @@ import ru.hse.softwear.cinemaworld.userServer.view.model.dbmodel.SessionModel;
 @AllArgsConstructor
 public class TicketPageDTO {
     private SessionModel session;
+    private String filmName;
+    private String CinemaName;
+    private String hallName;
     private Integer countTickets;
+
 }

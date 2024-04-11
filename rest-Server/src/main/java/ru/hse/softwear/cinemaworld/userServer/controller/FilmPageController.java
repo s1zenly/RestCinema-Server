@@ -1,4 +1,3 @@
-/*
 package ru.hse.softwear.cinemaworld.userServer.controller;
 
 import lombok.RequiredArgsConstructor;
@@ -8,6 +7,7 @@ import org.springframework.web.bind.annotation.*;
 import ru.hse.softwear.cinemaworld.userServer.service.FilmService;
 import ru.hse.softwear.cinemaworld.userServer.service.RecommendationService;
 import ru.hse.softwear.cinemaworld.userServer.view.dto.FilmPageDTO;
+import ru.hse.softwear.cinemaworld.userServer.view.entity.Cinema;
 import ru.hse.softwear.cinemaworld.userServer.view.model.CinemaWithSessionModel;
 import ru.hse.softwear.cinemaworld.userServer.view.model.CoordinateModel;
 import ru.hse.softwear.cinemaworld.userServer.view.model.dbmodel.CinemaModel;
@@ -31,19 +31,18 @@ public class FilmPageController {
 
         FilmPageDTO filmPageDTO = new FilmPageDTO();
 
-        AbstractMap.SimpleEntry<FilmModel, Map<CinemaModel, List<SessionModel>>> infoAboutFilm =
+        AbstractMap.SimpleEntry<FilmModel, List<CinemaWithSessionModel>> infoAboutFilm =
                 filmService.getFilm(id, date);
 
-        Map<CinemaModel, List<SessionModel>> cinemaWithSession = infoAboutFilm.getValue();
+        List<CinemaWithSessionModel> cinemaWithSession = infoAboutFilm.getValue();
 
         if(!cinemaWithSession.isEmpty()) {
-            Map<CinemaModel, List<SessionModel>> recommendedCinemas =
+            List<CinemaWithSessionModel> recommendedCinemas =
                     recommendationService.recommendationCinemas(cinemaWithSession, coordinate);
 
             filmPageDTO.setCinemasWithSession(new ArrayList<>());
 
-            for(var info : cinemaWithSession.entrySet()) {
-                CinemaWithSessionModel cinemaWithSessionModel = new CinemaWithSessionModel(info.getKey(), info.getValue());
+            for(CinemaWithSessionModel cinemaWithSessionModel : recommendedCinemas) {
                 filmPageDTO.getCinemasWithSession().add(cinemaWithSessionModel);
             }
         }
@@ -63,4 +62,3 @@ public class FilmPageController {
     }
 }
 
-*/

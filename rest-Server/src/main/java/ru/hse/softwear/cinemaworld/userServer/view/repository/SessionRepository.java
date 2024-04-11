@@ -1,7 +1,9 @@
 package ru.hse.softwear.cinemaworld.userServer.view.repository;
 
+import org.springframework.data.jdbc.repository.query.Modifying;
 import org.springframework.data.jdbc.repository.query.Query;
 import org.springframework.data.repository.CrudRepository;
+import org.springframework.security.core.session.SessionInformation;
 import org.springframework.stereotype.Repository;
 import ru.hse.softwear.cinemaworld.userServer.view.entity.Session;
 
@@ -15,6 +17,7 @@ public interface SessionRepository extends CrudRepository<Session, Long> {
     @Query("SELECT * FROM sessions WHERE id = :id")
     Optional<Session> findById(Long id);
 
+    @Modifying
     @Query("DELETE FROM sessions WHERE id = :id")
     void deleteById(Long id);
 

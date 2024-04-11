@@ -1,5 +1,6 @@
 package ru.hse.softwear.cinemaworld.userServer.view.repository;
 
+import org.springframework.data.jdbc.repository.query.Modifying;
 import org.springframework.data.jdbc.repository.query.Query;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
@@ -21,9 +22,11 @@ public interface CinemaFilmRepository extends CrudRepository<CinemaFilm, Long> {
     @Query("SELECT cinemas_id FROM cinemas_films WHERE film_id = :filmId")
     List<Long> findByFilmId(Long filmId);
 
+    @Modifying
     @Query("INSERT INTO cinemas_films (cinema_id, film_id) values (:cinemaId, :filmId)")
     void save(Long cinemaId, Long filmId);
 
+    @Modifying
     @Query("DELETE FROM cinemas_films WHERE cinema_id = :cinemaId AND film_id = :filmId")
     void delete(Long cinemaId, Long filmId);
 }
