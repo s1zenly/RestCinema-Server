@@ -4,8 +4,9 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
-import ru.hse.softwear.cinemaworld.adminServer.service.crudServices.SessionServiceAdmin;
+import ru.hse.softwear.cinemaworld.adminServer.service.SessionServiceAdmin;
 import ru.hse.softwear.cinemaworld.adminServer.view.dto.SessionPageDTO;
+import ru.hse.softwear.cinemaworld.adminServer.view.model.SessionUpdateModel;
 import ru.hse.softwear.cinemaworld.authServer.service.AuthService;
 import ru.hse.softwear.cinemaworld.authServer.view.JwtAuthentication;
 import ru.hse.softwear.cinemaworld.userServer.view.model.dbmodel.SessionModel;
@@ -37,8 +38,8 @@ public class SessionControllerAdmin {
     @PreAuthorize("hasAuthority('ADMIN')")
     @PutMapping("/session/{id}")
     public void updateSession(@PathVariable Long id,
-                              @RequestBody SessionModel sessionDTO) {
-        sessionServiceAdmin.update(id, sessionDTO);
+                              @RequestBody SessionUpdateModel changes) {
+        sessionServiceAdmin.update(id, changes);
     }
 
     @PreAuthorize("hasAuthority('ADMIN')")

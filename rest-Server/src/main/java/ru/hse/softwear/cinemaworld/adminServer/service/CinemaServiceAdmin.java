@@ -1,8 +1,8 @@
-package ru.hse.softwear.cinemaworld.adminServer.service.crudServices;
+package ru.hse.softwear.cinemaworld.adminServer.service;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-import ru.hse.softwear.cinemaworld.adminServer.service.CRUDservice;
+import ru.hse.softwear.cinemaworld.adminServer.view.model.CinemaUpdateModel;
 import ru.hse.softwear.cinemaworld.userServer.view.entity.Cinema;
 import ru.hse.softwear.cinemaworld.userServer.view.mapper.CinemaMapper;
 import ru.hse.softwear.cinemaworld.userServer.view.model.dbmodel.CinemaModel;
@@ -15,22 +15,17 @@ import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
-public class CinemaServiceAdmin implements CRUDservice<CinemaModel, Long> {
+public class CinemaServiceAdmin {
 
     private final CinemaRepository cinemaRepository;
-    private final FilmRepository filmRepository;
-    private final CinemaFilmRepository cinemaFilmRepository;
 
-    @Override
-    public void create(Object... objects) {
-        CinemaModel cinemaDTO = (CinemaModel) objects[0];
+    public void create(CinemaModel cinemaModel) {
 
-        Cinema cinema = CinemaMapper.INSTANCE.toEntity(cinemaDTO);
+        Cinema cinema = CinemaMapper.INSTANCE.toEntity(cinemaModel);
         cinemaRepository.save(cinema.getName(), cinema.getLatitude(), cinema.getLongitude(),
                 cinema.getInfo(), cinema.getNumberPhone(), cinema.getImage());
     }
 
-    @Override
     public CinemaModel read(Long id) {
         Cinema cinema =  cinemaRepository.findById(id)
                 .orElseThrow(() -> new NoSuchElementException("Cinema not found with name: " + id));
@@ -38,24 +33,20 @@ public class CinemaServiceAdmin implements CRUDservice<CinemaModel, Long> {
         return CinemaMapper.INSTANCE.toModel(cinema);
     }
 
-    @Override
-    public void update(Long id, CinemaModel cinemaDTO) {
+    public void update(Long id, CinemaUpdateModel changes) {
         Cinema cinema = cinemaRepository.findById(id)
                 .orElseThrow(() -> new NoSuchElementException("Cinema not found with name: " + id));
 
         // Mutable data
-        cinema.setInfo(Optional.ofNullable(cinemaDTO.getInfo()).orElse(cinema.getInfo()));
-        cinema.setNumberPhone(Optional.ofNullable(cinemaDTO.getNumberPhone()).orElse(cinema.getNumberPhone()));
-        cinema.setImage(Optional.ofNullable(cinemaDTO.getImage()).orElse(cinema.getImage()));
+        String info = Optional.ofNullable(changes.getInfo()).orElse(cinema.getInfo());
+        Long numberPhone = Optional.ofNullable(changes.getNumberPhone()).orElse(cinema.getNumberPhone());
+        String image = Optional.ofNullable(changes.getImage()).orElse(cinema.getImage());
 
-        cinemaRepository.save(cinema.getName(), cinema.getLatitude(), cinema.getLongitude(),
-                cinema.getInfo(), cinema.getNumberPhone(), cinema.getImage());
+        cinemaRepository.update(id, info, numberPhone, image);
     }
 
-    @Override
-    public void delete(Object... objects) {
-        Long id = (Long) objects[0];
 
+    public void delete(Long id) {
         cinemaRepository.deleteById(id);
     }
 }

@@ -18,6 +18,10 @@ public interface HallRepository extends CrudRepository<Hall, Long> {
     List<Hall> findAll();
 
     @Modifying
+    @Query("UPDATE halls SET name = :name, rows = :rows, columns = :columns WHERE id = :id")
+    void update(Long id, String name, Integer rows, Integer columns);
+
+    @Modifying
     @Query("DELETE FROM halls WHERE id = :id")
     void deleteById(Long id);
 

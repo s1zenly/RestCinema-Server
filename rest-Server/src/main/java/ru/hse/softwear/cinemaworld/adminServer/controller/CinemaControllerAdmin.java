@@ -5,7 +5,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
-import ru.hse.softwear.cinemaworld.adminServer.service.crudServices.CinemaServiceAdmin;
+import ru.hse.softwear.cinemaworld.adminServer.service.CinemaServiceAdmin;
+import ru.hse.softwear.cinemaworld.adminServer.view.model.CinemaUpdateModel;
 import ru.hse.softwear.cinemaworld.authServer.service.AuthService;
 import ru.hse.softwear.cinemaworld.authServer.view.JwtAuthentication;
 import ru.hse.softwear.cinemaworld.userServer.view.model.dbmodel.CinemaModel;
@@ -27,11 +28,11 @@ public class CinemaControllerAdmin {
 
     @PreAuthorize("hasAuthority('ADMIN')")
     @PutMapping("/cinema")
-    public void updateCinema(@RequestBody CinemaModel cinemaDTO) {
+    public void updateCinema(@RequestBody CinemaUpdateModel changes) {
         final JwtAuthentication jwtInfo = authService.getAuthInfo();
         Long cinemaId = (Long) jwtInfo.getPrincipal();
 
-        cinemaServiceAdmin.update(cinemaId, cinemaDTO);
+        cinemaServiceAdmin.update(cinemaId, changes);
     }
 
     @PreAuthorize("hasAuthority('ADMIN')")

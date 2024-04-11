@@ -1,8 +1,8 @@
-package ru.hse.softwear.cinemaworld.adminServer.service.crudServices;
+package ru.hse.softwear.cinemaworld.adminServer.service;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-import ru.hse.softwear.cinemaworld.adminServer.service.CRUDservice;
+import ru.hse.softwear.cinemaworld.adminServer.view.model.SessionUpdateModel;
 import ru.hse.softwear.cinemaworld.userServer.view.entity.Film;
 import ru.hse.softwear.cinemaworld.userServer.view.entity.Hall;
 import ru.hse.softwear.cinemaworld.userServer.view.entity.Session;
@@ -12,27 +12,18 @@ import ru.hse.softwear.cinemaworld.userServer.view.repository.FilmRepository;
 import ru.hse.softwear.cinemaworld.userServer.view.repository.HallRepository;
 import ru.hse.softwear.cinemaworld.userServer.view.repository.SessionRepository;
 
-import java.util.AbstractMap;
-import java.util.List;
-import java.util.NoSuchElementException;
-import java.util.Optional;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
-public class SessionServiceAdmin implements CRUDservice<SessionModel, Long> {
+public class SessionServiceAdmin {
 
     private final SessionRepository sessionRepository;
     private final FilmRepository filmRepository;
     private final HallRepository hallRepository;
 
-    @Override
-    public void create(Object... objects) {
-        Long cinemaId = (Long) objects[0];
-        Long filmId = (Long) objects[1];
-        Long hallId = (Long) objects[2];
-        SessionModel sessionModel = (SessionModel) objects[3];
-
+    public void create(Long cinemaId, Long filmId, Long hallId, SessionModel sessionModel) {
         Session session = SessionMapper.INSTANCE.toEntity(sessionModel);
         session.setCinemaId(cinemaId);
         session.setFilmId(filmId);
@@ -42,7 +33,6 @@ public class SessionServiceAdmin implements CRUDservice<SessionModel, Long> {
                 session.getFilmId(), session.getHallId());
     }
 
-    @Override
     public SessionModel read(Long id) {
         Session session = sessionRepository.findById(id)
                 .orElseThrow(() -> new NoSuchElementException("Session not found with id: " + id));
@@ -50,23 +40,18 @@ public class SessionServiceAdmin implements CRUDservice<SessionModel, Long> {
         return SessionMapper.INSTANCE.toModel(session);
     }
 
-    @Override
-    public void update(Long id, SessionModel sessionModel) {
+    public void update(Long id, SessionUpdateModel changes) {
         Session session = sessionRepository.findById(id)
                 .orElseThrow(() -> new NoSuchElementException("Session not found with id: " + id));
 
         // Mutable data
-        session.setDate(Optional.ofNullable(sessionModel.getDate()).orElse(session.getDate()));
-        session.setPrice(Optional.ofNullable(sessionModel.getPrice()).orElse(session.getPrice()));
+        Date date = Optional.ofNullable(changes.getDate()).orElse(session.getDate());
+        Integer price = Optional.ofNullable(changes.getPrice()).orElse(session.getPrice());
 
-        sessionRepository.save(session.getDate(), session.getPrice(), session.getCinemaId(),
-                session.getFilmId(), session.getHallId());
+        sessionRepository.update(id, date, price);
     }
 
-    @Override
-    public void delete(Object... objects) {
-        Long id = (Long) objects[0];
-
+    public void delete(Long id) {
         sessionRepository.deleteById(id);
     }
 
@@ -82,7 +67,6 @@ public class SessionServiceAdmin implements CRUDservice<SessionModel, Long> {
                 .orElseThrow(() -> new NoSuchElementException("Session not found with id: " + id));
         Film film = filmRepository.findById(session.getFilmId())
                 .orElseThrow(() -> new NoSuchElementException("Film not found with id: " + session.getFilmId()));
-
         Hall hall = hallRepository.findById(session.getHallId())
                 .orElseThrow(() -> new NoSuchElementException("Hall not found with id: " + session.getHallId()));
 

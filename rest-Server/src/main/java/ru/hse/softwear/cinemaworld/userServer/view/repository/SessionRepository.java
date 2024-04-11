@@ -18,6 +18,10 @@ public interface SessionRepository extends CrudRepository<Session, Long> {
     Optional<Session> findById(Long id);
 
     @Modifying
+    @Query("UPDATE sessions SET date = :date, price = :price WHERE id = :id")
+    void update(Long id, Date date, Integer price);
+
+    @Modifying
     @Query("DELETE FROM sessions WHERE id = :id")
     void deleteById(Long id);
 

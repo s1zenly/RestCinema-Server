@@ -4,7 +4,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
-import ru.hse.softwear.cinemaworld.adminServer.service.crudServices.HallServiceAdmin;
+import ru.hse.softwear.cinemaworld.adminServer.service.HallServiceAdmin;
+import ru.hse.softwear.cinemaworld.adminServer.view.model.HallUpdateModel;
 import ru.hse.softwear.cinemaworld.authServer.service.AuthService;
 import ru.hse.softwear.cinemaworld.authServer.view.JwtAuthentication;
 import ru.hse.softwear.cinemaworld.userServer.view.model.dbmodel.HallModel;
@@ -31,8 +32,8 @@ public class HallControllerAdmin {
     @PreAuthorize("hasAuthority('ADMIN')")
     @PutMapping("/hall/{id}")
     public void updateHall(@PathVariable Long id,
-                           @RequestBody HallModel hallDTO) {
-        hallServiceAdmin.update(id, hallDTO);
+                           @RequestBody HallUpdateModel changes) {
+        hallServiceAdmin.update(id, changes);
     }
 
     @PreAuthorize("hasAuthority('ADMIN')")

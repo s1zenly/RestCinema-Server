@@ -1,8 +1,8 @@
-package ru.hse.softwear.cinemaworld.adminServer.service.crudServices;
+package ru.hse.softwear.cinemaworld.adminServer.service;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-import ru.hse.softwear.cinemaworld.adminServer.service.CRUDservice;
+import ru.hse.softwear.cinemaworld.adminServer.view.model.HallUpdateModel;
 import ru.hse.softwear.cinemaworld.userServer.view.entity.Hall;
 import ru.hse.softwear.cinemaworld.userServer.view.mapper.HallMapper;
 import ru.hse.softwear.cinemaworld.userServer.view.model.dbmodel.HallModel;
@@ -16,23 +16,17 @@ import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
-public class HallServiceAdmin implements CRUDservice<HallModel, Long> {
+public class HallServiceAdmin {
 
     private final HallRepository hallRepository;
-    private final CinemaRepository cinemaRepository;
 
-    @Override
-    public void create(Object... objects) {
-        Long cinemaId = (Long) objects[0];
-        HallModel hallModel = (HallModel) objects[1];
-
+    public void create(Long cinemaId, HallModel hallModel) {
         Hall hall = HallMapper.INSTANCE.toEntity(hallModel);
         hall.setCinemaId(cinemaId);
 
         hallRepository.save(hall.getName(), hall.getRows(), hall.getColumns(), hall.getCinemaId());
     }
 
-    @Override
     public HallModel read(Long id) {
         Hall hall = hallRepository.findById(id)
                 .orElseThrow(() -> new NoSuchElementException("Hall not found with id: " + id));
@@ -40,23 +34,19 @@ public class HallServiceAdmin implements CRUDservice<HallModel, Long> {
         return HallMapper.INSTANCE.toModel(hall);
     }
 
-    @Override
-    public void update(Long id, HallModel hallDTO) {
+    public void update(Long id, HallUpdateModel changes) {
         Hall hall = hallRepository.findById(id)
                 .orElseThrow(() -> new NoSuchElementException("Hall not found with id: " + id));
 
         // Mutable data
-        hall.setName(Optional.ofNullable(hallDTO.getName()).orElse(hall.getName()));
-        hall.setRows(Optional.ofNullable(hallDTO.getRows()).orElse(hall.getRows()));
-        hall.setColumns(Optional.ofNullable(hallDTO.getColumns()).orElse(hall.getColumns()));
+        String name = Optional.ofNullable(changes.getName()).orElse(hall.getName());
+        Integer rows = Optional.ofNullable(changes.getRows()).orElse(hall.getRows());
+        Integer columns = Optional.ofNullable(changes.getColumns()).orElse(hall.getColumns());
 
-        hallRepository.save(hall.getName(), hall.getRows(), hall.getColumns(), hall.getCinemaId());
+        hallRepository.update(id, name, rows, columns);
     }
 
-    @Override
-    public void delete(Object... objects) {
-        Long id = (Long) objects[0];
-
+    public void delete(Long id) {
         hallRepository.deleteById(id);
     }
 

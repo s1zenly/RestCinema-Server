@@ -4,7 +4,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
-import ru.hse.softwear.cinemaworld.adminServer.service.crudServices.FilmServiceAdmin;
+import ru.hse.softwear.cinemaworld.adminServer.service.FilmServiceAdmin;
 import ru.hse.softwear.cinemaworld.authServer.service.AuthService;
 import ru.hse.softwear.cinemaworld.authServer.view.JwtAuthentication;
 import ru.hse.softwear.cinemaworld.userServer.view.model.dbmodel.FilmModel;
@@ -26,13 +26,6 @@ public class FilmControllerAdmin {
         Long cinemaId = (Long) jwtInfo.getPrincipal();
 
         filmService.create(cinemaId, filmDTO);
-    }
-
-    @PreAuthorize("hasAuthority('ADMIN')")
-    @PutMapping("/film/{filmId}")
-    public void updateFilm(@PathVariable Long filmId,
-                           @RequestBody FilmModel filmDTO) {
-        filmService.update(filmId, filmDTO);
     }
 
     @PreAuthorize("hasAuthority('ADMIN')")
