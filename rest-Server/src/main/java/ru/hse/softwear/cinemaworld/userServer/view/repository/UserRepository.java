@@ -16,4 +16,8 @@ public interface UserRepository extends CrudRepository<User, Long> {
     @Query("INSERT INTO users (email, password, name, number_phone)" +
            "values (:email, :password, :name, :numberPhone)")
     void save(String email, String password, String name, Long numberPhone);
+
+    @Modifying
+    @Query("UPDATE users SET name = :name, password = :password, number_phone = :numberPhone WHERE id = :id")
+    void update(Long id, String name, String password, Long numberPhone);
 }

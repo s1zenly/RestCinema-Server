@@ -12,6 +12,5 @@ import java.util.List;
 public class SessionModel {
     private Long id;
     private Date date;
-    private LocalDateTime time;
     private Integer price;
 }

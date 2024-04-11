@@ -16,6 +16,6 @@ public interface PersonaRepository extends CrudRepository<Persona, String> {
 
     @Modifying
     @Query("INSERT INTO personalities (email, password, role)" +
-           "values (:email, :password, :role)")
+           "values (:email, :password, :role::role_enum)")
     void save(String email, String password, String role);
 }

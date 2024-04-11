@@ -8,6 +8,7 @@ import ru.hse.softwear.cinemaworld.authServer.service.AuthService;
 import ru.hse.softwear.cinemaworld.authServer.view.JwtAuthentication;
 import ru.hse.softwear.cinemaworld.userServer.service.AccountService;
 import ru.hse.softwear.cinemaworld.userServer.view.dto.TicketPageDTO;
+import ru.hse.softwear.cinemaworld.userServer.view.model.UserUpdateModel;
 import ru.hse.softwear.cinemaworld.userServer.view.model.dbmodel.SessionModel;
 import ru.hse.softwear.cinemaworld.userServer.view.model.dbmodel.TicketModel;
 import ru.hse.softwear.cinemaworld.userServer.view.model.dbmodel.UserModel;
@@ -34,10 +35,10 @@ public class AccountController {
     }
 
     @PutMapping("/settings")
-    public void updateUserInfo(@RequestBody UserModel userModel) {
+    public void updateUserInfo(@RequestBody UserUpdateModel changes) {
         final JwtAuthentication jwtInfoToken = authService.getAuthInfo();
 
-        accountService.updateUserInfo((Long) jwtInfoToken.getPrincipal(), userModel);
+        accountService.updateUserInfo((Long) jwtInfoToken.getPrincipal(), changes);
     }
 
     @GetMapping("/tickets")

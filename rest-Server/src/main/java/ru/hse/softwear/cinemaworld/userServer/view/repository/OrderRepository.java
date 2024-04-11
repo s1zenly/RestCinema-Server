@@ -14,8 +14,11 @@ public interface OrderRepository extends CrudRepository<Order, Long> {
 
     @Modifying
     @Query("INSERT INTO orders (token, session_id, user_id)" +
-           " values (:token, :sessionId, :userId)")
+           "values (:token, :sessionId, :userId)")
     void save(String token, Long sessionId, Long userId);
+
+    @Query("SELECT id FROM orders WHERE token = :token")
+    Long findOrderByToken(String token);
 
     @Query("SELECT * FROM orders WHERE session_id = :sessionId")
     List<Order> findAllBySessionId(Long sessionId);

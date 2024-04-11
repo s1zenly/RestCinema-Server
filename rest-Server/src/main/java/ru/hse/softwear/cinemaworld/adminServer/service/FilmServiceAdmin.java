@@ -28,12 +28,20 @@ public class FilmServiceAdmin {
     public void create(Long cinemaId, FilmModel filmModel) {
         Film film = FilmMapper.INSTANCE.toEntity(filmModel);
 
-        filmRepository.save(film.getName(), film.getYear(), film.getProducer(),
-                film.getDuration(), film.getActors(), film.getTrailer(), film.getInfo(),
-                film.getCurrent(), film.getImage(), Optional.ofNullable(film.getAgeCategory()).map(AgeCategories::getValue).orElse(null), film.getProductionCountry());
+        if(!filmExists(film.getName())) {
+            filmRepository.save(film.getName(), film.getYear(), film.getProducer(),
+                    film.getDuration(), film.getActors(), film.getTrailer(), film.getInfo(),
+                    film.getCurrent(), film.getImage(),
+                    Optional.ofNullable(film.getAgeCategory()).map(AgeCategories::getValue).orElse(null),
+                    film.getProductionCountry());
+        }
 
-        //cinemaFilmRepository.save(cinemaId, filmModel.getId());
+        Film filmSaved = filmRepository.findByName(film.getName()).orElse(null);
+        boolean bondNotExists = cinemaFilmRepository.alreadyExists(cinemaId, filmSaved.getId()).isEmpty();
 
+        if(bondNotExists) {
+            cinemaFilmRepository.save(cinemaId, filmSaved.getId());
+        }
     }
 
     public FilmModel read(Long id) {
@@ -55,5 +63,9 @@ public class FilmServiceAdmin {
                 .collect(Collectors.toList());
     }
 
+    private boolean filmExists(String name) {
+        return filmRepository.findAll().stream()
+                .anyMatch(film -> film.getName().equals(name));
+    }
 
 }

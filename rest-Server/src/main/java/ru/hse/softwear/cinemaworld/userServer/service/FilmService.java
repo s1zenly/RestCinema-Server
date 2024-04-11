@@ -43,6 +43,8 @@ public class FilmService {
                     CinemaModel cinemaModel = CinemaMapper.INSTANCE.toModel(cinema);
 
                     List<SessionModel> sessions = sessionRepository.findAllByFilmIdAndCinemaId(id, cinemaId).stream()
+                            .filter(session -> session.getDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate()
+                                    .equals(date.toInstant().atZone(ZoneId.systemDefault()).toLocalDate()))
                             .map(SessionMapper.INSTANCE::toModel)
                             .toList();
 

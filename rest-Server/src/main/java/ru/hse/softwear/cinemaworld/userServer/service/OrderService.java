@@ -63,7 +63,7 @@ public class OrderService {
         order.setSessionId(sessionId);
         orderRepository.save(order.getToken(), order.getSessionId(), order.getUserId());
 
-        Long orderId = orderRepository.findBySessionIdAndUserId(sessionId, userId).get().getId();
+        Long orderId = orderRepository.findOrderByToken(orderToken);
 
         occupiedPlaces.forEach(occupiedPlace -> {
                     ticketRepository.save(occupiedPlace.getRow(), occupiedPlace.getColumn(), sessionId, orderId);

@@ -22,11 +22,12 @@ public interface FilmRepository extends CrudRepository<Film, Long> {
 
     @Modifying
     @Query("INSERT INTO films (name, year, producer, duration, actors, trailer, info, current, image, age_category, production_country) " +
-           "values (:name, :year, :producer, :duration, :actors, :trailer, :info, :current, :image, :ageCategory, :productionCountry)")
+           "values (:name, :year, :producer, :duration, :actors, :trailer, :info, :current, :image, :ageCategory::age_category_enum, :productionCountry)")
     void save(String name, Integer year, String producer, Duration duration, String actors,
               String trailer, String info, Boolean current, String image, String ageCategory, String productionCountry);
 
-    Optional<Film> findByName(String s);
+    @Query("SELECT * FROM films WHERE name = :name")
+    Optional<Film> findByName(String name);
 
     @Modifying
     @Query("DELETE FROM films WHERE id = :id")

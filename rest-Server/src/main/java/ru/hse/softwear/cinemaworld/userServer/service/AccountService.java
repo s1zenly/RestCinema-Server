@@ -9,6 +9,7 @@ import ru.hse.softwear.cinemaworld.userServer.view.entity.User;
 import ru.hse.softwear.cinemaworld.userServer.view.mapper.SessionMapper;
 import ru.hse.softwear.cinemaworld.userServer.view.mapper.TicketMapper;
 import ru.hse.softwear.cinemaworld.userServer.view.mapper.UserMapper;
+import ru.hse.softwear.cinemaworld.userServer.view.model.UserUpdateModel;
 import ru.hse.softwear.cinemaworld.userServer.view.model.dbmodel.SessionModel;
 import ru.hse.softwear.cinemaworld.userServer.view.model.dbmodel.TicketModel;
 import ru.hse.softwear.cinemaworld.userServer.view.model.dbmodel.UserModel;
@@ -36,15 +37,15 @@ public class AccountService {
         return UserMapper.INSTANCE.toModel(user);
     }
 
-    public void updateUserInfo(Long id, UserModel userModel) {
+    public void updateUserInfo(Long id, UserUpdateModel changes) {
         User user = userRepository.findById(id)
                 .orElseThrow(() -> new NoSuchElementException("User not found with id: " + id));
 
-        user.setName(Optional.ofNullable(userModel.getName()).orElse(user.getName()));
-        user.setPassword(Optional.ofNullable(userModel.getPassword()).orElse(user.getPassword()));
-        user.setNumberPhone(Optional.ofNullable(userModel.getNumberPhone()).orElse(user.getNumberPhone()));
+        String name = Optional.ofNullable(changes.getName()).orElse(user.getName());
+        String password = Optional.ofNullable(changes.getPassword()).orElse(user.getPassword());
+        Long numberPhone = Optional.ofNullable(changes.getNumberPhone()).orElse(user.getNumberPhone());
 
-        userRepository.save(user.getEmail(),user.getPassword(), user.getName(), user.getNumberPhone());
+        userRepository.update(id, name, password, numberPhone);
     }
 
     public List<Map<String, Object>> getOrders(Long id) {

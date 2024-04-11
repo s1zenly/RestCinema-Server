@@ -79,6 +79,8 @@ public class SessionControllerAdmin {
             sessionPageDTO.setSession(session);
             sessionPageDTO.setFilmName(sessionInfo.getKey());
             sessionPageDTO.setHallName(sessionInfo.getValue());
+
+            sessionPageDTOs.add(sessionPageDTO);
         }
         return sessions.isEmpty()
                 ? ResponseEntity.notFound().build()

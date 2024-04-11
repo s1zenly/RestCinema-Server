@@ -27,7 +27,7 @@ public interface CinemaRepository extends CrudRepository<Cinema, Long> {
     void deleteById(Long id);
 
     @Modifying
-    @Query("UPDATE cinemas SET info = :info, number_phone =: numberPhone, image = :image WHERE id = :id")
+    @Query("UPDATE cinemas SET info = :info, number_phone = :numberPhone, image = :image WHERE id = :id")
     void update(Long id, String info, Long numberPhone, String image);
 
     @Modifying
