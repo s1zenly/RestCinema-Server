@@ -17,8 +17,4 @@ public class CinemaModel {
     private String info;
     private Long numberPhone;
     private String image;
-
-
-    private List<FilmModel> films = new ArrayList<>();
-    private List<HallModel> halls = new ArrayList<>();
 }

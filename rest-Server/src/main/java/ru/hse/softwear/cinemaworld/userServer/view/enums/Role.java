@@ -18,4 +18,7 @@ public enum Role implements GrantedAuthority {
         return value;
     }
 
+    public static Role getDefaultValue() {
+        return USER;
+    }
 }

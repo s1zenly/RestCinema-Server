@@ -1,3 +1,4 @@
+/*
 package ru.hse.softwear.cinemaworld.userServer.controller;
 
 import lombok.RequiredArgsConstructor;
@@ -6,7 +7,6 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import ru.hse.softwear.cinemaworld.authServer.service.AuthService;
 import ru.hse.softwear.cinemaworld.authServer.view.JwtAuthentication;
-import ru.hse.softwear.cinemaworld.userServer.service.AccountService;
 import ru.hse.softwear.cinemaworld.userServer.view.dto.TicketPageDTO;
 import ru.hse.softwear.cinemaworld.userServer.view.model.dbmodel.SessionModel;
 import ru.hse.softwear.cinemaworld.userServer.view.model.dbmodel.TicketModel;
@@ -55,3 +55,4 @@ public class AccountController {
         return ResponseEntity.ok(ticketsPageDTO);
     }
 }
+*/

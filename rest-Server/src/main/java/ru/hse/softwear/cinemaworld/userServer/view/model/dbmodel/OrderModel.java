@@ -11,9 +11,4 @@ import java.util.List;
 public class OrderModel {
     private Long id;
     private String token;
-
-
-    private SessionModel session;
-    private UserModel user;
-    private List<TicketModel> tickets;
 }

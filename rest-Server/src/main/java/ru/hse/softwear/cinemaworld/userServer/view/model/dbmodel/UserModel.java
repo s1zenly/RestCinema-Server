@@ -14,6 +14,4 @@ public class UserModel {
     private String password;
     private String name;
     private Long numberPhone;
-
-    private List<OrderModel> orders;
 }

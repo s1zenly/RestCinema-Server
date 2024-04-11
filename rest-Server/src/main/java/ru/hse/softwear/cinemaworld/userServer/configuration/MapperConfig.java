@@ -2,7 +2,7 @@ package ru.hse.softwear.cinemaworld.userServer.configuration;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import ru.hse.softwear.cinemaworld.userServer.view.mapper.mapperWithDependency.*;
+import ru.hse.softwear.cinemaworld.userServer.view.mapper.*;
 
 @Configuration
 public class MapperConfig {

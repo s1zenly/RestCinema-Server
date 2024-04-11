@@ -1,3 +1,4 @@
+/*
 package ru.hse.softwear.cinemaworld.userServer.controller;
 
 import lombok.RequiredArgsConstructor;
@@ -90,3 +91,4 @@ public class OrderController {
         return ResponseEntity.ok(orderPageDTO);
     }
 }
+*/

@@ -22,11 +22,5 @@
     <schema id="15" parent="1" name="13"/>
     <schema id="16" parent="1" name="14"/>
     <schema id="17" parent="1" name="15"/>
-    <string id="18" parent="2" name="admin1"/>
-    <string id="19" parent="2" name="admin2"/>
-    <string id="20" parent="2" name="roma@mail.ru"/>
-    <string id="21" parent="2" name="semaclasss@mail.ru"/>
-    <string id="22" parent="3" name="4KVriJJVTOmK165C9rd15z6xycY8JyrSzM2CGgWoTLk="/>
-    <string id="23" parent="3" name="be"/>
   </database-model>
 </dataSource>

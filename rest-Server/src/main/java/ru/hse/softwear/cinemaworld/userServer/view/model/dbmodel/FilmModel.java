@@ -21,11 +21,8 @@ public class FilmModel {
     private String producer;
     private Duration duration;
     private String actors;
-    private String trailerURL;
+    private String trailer;
     private String info;
     private Boolean current;
     private String image;
-
-    private List<CinemaModel> cinemas = new ArrayList<>();
-    private List<SessionModel> sessions = new ArrayList<>();
 }

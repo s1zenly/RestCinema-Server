@@ -3,9 +3,8 @@ package ru.hse.softwear.cinemaworld.adminServer.service.crudServices;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import ru.hse.softwear.cinemaworld.adminServer.service.CRUDservice;
-import ru.hse.softwear.cinemaworld.userServer.view.entity.Cinema;
 import ru.hse.softwear.cinemaworld.userServer.view.entity.Hall;
-import ru.hse.softwear.cinemaworld.userServer.view.mapper.mapperWithDependency.HallMapper;
+import ru.hse.softwear.cinemaworld.userServer.view.mapper.HallMapper;
 import ru.hse.softwear.cinemaworld.userServer.view.model.dbmodel.HallModel;
 import ru.hse.softwear.cinemaworld.userServer.view.repository.CinemaRepository;
 import ru.hse.softwear.cinemaworld.userServer.view.repository.HallRepository;
@@ -17,7 +16,7 @@ import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
-public class HallService implements CRUDservice<HallModel, Long> {
+public class HallServiceAdmin implements CRUDservice<HallModel, Long> {
 
     private final HallRepository hallRepository;
     private final CinemaRepository cinemaRepository;
@@ -25,18 +24,12 @@ public class HallService implements CRUDservice<HallModel, Long> {
     @Override
     public void create(Object... objects) {
         Long cinemaId = (Long) objects[0];
-        HallModel hallDTO = (HallModel) objects[1];
+        HallModel hallModel = (HallModel) objects[1];
 
-        Cinema cinema = cinemaRepository.findById(cinemaId)
-                .orElseThrow(() -> new NoSuchElementException("Cinema not found with name: " + cinemaId));
+        Hall hall = HallMapper.INSTANCE.toEntity(hallModel);
+        hall.setCinemaId(cinemaId);
 
-        Hall hall = HallMapper.INSTANCE.toEntity(hallDTO);
-
-        hall.setCinema(cinema);
-        hallRepository.save(hall);
-
-        cinema.getHalls().add(hall);
-        cinemaRepository.save(cinema);
+        hallRepository.save(hall.getName(), hall.getRows(), hall.getColumns(), hall.getCinemaId());
     }
 
     @Override
@@ -57,27 +50,19 @@ public class HallService implements CRUDservice<HallModel, Long> {
         hall.setRows(Optional.ofNullable(hallDTO.getRows()).orElse(hall.getRows()));
         hall.setColumns(Optional.ofNullable(hallDTO.getColumns()).orElse(hall.getColumns()));
 
-        hallRepository.save(hall);
+        hallRepository.save(hall.getName(), hall.getRows(), hall.getColumns(), hall.getCinemaId());
     }
 
     @Override
     public void delete(Object... objects) {
         Long id = (Long) objects[0];
 
-        Hall hall = hallRepository.findById(id)
-                .orElseThrow(() -> new NoSuchElementException("Hall not found with id: " + id));
-
-        Cinema cinema = hall.getCinema();
-
-        cinema.getHalls().remove(hall);
-        hall.setCinema(null);
-
         hallRepository.deleteById(id);
     }
 
     public List<HallModel> getAll(Long cinemaId) {
         return hallRepository.findAll().stream()
-                .filter(hall -> hall.getCinema().getId().equals(cinemaId))
+                .filter(hall -> hall.getCinemaId().equals(cinemaId))
                 .map(HallMapper.INSTANCE::toModel)
                 .collect(Collectors.toList());
     }

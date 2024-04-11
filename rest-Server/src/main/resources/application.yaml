@@ -2,25 +2,6 @@ server:
   port: 8080
 
 spring:
-  datasource:
-    username: postgres
-    password:
-    url: jdbc:postgresql://localhost:5432/cinema
-    hikari:
-      auto-commit: false
-  jpa:
-    hibernate:
-      ddl-auto: update
-      format_sql: true
-    properties:
-      hibernate:
-        dialect: org.hibernate.dialect.PostgreSQLDialect
-
-  security:
-    user:
-      name: admin
-      password: admin
-
   data:
     redis:
       databases:
@@ -30,3 +11,20 @@ spring:
         1:
           host: localhost
           port: 6379
+
+
+  application:
+    name: RestServerApplication
+  datasource:
+    url: jdbc:postgresql://localhost:5432/cinema
+    username: postgres
+    password:
+    driver-class-name: org.postgresql.Driver
+
+  liquibase:
+    change-log: classpath:/db.changelog/db.master.yaml
+
+  security:
+    user:
+      name: admin
+      password: admin

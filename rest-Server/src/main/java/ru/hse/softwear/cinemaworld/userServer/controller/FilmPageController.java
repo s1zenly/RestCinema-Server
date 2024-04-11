@@ -1,3 +1,4 @@
+/*
 package ru.hse.softwear.cinemaworld.userServer.controller;
 
 import lombok.RequiredArgsConstructor;
@@ -62,3 +63,4 @@ public class FilmPageController {
     }
 }
 
+*/

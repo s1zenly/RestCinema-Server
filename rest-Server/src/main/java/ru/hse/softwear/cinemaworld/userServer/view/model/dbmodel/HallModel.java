@@ -13,8 +13,4 @@ public class HallModel {
     private String name;
     private Integer rows;
     private Integer columns;
-
-
-    private CinemaModel cinema;
-    private List<SessionModel> sessions;
 }

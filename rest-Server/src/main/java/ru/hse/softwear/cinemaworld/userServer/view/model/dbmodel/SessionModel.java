@@ -14,9 +14,4 @@ public class SessionModel {
     private Date date;
     private LocalDateTime time;
     private Integer price;
-
-    private HallModel hall;
-    private CinemaModel cinema;
-    private FilmModel film;
-    private List<TicketModel> tickets;
 }

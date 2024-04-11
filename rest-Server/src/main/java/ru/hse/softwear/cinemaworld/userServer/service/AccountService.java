@@ -1,12 +1,13 @@
+/*
 package ru.hse.softwear.cinemaworld.userServer.service;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import ru.hse.softwear.cinemaworld.userServer.view.entity.Order;
 import ru.hse.softwear.cinemaworld.userServer.view.entity.User;
-import ru.hse.softwear.cinemaworld.userServer.view.mapper.mapperWithDependency.SessionMapper;
-import ru.hse.softwear.cinemaworld.userServer.view.mapper.mapperWithDependency.TicketMapper;
-import ru.hse.softwear.cinemaworld.userServer.view.mapper.mapperWithDependency.UserMapper;
+import ru.hse.softwear.cinemaworld.userServer.view.mapper.SessionMapper;
+import ru.hse.softwear.cinemaworld.userServer.view.mapper.TicketMapper;
+import ru.hse.softwear.cinemaworld.userServer.view.mapper.UserMapper;
 import ru.hse.softwear.cinemaworld.userServer.view.model.dbmodel.SessionModel;
 import ru.hse.softwear.cinemaworld.userServer.view.model.dbmodel.TicketModel;
 import ru.hse.softwear.cinemaworld.userServer.view.model.dbmodel.UserModel;
@@ -55,3 +56,4 @@ public class AccountService {
 
 
 }
+*/

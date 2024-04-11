@@ -4,8 +4,8 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import ru.hse.softwear.cinemaworld.userServer.view.entity.Film;
-import ru.hse.softwear.cinemaworld.userServer.view.mapper.mapperWithDependency.CinemaMapper;
-import ru.hse.softwear.cinemaworld.userServer.view.mapper.mapperWithDependency.FilmMapper;
+import ru.hse.softwear.cinemaworld.userServer.view.mapper.CinemaMapper;
+import ru.hse.softwear.cinemaworld.userServer.view.mapper.FilmMapper;
 import ru.hse.softwear.cinemaworld.userServer.view.model.dbmodel.CinemaModel;
 import ru.hse.softwear.cinemaworld.userServer.view.model.dbmodel.FilmModel;
 import ru.hse.softwear.cinemaworld.userServer.view.repository.CinemaRepository;
@@ -21,19 +21,17 @@ public class InfoService {
 
     private final CinemaRepository cinemaRepository;
     private final FilmRepository filmRepository;
-    private final FilmMapper filmMapper;
-    private final CinemaMapper cinemaMapper;
 
     // Main page
     public List<FilmModel> getAllFilm() {
         return filmRepository.findAll().stream()
-                .map(filmMapper::toModel)
+                .map(FilmMapper.INSTANCE::toModel)
                 .collect(Collectors.toList());
     }
 
     public List<CinemaModel> getAllCinema() {
         return cinemaRepository.findAll().stream()
-                .map(cinemaMapper::toModel)
+                .map(CinemaMapper.INSTANCE::toModel)
                 .collect(Collectors.toList());
     }
 
@@ -41,7 +39,7 @@ public class InfoService {
     public List<FilmModel> getCurrentFilm() {
         return filmRepository.findAll().stream()
                 .filter(Film::getCurrent)
-                .map(filmMapper::toModel)
+                .map(FilmMapper.INSTANCE::toModel)
                 .collect(Collectors.toList());
     }
 
@@ -49,7 +47,7 @@ public class InfoService {
     public List<FilmModel> getSoonFilms() {
         return filmRepository.findAll().stream()
                 .filter(film -> !film.getCurrent())
-                .map(filmMapper::toModel)
+                .map(FilmMapper.INSTANCE::toModel)
                 .collect(Collectors.toList());
     }
 }

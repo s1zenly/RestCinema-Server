@@ -4,9 +4,11 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import ru.hse.softwear.cinemaworld.adminServer.service.CRUDservice;
 import ru.hse.softwear.cinemaworld.userServer.view.entity.Cinema;
-import ru.hse.softwear.cinemaworld.userServer.view.mapper.mapperWithDependency.CinemaMapper;
+import ru.hse.softwear.cinemaworld.userServer.view.mapper.CinemaMapper;
 import ru.hse.softwear.cinemaworld.userServer.view.model.dbmodel.CinemaModel;
+import ru.hse.softwear.cinemaworld.userServer.view.repository.CinemaFilmRepository;
 import ru.hse.softwear.cinemaworld.userServer.view.repository.CinemaRepository;
+import ru.hse.softwear.cinemaworld.userServer.view.repository.FilmRepository;
 
 import java.util.NoSuchElementException;
 import java.util.Optional;
@@ -16,14 +18,16 @@ import java.util.Optional;
 public class CinemaServiceAdmin implements CRUDservice<CinemaModel, Long> {
 
     private final CinemaRepository cinemaRepository;
-    private final CinemaMapper cinemaMapper;
+    private final FilmRepository filmRepository;
+    private final CinemaFilmRepository cinemaFilmRepository;
 
     @Override
     public void create(Object... objects) {
         CinemaModel cinemaDTO = (CinemaModel) objects[0];
 
-        Cinema cinema = cinemaMapper.toEntity(cinemaDTO);
-        cinemaRepository.save(cinema);
+        Cinema cinema = CinemaMapper.INSTANCE.toEntity(cinemaDTO);
+        cinemaRepository.save(cinema.getName(), cinema.getLatitude(), cinema.getLongitude(),
+                cinema.getInfo(), cinema.getNumberPhone(), cinema.getImage());
     }
 
     @Override
@@ -31,7 +35,7 @@ public class CinemaServiceAdmin implements CRUDservice<CinemaModel, Long> {
         Cinema cinema =  cinemaRepository.findById(id)
                 .orElseThrow(() -> new NoSuchElementException("Cinema not found with name: " + id));
 
-        return cinemaMapper.toModel(cinema);
+        return CinemaMapper.INSTANCE.toModel(cinema);
     }
 
     @Override
@@ -44,15 +48,13 @@ public class CinemaServiceAdmin implements CRUDservice<CinemaModel, Long> {
         cinema.setNumberPhone(Optional.ofNullable(cinemaDTO.getNumberPhone()).orElse(cinema.getNumberPhone()));
         cinema.setImage(Optional.ofNullable(cinemaDTO.getImage()).orElse(cinema.getImage()));
 
-        cinemaRepository.saveAndFlush(cinema);
+        cinemaRepository.save(cinema.getName(), cinema.getLatitude(), cinema.getLongitude(),
+                cinema.getInfo(), cinema.getNumberPhone(), cinema.getImage());
     }
 
     @Override
     public void delete(Object... objects) {
         Long id = (Long) objects[0];
-
-        Cinema cinema = cinemaRepository.findById(id)
-                .orElseThrow(() -> new NoSuchElementException("Cinema not found with name: " + id));
 
         cinemaRepository.deleteById(id);
     }

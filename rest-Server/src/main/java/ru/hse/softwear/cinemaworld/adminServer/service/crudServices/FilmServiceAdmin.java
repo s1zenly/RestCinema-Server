@@ -4,10 +4,11 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import ru.hse.softwear.cinemaworld.adminServer.service.CRUDservice;
-import ru.hse.softwear.cinemaworld.userServer.view.entity.Cinema;
 import ru.hse.softwear.cinemaworld.userServer.view.entity.Film;
-import ru.hse.softwear.cinemaworld.userServer.view.mapper.mapperWithDependency.FilmMapper;
+import ru.hse.softwear.cinemaworld.userServer.view.enums.AgeCategories;
+import ru.hse.softwear.cinemaworld.userServer.view.mapper.FilmMapper;
 import ru.hse.softwear.cinemaworld.userServer.view.model.dbmodel.FilmModel;
+import ru.hse.softwear.cinemaworld.userServer.view.repository.CinemaFilmRepository;
 import ru.hse.softwear.cinemaworld.userServer.view.repository.CinemaRepository;
 import ru.hse.softwear.cinemaworld.userServer.view.repository.FilmRepository;
 
@@ -23,23 +24,20 @@ public class FilmServiceAdmin implements CRUDservice<FilmModel, Long> {
 
     private final FilmRepository filmRepository;
     private final CinemaRepository cinemaRepository;
-    private final FilmMapper filmMapper;
+    private final CinemaFilmRepository cinemaFilmRepository;
 
     @Override
     public void create(Object... objects) {
         Long cinemaId = (Long) objects[0];
-        FilmModel filmDTO = (FilmModel) objects[1];
+        FilmModel filmModel = (FilmModel) objects[1];
+        Film film = FilmMapper.INSTANCE.toEntity(filmModel);
 
-        Cinema cinema = cinemaRepository.findById(cinemaId)
-                .orElseThrow(() -> new NoSuchElementException("Cinema not found with name: " + cinemaId));
+        filmRepository.save(film.getName(), film.getYear(), film.getProducer(),
+                film.getDuration(), film.getActors(), film.getTrailer(), film.getInfo(),
+                film.getCurrent(), film.getImage(), Optional.ofNullable(film.getAgeCategory()).map(AgeCategories::getValue).orElse(null), film.getProductionCountry());
 
-        Film film = filmMapper.toEntity(filmDTO);
+        //cinemaFilmRepository.save(cinemaId, filmModel.getId());
 
-        film.getCinemas().add(cinema);
-        filmRepository.save(film);
-
-        cinema.getFilms().add(film);
-        cinemaRepository.save(cinema);
     }
 
     @Override
@@ -47,7 +45,7 @@ public class FilmServiceAdmin implements CRUDservice<FilmModel, Long> {
         Film film = filmRepository.findById(id)
                 .orElseThrow(() -> new NoSuchElementException("Film not found with name: " + id));
 
-        return filmMapper.toModel(film);
+        return FilmMapper.INSTANCE.toModel(film);
     }
 
     @Override
@@ -65,9 +63,11 @@ public class FilmServiceAdmin implements CRUDservice<FilmModel, Long> {
         film.setProducer(Optional.ofNullable(filmDTO.getProducer()).orElse(film.getProducer()));
         film.setAgeCategory(Optional.ofNullable(filmDTO.getAgeCategory()).orElse(film.getAgeCategory()));
         film.setProductionCountry(Optional.ofNullable(filmDTO.getProductionCountry()).orElse(film.getProductionCountry()));
-        film.setTrailerURL(Optional.ofNullable(filmDTO.getTrailerURL()).orElse(film.getTrailerURL()));
+        film.setTrailer(Optional.ofNullable(filmDTO.getTrailer()).orElse(film.getTrailer()));
 
-        filmRepository.saveAndFlush(film);
+        filmRepository.save(film.getName(), film.getYear(), film.getProducer(),
+                film.getDuration(), film.getActors(), film.getTrailer(), film.getInfo(),
+                film.getCurrent(), film.getImage(), film.getAgeCategory().name(), film.getProductionCountry());
     }
 
     @Override
@@ -75,25 +75,14 @@ public class FilmServiceAdmin implements CRUDservice<FilmModel, Long> {
         Long cinemaId = (Long) objects[0];
         Long filmId = (Long) objects[1];
 
-        Cinema cinema = cinemaRepository.findById(cinemaId)
-                .orElseThrow(() -> new NoSuchElementException("Cinema not found with name: " + cinemaId));
-
-        Film film = filmRepository.findById(filmId)
-                .orElseThrow(() -> new NoSuchElementException("Film not found with name: " + filmId));
-
-        cinema.getFilms().remove(film);
-        film.getCinemas().remove(cinema);
-
         filmRepository.deleteById(filmId);
     }
 
 
     public List<FilmModel> getAll(Long cinemaId) {
-
-        return filmRepository.findAll().stream()
-                .filter(film -> film.getCinemas().stream()
-                        .anyMatch(cinema -> cinema.getId().equals(cinemaId)))
-                .map(filmMapper::toModel)
+        List<Long> filmsId = cinemaFilmRepository.findByCinemaId(cinemaId);
+        return filmsId.stream()
+                .map(id -> FilmMapper.INSTANCE.toModel(filmRepository.findById(id).orElse(null)))
                 .collect(Collectors.toList());
     }
 

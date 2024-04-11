@@ -1,6 +1,6 @@
+/*
 package ru.hse.softwear.cinemaworld.userServer.service;
 
-import jakarta.persistence.EntityNotFoundException;
 import java.time.ZoneId;
 import java.util.AbstractMap;
 import java.util.Date;
@@ -13,8 +13,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import ru.hse.softwear.cinemaworld.userServer.view.entity.Film;
 import ru.hse.softwear.cinemaworld.userServer.view.entity.Session;
-import ru.hse.softwear.cinemaworld.userServer.view.mapper.mapperWithDependency.SessionMapper;
-import ru.hse.softwear.cinemaworld.userServer.view.mapper.mapperWithoutDependency.FilmMapperWithoutDependency;
+import ru.hse.softwear.cinemaworld.userServer.view.mapper.SessionMapper;
 import ru.hse.softwear.cinemaworld.userServer.view.model.dbmodel.CinemaModel;
 import ru.hse.softwear.cinemaworld.userServer.view.model.dbmodel.FilmModel;
 import ru.hse.softwear.cinemaworld.userServer.view.model.dbmodel.SessionModel;
@@ -59,3 +58,4 @@ public class FilmService {
     }
 
 }
+*/

@@ -1,3 +1,4 @@
+/*
 package ru.hse.softwear.cinemaworld.userServer.service;
 
 import java.util.ArrayList;
@@ -12,7 +13,7 @@ import ru.hse.softwear.cinemaworld.userServer.view.entity.Order;
 import ru.hse.softwear.cinemaworld.userServer.view.entity.Session;
 import ru.hse.softwear.cinemaworld.userServer.view.entity.Ticket;
 import ru.hse.softwear.cinemaworld.userServer.view.entity.User;
-import ru.hse.softwear.cinemaworld.userServer.view.mapper.mapperWithDependency.SessionMapper;
+import ru.hse.softwear.cinemaworld.userServer.view.mapper.SessionMapper;
 import ru.hse.softwear.cinemaworld.userServer.view.model.OccupiedPlace;
 import ru.hse.softwear.cinemaworld.userServer.view.model.dbmodel.SessionModel;
 import ru.hse.softwear.cinemaworld.userServer.view.repository.OrderRepository;
@@ -111,3 +112,4 @@ public class OrderService {
     }
 
 }
+*/

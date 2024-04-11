@@ -13,13 +13,13 @@ import ru.hse.softwear.cinemaworld.userServer.view.model.dbmodel.CinemaModel;
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/admin")
-public class CinemaController {
+public class CinemaControllerAdmin {
 
     private final CinemaServiceAdmin cinemaServiceAdmin;
     private final AuthService authService;
 
     // Programmer method
-    @PreAuthorize("hasAuthority('PROGRAMMER')")
+
     @PostMapping("/cinema")
     public void addCinema(@RequestBody CinemaModel cinemaDTO) {
         cinemaServiceAdmin.create(cinemaDTO);
@@ -46,13 +46,12 @@ public class CinemaController {
                 : ResponseEntity.ok(cinemaDTO);
     }
 
-    @PreAuthorize("hasAuthority('ADMIN')")
-    @DeleteMapping("/cinema")
-    public void deleteCinema() {
-        final JwtAuthentication jwtInfo = authService.getAuthInfo();
-        Long cinemaId = (Long) jwtInfo.getPrincipal();
 
-        cinemaServiceAdmin.delete(cinemaId);
+    // Programmer method
+
+    @DeleteMapping("/cinema/{id}")
+    public void deleteCinema(@PathVariable Long id) {
+        cinemaServiceAdmin.delete(id);
     }
 
 }
