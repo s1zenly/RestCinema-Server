@@ -14,7 +14,7 @@ import java.util.Optional;
 public interface CinemaFilmRepository extends CrudRepository<CinemaFilm, Long> {
 
     @Query("SELECT * FROM cinemas_films WHERE cinema_id = :cinemaId AND film_id = :filmId")
-    Optional<Object> alreadyExists(Long cinemaId, Long filmId);
+    Optional<Object> alreadyExistsBond(Long cinemaId, Long filmId);
 
     @Query("SELECT film_id FROM cinemas_films WHERE cinema_id = :cinemaId")
     List<Long> findByCinemaId(Long cinemaId);

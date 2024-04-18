@@ -17,9 +17,7 @@
       </schema-mapping>
     </data-source>
     <data-source name="cinema@localhost" uuid="8c215167-51a1-4123-8183-ebe0f18157d9">
-      <database-info product="Redis Standalone" version="6.0.16" jdbc-version="4.2" driver-name="Redis JDBC Driver" driver-version="1.5" dbms="REDIS" exact-version="6.0.16" exact-driver-version="1.5">
-        <jdbc-catalog-is-schema>true</jdbc-catalog-is-schema>
-      </database-info>
+      <database-info product="Redis Standalone" version="6.0.16" jdbc-version="4.2" driver-name="Redis JDBC Driver" driver-version="1.5" dbms="REDIS" exact-version="6.0.16" exact-driver-version="1.5" />
       <case-sensitivity plain-identifiers="mixed" quoted-identifiers="mixed" />
       <schema-mapping>
         <introspection-scope>

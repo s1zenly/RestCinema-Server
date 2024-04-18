@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import ru.hse.softwear.cinemaworld.authServer.view.JwtAuthentication;
 import ru.hse.softwear.cinemaworld.authServer.view.JwtRequest;
 import ru.hse.softwear.cinemaworld.authServer.view.JwtResponse;
+import ru.hse.softwear.cinemaworld.userServer.cypher.PersonPasswordCypher;
 import ru.hse.softwear.cinemaworld.userServer.service.RedisService;
 import ru.hse.softwear.cinemaworld.userServer.view.entity.Persona;
 
@@ -24,7 +25,7 @@ public class AuthService {
         final Persona persona = personaService.getByEmail(authRequest.getEmail())
                 .orElseThrow(() -> new AuthException("Persona not found"));
 
-        if(persona.getPassword().equals(authRequest.getPassword())) {
+        if(PersonPasswordCypher.PasswordChecking(authRequest.getPassword(), persona.getPassword())) {
             final String accessToken = jwtProvider.generateAccessToken(persona);
             final String refreshToken = jwtProvider.generateRefreshToken(persona);
             redisService.setInRefreshToken(persona.getEmail(), refreshToken);

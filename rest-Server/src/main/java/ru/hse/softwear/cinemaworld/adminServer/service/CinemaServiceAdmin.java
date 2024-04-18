@@ -28,7 +28,7 @@ public class CinemaServiceAdmin {
 
     public CinemaModel read(Long id) {
         Cinema cinema =  cinemaRepository.findById(id)
-                .orElseThrow(() -> new NoSuchElementException("Cinema not found with name: " + id));
+                .orElseThrow(() -> new NoSuchElementException("Cinema not found with id: " + id));
 
         return CinemaMapper.INSTANCE.toModel(cinema);
     }

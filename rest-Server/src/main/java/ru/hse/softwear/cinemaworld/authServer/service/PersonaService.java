@@ -3,6 +3,7 @@ package ru.hse.softwear.cinemaworld.authServer.service;
 import jakarta.validation.constraints.NotNull;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import ru.hse.softwear.cinemaworld.userServer.cypher.PersonPasswordCypher;
 import ru.hse.softwear.cinemaworld.userServer.view.entity.Admin;
 import ru.hse.softwear.cinemaworld.userServer.view.entity.Persona;
 import ru.hse.softwear.cinemaworld.userServer.view.entity.User;
@@ -30,12 +31,13 @@ public class PersonaService {
     public void saveUser(String email, String password) {
         Persona persona = new Persona();
         User user = new User();
+        String hashedPassword = PersonPasswordCypher.PasswordHashing(password);
 
         user.setEmail(email);
-        user.setPassword(password);
+        user.setPassword(hashedPassword);
 
         persona.setEmail(email);
-        persona.setPassword(password);
+        persona.setPassword(hashedPassword);
 
         personaRepository.save(persona.getEmail(), persona.getPassword(), persona.getRole().getValue());
         userRepository.save(user.getEmail(), user.getPassword(), user.getName(), user.getNumberPhone());

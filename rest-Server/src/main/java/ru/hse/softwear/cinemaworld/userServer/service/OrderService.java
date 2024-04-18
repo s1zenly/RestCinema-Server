@@ -21,7 +21,6 @@ public class OrderService {
     private final RedisService redisService;
     private final OrderRepository orderRepository;
     private final SessionRepository sessionRepository;
-    private final UserRepository userRepository;
     private final TicketRepository ticketRepository;
     private final CinemaRepository cinemaRepository;
     private final FilmRepository filmRepository;
@@ -88,7 +87,7 @@ public class OrderService {
         return occupiedPlaces;
     }
 
-    public String getOrderToken(Long userId, Long sessionId) throws Exception {
+    public String getOrderToken(Long userId, Long sessionId) {
         return OrderTokenCypher.encoder(userId, sessionId);
     }
 

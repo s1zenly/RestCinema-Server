@@ -8,6 +8,7 @@ import java.util.List;
 
 @Data
 public class HomePageDTO {
-    private List<FilmModel> films;
+    private List<FilmModel> currentFilms;
+    private List<FilmModel> soonFilms;
     private List<CinemaModel> cinemas;
 }

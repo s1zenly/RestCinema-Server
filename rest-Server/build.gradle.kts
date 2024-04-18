@@ -20,6 +20,8 @@ dependencies {
     implementation("org.springframework.boot:spring-boot-starter-security")
     implementation("org.springframework.boot:spring-boot-starter-validation")
     implementation("org.springframework.boot:spring-boot-devtools")
+    implementation("org.mindrot:jbcrypt:0.4")
+
 
     implementation("org.postgresql:postgresql")
     implementation("org.liquibase:liquibase-core:4.27.0")

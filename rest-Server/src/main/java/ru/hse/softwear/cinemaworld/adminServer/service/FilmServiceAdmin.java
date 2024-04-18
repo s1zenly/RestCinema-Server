@@ -37,7 +37,7 @@ public class FilmServiceAdmin {
         }
 
         Film filmSaved = filmRepository.findByName(film.getName()).orElse(null);
-        boolean bondNotExists = cinemaFilmRepository.alreadyExists(cinemaId, filmSaved.getId()).isEmpty();
+        boolean bondNotExists = cinemaFilmRepository.alreadyExistsBond(cinemaId, filmSaved.getId()).isEmpty();
 
         if(bondNotExists) {
             cinemaFilmRepository.save(cinemaId, filmSaved.getId());

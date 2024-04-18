@@ -8,6 +8,7 @@ import ru.hse.softwear.cinemaworld.userServer.view.mapper.CinemaMapper;
 import ru.hse.softwear.cinemaworld.userServer.view.mapper.FilmMapper;
 import ru.hse.softwear.cinemaworld.userServer.view.model.dbmodel.CinemaModel;
 import ru.hse.softwear.cinemaworld.userServer.view.model.dbmodel.FilmModel;
+import ru.hse.softwear.cinemaworld.userServer.view.repository.CinemaFilmRepository;
 import ru.hse.softwear.cinemaworld.userServer.view.repository.CinemaRepository;
 import ru.hse.softwear.cinemaworld.userServer.view.repository.FilmRepository;
 
@@ -21,8 +22,9 @@ public class InfoService {
 
     private final CinemaRepository cinemaRepository;
     private final FilmRepository filmRepository;
+    private final CinemaFilmRepository cinemaFilmRepository;
 
-    // Main page
+
     public List<FilmModel> getAllFilm() {
         return filmRepository.findAll().stream()
                 .map(FilmMapper.INSTANCE::toModel)
@@ -49,5 +51,11 @@ public class InfoService {
                 .filter(film -> !film.getCurrent())
                 .map(FilmMapper.INSTANCE::toModel)
                 .collect(Collectors.toList());
+    }
+
+    public List<FilmModel> getFilmsByCinema(List<FilmModel> films, Long cinemaId) {
+        return films.stream()
+                .filter(film -> cinemaFilmRepository.alreadyExistsBond(cinemaId, film.getId()).isPresent())
+                .toList();
     }
 }

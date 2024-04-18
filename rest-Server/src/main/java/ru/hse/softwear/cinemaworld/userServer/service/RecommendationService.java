@@ -41,12 +41,9 @@ public class RecommendationService {
             return Double.compare(distanceCinema1, distanceCinema2);
         };
 
-        List<CinemaWithSessionModel> sortedCinemas = cinemas.stream()
+        return cinemas.stream()
                 .sorted(comparatorByGeolocation)
                 .toList();
-
-
-        return sortedCinemas;
     }
 
 

@@ -49,11 +49,11 @@ public class OrderController {
 
     // Redirect
     @PostMapping("/completed/{orderToken}")
-    public void createOrder(@PathVariable String orderToken,
-                            @RequestBody List<OccupiedPlace> occupiedPlaces) throws Exception{
+    public void createOrder(@PathVariable String orderToken) throws Exception{
 
         final JwtAuthentication jwtInfoToken = authService.getAuthInfo();
         Long sessionId = (Long) OrderTokenCypher.decoder(orderToken).get("sessionId");
+        List<OccupiedPlace> occupiedPlaces = redisService.getInCacheOrdersSession(orderToken);
 
         redisService.deleteInCacheOrderSession(orderToken);
         orderService.saveCompletedOrder((Long) jwtInfoToken.getPrincipal(), sessionId, occupiedPlaces, orderToken);

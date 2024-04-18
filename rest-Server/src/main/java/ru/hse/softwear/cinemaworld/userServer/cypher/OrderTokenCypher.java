@@ -13,7 +13,7 @@ public class OrderTokenCypher {
 
     private static final String FORMATTER_PATTERN = "yyyy-MM-ddHH:mm:ss";
 
-    public static String encoder(Long userId, Long sessionId) throws Exception {
+    public static String encoder(Long userId, Long sessionId) {
         LocalDateTime localDateTime = LocalDateTime.now();
 
         String data = localDateTime.format(DateTimeFormatter.ofPattern(FORMATTER_PATTERN)) + " "

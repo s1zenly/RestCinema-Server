@@ -19,7 +19,7 @@ public class SchedulerService implements ApplicationListener<ApplicationReadyEve
 
     @Autowired
     private ApplicationContext context;
-    private static final int count = 2;
+    private static final int count = 1;
     private static final ScheduledExecutorService executorService = Executors.newScheduledThreadPool(count);
 
     @Override
